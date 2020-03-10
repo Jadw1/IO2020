@@ -10,7 +10,7 @@ public class GameScreen extends BaseScreen {
     public GameScreen(IOGame game) {
         super(game);
 
-        player = new Player();
+        player = new Player(0 ,0);
         stage.addActor(player);
     }
 
