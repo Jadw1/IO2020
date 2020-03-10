@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class Player extends Image {
     private float speed = 200.0f;
 
-    public Player(int start_x, int start_y) {
+    public Player(float start_x, float start_y) {
         super(new Texture("player.png"));
 
         Texture texture = new Texture("player.png");

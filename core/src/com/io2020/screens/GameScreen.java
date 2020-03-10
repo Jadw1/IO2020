@@ -1,16 +1,20 @@
 package com.io2020.screens;
 
 import com.io2020.entities.Player;
+import com.io2020.entities.World;
 import com.io2020.game.IOGame;
 
 public class GameScreen extends BaseScreen {
-
     private Player player;
+    private World world;
 
     public GameScreen(IOGame game) {
         super(game);
 
-        player = new Player(0 ,0);
+        world = new World();
+        stage.addActor(world);
+
+        player = new Player(0.0f,0.0f);
         stage.addActor(player);
     }
 
