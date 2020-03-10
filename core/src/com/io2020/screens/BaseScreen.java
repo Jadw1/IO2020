@@ -49,7 +49,7 @@ public abstract class BaseScreen implements Screen {
         game.setPaused(true);
     }
 
-    @Override   
+    @Override
     public void resume() {
         game.setPaused(false);
     }
