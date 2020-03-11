@@ -15,6 +15,7 @@ public class GameScreen extends BaseScreen {
         stage.addActor(world);
 
         player = new Player(0.0f,0.0f);
+        //player = new Player(this.camera.viewportHeight / 2,this.camera.viewportWidth / 2);
         stage.addActor(player);
     }
 
