@@ -57,8 +57,8 @@ public class MainMenu extends BaseScreen
     private void drawButton(Texture textureActive, Texture textureInactive, int width,
                             int height, int y, float ratioWidth, float ratioHeight)
     {
-        if (Gdx.input.getX() < (camera.position.x - (width / 2) + width) * ratioWidth &&
-                Gdx.input.getX() > camera.position.x - (width / 2) * ratioWidth &&
+        if (Gdx.input.getX() < (camera.position.x + (width / 2)) * ratioWidth &&
+                Gdx.input.getX() > (camera.position.x - (width / 2)) * ratioWidth &&
                 camera.viewportHeight - Gdx.input.getY() < (y + height) * ratioHeight &&
                 camera.viewportHeight - Gdx.input.getY() > y * ratioHeight)
         {
