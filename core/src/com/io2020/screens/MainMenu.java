@@ -1,13 +1,11 @@
 package com.io2020.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.io2020.game.IOGame;
 
-public class MainMenu implements Screen
+public class MainMenu extends BaseScreen
 {
     private static final int TITLE_WIDTH = 500;
     private static final int TITLE_HEIGHT = 125;
@@ -25,9 +23,6 @@ public class MainMenu implements Screen
     private static final int EXIT_BUTTON_HEIGHT = 40;
     private static final int EXIT_BUTTON_Y = 45;
 
-    private OrthographicCamera camera;
-
-    private IOGame game;
     private Texture newGameButtonActive;
     private Texture newGameButtonInactive;
     private Texture loadGameButtonActive;
@@ -41,14 +36,15 @@ public class MainMenu implements Screen
 
     public MainMenu (IOGame game)
     {
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false);
+        super(game);
+//        camera = new OrthographicCamera();
+//        camera.setToOrtho(false);
 
         primalCameraWidth = camera.viewportWidth;
         primalCameraHeight = camera.viewportHeight;
 
 
-        this.game = game;
+//        this.game = game;
         newGameButtonActive = new Texture("MainMenu/new_game_button_active.png");
         newGameButtonInactive = new Texture("MainMenu/new_game_button_inactive.png");
         loadGameButtonActive = new Texture("MainMenu/load_game_button_active.png");
@@ -56,12 +52,6 @@ public class MainMenu implements Screen
         exitButtonActive = new Texture("MainMenu/exit_button_active.png");
         exitButtonInactive = new Texture("MainMenu/exit_button_inactive.png");
         titleButton = new Texture("MainMenu/title.png");
-    }
-
-    @Override
-    public void show()
-    {
-
     }
 
     private void drawButton(Texture textureActive, Texture textureInactive, int width,
@@ -73,12 +63,10 @@ public class MainMenu implements Screen
                 camera.viewportHeight - Gdx.input.getY() > y * ratioHeight)
         {
             game.batch.draw(textureActive, camera.position.x - (width / 2), y, width, height);
-
         }
         else
         {
             game.batch.draw(textureInactive, camera.position.x - (width / 2), y, width, height);
-
         }
     }
 
@@ -102,36 +90,5 @@ public class MainMenu implements Screen
                 EXIT_BUTTON_HEIGHT, EXIT_BUTTON_Y, ratioWidth, ratioHeight);
 
         game.batch.end();
-    }
-
-    @Override
-    public void resize(int width, int height)
-    {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-    }
-
-    @Override
-    public void pause()
-    {
-
-    }
-
-    @Override
-    public void resume()
-    {
-
-    }
-
-    @Override
-    public void hide()
-    {
-
-    }
-
-    @Override
-    public void dispose()
-    {
-
     }
 }
