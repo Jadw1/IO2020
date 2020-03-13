@@ -37,14 +37,10 @@ public class MainMenu extends BaseScreen
     public MainMenu (IOGame game)
     {
         super(game);
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false);
 
         primalCameraWidth = camera.viewportWidth;
         primalCameraHeight = camera.viewportHeight;
 
-
-//        this.game = game;
         newGameButtonActive = new Texture("MainMenu/new_game_button_active.png");
         newGameButtonInactive = new Texture("MainMenu/new_game_button_inactive.png");
         loadGameButtonActive = new Texture("MainMenu/load_game_button_active.png");
