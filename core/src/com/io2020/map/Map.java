@@ -17,8 +17,6 @@ public class Map extends Actor {
     private int mapWidth, mapHeight;
     private float tileWidth, tileHeight;
 
-    private TileSet tileSet;
-
     public Map(int width, int height, float tileWidth, float tileHeight) {
         super();
         ground = new Tile[width][height];
@@ -28,21 +26,6 @@ public class Map extends Actor {
         mapHeight = height;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
-
-        tileSet = new TileSet("test2.png", 16.0f, 16.0f);
-        test_init();
-    }
-
-    private void test_init() {
-        Tile a = tileSet.getTile(0, 0);
-        Tile b = tileSet.getTile(1, 0);
-
-        for(int x = 0; x < ground.length; x++) {
-            for(int y = 0; y < ground[x].length; y++) {
-                //check if tile is on on screen?
-                ground[x][y] = ((x+y) % 2 == 0) ? a : b;
-            }
-        }
     }
 
     public void setTile(Tile tile, int x, int y) throws OutOfMapRangeException {
