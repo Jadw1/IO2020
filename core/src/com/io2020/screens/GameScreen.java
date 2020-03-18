@@ -1,20 +1,22 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.io2020.entities.Player;
-import com.io2020.entities.World;
 import com.io2020.game.IOGame;
+import com.io2020.map.Map;
 
 public class GameScreen extends BaseScreen {
     private Player player;
-    private World world;
+    private Map map;
 
     public GameScreen(IOGame game) {
         super(game);
 
-        world = new World();
-        stage.addActor(world);
-
+        map = new Map(5, 5, 16.0f);
         player = new Player(0.0f,0.0f);
+
+        stage.addActor(map);
         stage.addActor(player);
     }
 
