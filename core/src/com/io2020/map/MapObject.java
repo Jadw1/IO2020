@@ -1,4 +1,6 @@
 package com.io2020.map;
 
-public class MapObject {
+public interface MapObject {
+
+    public abstract TileEntity[] getTileEntities();
 }
