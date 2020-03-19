@@ -14,7 +14,7 @@ public class GameScreen extends BaseScreen {
         world = new World();
         stage.addActor(world);
 
-        player = new Player(0.0f,0.0f);
+        player = new Player(0.0f,0.0f, spriteBatch);
         stage.addActor(player);
     }
 
