@@ -37,13 +37,13 @@ public class Player extends Actor
         setPosition(start_x, start_y);
 
         idleAtlas = new TextureAtlas(Gdx.files.internal("animation/knight_idle.atlas"));
-        idleAnimation = new Animation<TextureRegion>(1/30f, idleAtlas.getRegions());
+        idleAnimation = new Animation<TextureRegion>(1f/8f, idleAtlas.getRegions(), Animation.PlayMode.LOOP);
 
         runAtlas = new TextureAtlas(Gdx.files.internal("animation/knight_run.atlas"));
-        runAnimation = new Animation<TextureRegion>(1/30f, runAtlas.getRegions());
+        runAnimation = new Animation<TextureRegion>(1/8f, runAtlas.getRegions(), Animation.PlayMode.LOOP);
 
         hitAtlas = new TextureAtlas(Gdx.files.internal("animation/knight_hit.atlas"));
-        hitAnimation = new Animation<TextureRegion>(1/30f, hitAtlas.getRegions());
+        hitAnimation = new Animation<TextureRegion>(1/30f, hitAtlas.getRegions(), Animation.PlayMode.LOOP);
 
     }
 
@@ -61,7 +61,7 @@ public class Player extends Actor
     {
         stateTime += delta;
         batch.begin();
-        batch.draw(idleAnimation.getKeyFrame(stateTime), getX(), getY(), 100, 100);
+        batch.draw(runAnimation.getKeyFrame(stateTime), getX(), getY(), 100, 100);
         batch.end();
     }
 
