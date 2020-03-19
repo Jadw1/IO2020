@@ -21,8 +21,9 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-
+        spriteBatch.begin();
         update();
+        spriteBatch.end();
         spriteBatch.begin();
         stage.draw();
         spriteBatch.end();
