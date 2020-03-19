@@ -41,10 +41,13 @@ public class Map extends Actor {
 
     public void setStage(Stage stage) {
         stage.addActor(this);
-        for(int i = 0; i < layers.length; i++) {
-            stage.addActor(layers[i]);
-        }
-        layers[layers.length - 1].setZIndex(Integer.MAX_VALUE);
+        stage.addActor(layers[0]);
+        stage.addActor(layers[1]);
+        //layers[layers.length - 1].setZIndex(Integer.MAX_VALUE);
+    }
+
+    public void setForeground(Stage stage) {
+        stage.addActor(layers[2]);
     }
 
     public void setObject(int x, int y, MapObject object) throws CoordBusyException {

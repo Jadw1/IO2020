@@ -31,6 +31,7 @@ public class GameScreen extends BaseScreen {
 
         map.setStage(stage); //this must be first!
         stage.addActor(player);
+        map.setForeground(stage);
 
         createMap();
     }
