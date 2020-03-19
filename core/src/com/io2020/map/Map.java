@@ -4,8 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.io2020.map.exception.CoordBusyException;
-import com.io2020.tileSet.Tile;
 
+/*
+ * Point (0, 0) is bottom left corner. X axis goes right, Y axis go up.
+ * Map is drawn from top left cornet, row by row to bottom.
+ */
 public class Map extends Actor {
 
     private int mapWidth, mapHeight;
@@ -14,9 +17,9 @@ public class Map extends Actor {
 
     //TODO: idea: player always collide with objects on layer 1?
     /*
-     layer 0 - ground
-     layer 1 - behind player
-     layer 2 - before player
+     * layer 0 - ground
+     * layer 1 - behind player
+     * layer 2 - before player
      */
     private int layersCount = 3;
     private MapLayer[] layers;
@@ -43,7 +46,6 @@ public class Map extends Actor {
         stage.addActor(this);
         stage.addActor(layers[0]);
         stage.addActor(layers[1]);
-        //layers[layers.length - 1].setZIndex(Integer.MAX_VALUE);
     }
 
     public void setForeground(Stage stage) {

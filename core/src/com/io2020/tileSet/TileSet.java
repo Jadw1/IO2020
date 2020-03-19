@@ -3,6 +3,10 @@ package com.io2020.tileSet;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/*
+ * Tile (0, 0) is in top left corner.
+ * X axis goes left, Y axis goes down.
+ */
 public class TileSet {
     private Texture tileSetTexture;
     private float tileWidth;
