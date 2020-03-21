@@ -11,8 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import org.graalvm.compiler.loop.InductionVariable;
 
-public class Player extends Image
-{
+public class Player extends Image {
     private float speed = 200.0f;
     private boolean flipped = false;
     private float stateTime = 0;
@@ -24,13 +23,12 @@ public class Player extends Image
     private Animation<TextureRegion> runAnimation;
 
 
-
     public Player(float start_x, float start_y, TextureAtlas atlas) {
         setPosition(start_x, start_y);
 
-        hitAnimation = new Animation<TextureRegion>(1f/8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
-        idleAnimation = new Animation<TextureRegion>(1f/8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
-        runAnimation = new Animation<TextureRegion>(1/8f, atlas.findRegions("knight_m_run_anim"), Animation.PlayMode.LOOP);
+        hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
+        idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
+        runAnimation = new Animation<TextureRegion>(1 / 8f, atlas.findRegions("knight_m_run_anim"), Animation.PlayMode.LOOP);
 
         currentFrame = idleAnimation.getKeyFrame(stateTime);
     }
@@ -46,13 +44,11 @@ public class Player extends Image
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
+    public void draw(Batch batch, float parentAlpha) {
         batch.draw(currentFrame, flipped ? getX() + 32 : getX(), getY(), flipped ? -32 : 32, 32);
     }
 
-    private void animate(float delta)
-    {
+    private void animate(float delta) {
         stateTime += delta;
 
         if (state == PlayerState.MOVING) {
@@ -64,26 +60,22 @@ public class Player extends Image
 
     private void handleInput(float delta) {
         Vector2 moveVec = new Vector2(0.0f, 0.0f);
-        state = PlayerState.STANDING;
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             moveVec.y += 1.0f;
-            state = PlayerState.MOVING;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             moveVec.y -= 1.0f;
-            state = PlayerState.MOVING;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             moveVec.x += 1.0f;
-            flipped = false;
-            state = PlayerState.MOVING;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             moveVec.x -= 1.0f;
-            flipped = true;
-            state = PlayerState.MOVING;
         }
 
+        flipped = moveVec.x < 0.0f;
+        state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? PlayerState.MOVING : PlayerState.STANDING;
         moveVec = moveVec.nor().scl(speed * delta);
         moveBy(moveVec.x, moveVec.y);
     }
