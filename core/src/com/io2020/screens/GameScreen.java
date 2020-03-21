@@ -1,5 +1,6 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.io2020.entities.Player;
 import com.io2020.entities.Resource;
 import com.io2020.game.IOGame;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class GameScreen extends BaseScreen {
     private Player player;
     private Map map;
+    private World world;
+    private TextureAtlas atlas;
 
     private TileSet tileSet;
 
@@ -26,9 +29,14 @@ public class GameScreen extends BaseScreen {
         super(game);
         tileSet = new TileSet("test3.png", 16.0f, 16.0f);
 
+        atlas = new TextureAtlas("animation/Knight.pack");
+
+        world = new World();
+        stage.addActor(world);
         map = new Map(mapSize, mapSize, tileSize, tileSize);
         player = new Player(0.0f,0.0f);
 
+        player = new Player(0.0f,0.0f, atlas);
         map.setStage(stage); //this must be first!
         stage.addActor(player);
         map.setForeground(stage); //this must be at the end
@@ -41,6 +49,7 @@ public class GameScreen extends BaseScreen {
         super.render(delta);
 
         update();
+
         spriteBatch.begin();
         stage.draw();
         spriteBatch.end();
