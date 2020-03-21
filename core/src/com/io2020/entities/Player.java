@@ -13,9 +13,9 @@ public class Player extends Image {
         super(new Texture("player.png"));
 
         Texture texture = new Texture("player.png");
-        setOrigin(texture.getWidth()/2, texture.getHeight()/2);
-        setSize(texture.getWidth(), texture.getHeight());
         setScale(0.3f);
+        setOrigin(texture.getWidth() * 0.3f/2, texture.getHeight() * 0.3f/2);
+        //setSize(texture.getWidth(), texture.getHeight());
         setPosition(start_x, start_y);
     }
 
