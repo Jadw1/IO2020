@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.io2020.game.IOGame;
 
 public class MainMenu extends BaseScreen
@@ -29,16 +31,10 @@ public class MainMenu extends BaseScreen
     private static final int EXIT_BUTTON_HEIGHT = 40;
     private static final int EXIT_BUTTON_Y = 45;
 
-//    private Texture newGameButtonActive;
-//    private Texture newGameButtonInactive;
-//    private Texture loadGameButtonActive;
-//    private Texture loadGameButtonInactive;
-//    private Texture exitButtonActive;
-//    private Texture exitButtonInactive;
-    private Texture title;
+    private static final int WORLD_WIDTH = 640;
+    private static final int WORLD_HEIGHT = 480;
 
-    private float primalCameraWidth;
-    private float primalCameraHeight;
+    private Texture title;
 
     private TextureAtlas atlas;
     private Button newGameButton;
@@ -49,25 +45,19 @@ public class MainMenu extends BaseScreen
     {
         super(ioGame);
 
+        stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT));
+        Gdx.input.setInputProcessor(stage);
+
         atlas = new TextureAtlas("MainMenu/Menu.pack");
-        TextureRegionDrawable newGameActiveDrawable = new TextureRegionDrawable(atlas.findRegion("new_game_button_inactive"));
-        TextureRegionDrawable newGameInactiveDrawable = new TextureRegionDrawable(atlas.findRegion("new_game_button_active"));
-        newGameButton = new Button(newGameActiveDrawable, newGameInactiveDrawable);
 
-        TextureRegionDrawable loadGameActiveDrawable = new TextureRegionDrawable(atlas.findRegion("load_game_button_inactive"));
-        TextureRegionDrawable loadGameInactiveDrawable = new TextureRegionDrawable(atlas.findRegion("load_game_button_active"));
-        loadGameButton = new Button(loadGameActiveDrawable, loadGameInactiveDrawable);
+        newGameButton = makeButton("new_game_button_inactive", "new_game_button_active");
+        configButton(newGameButton, NEW_GAME_BUTTON_WIDTH, NEW_GAME_BUTTON_HEIGHT, NEW_GAME_BUTTON_Y);
 
-        TextureRegionDrawable exitActiveDrawable = new TextureRegionDrawable(atlas.findRegion("exit_button_inactive"));
-        TextureRegionDrawable exitInactiveDrawable = new TextureRegionDrawable(atlas.findRegion("exit_button_active"));
-        exitButton = new Button(exitActiveDrawable, exitInactiveDrawable);
+        loadGameButton = makeButton("load_game_button_inactive", "load_game_button_active");
+        configButton(loadGameButton, LOAD_GAME_BUTTON_WIDTH, LOAD_GAME_BUTTON_HEIGHT, LOAD_GAME_BUTTON_Y);
 
-        newGameButton.setSize(NEW_GAME_BUTTON_WIDTH, NEW_GAME_BUTTON_HEIGHT);
-        newGameButton.setPosition(0, NEW_GAME_BUTTON_Y);
-        loadGameButton.setSize(LOAD_GAME_BUTTON_WIDTH, LOAD_GAME_BUTTON_HEIGHT);
-        loadGameButton.setPosition(0, LOAD_GAME_BUTTON_Y);
-        exitButton.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-        exitButton.setPosition(0, EXIT_BUTTON_Y);
+        exitButton = makeButton("exit_button_inactive", "exit_button_active");
+        configButton(exitButton, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT, EXIT_BUTTON_Y);
 
         newGameButton.addListener(new ClickListener(){
             @Override
@@ -87,31 +77,26 @@ public class MainMenu extends BaseScreen
         stage.addActor(loadGameButton);
         stage.addActor(exitButton);
 
-
-
-
-        primalCameraWidth = camera.viewportWidth;
-        primalCameraHeight = camera.viewportHeight;
-
         title = new Texture("MainMenu/title.png");
     }
 
-    // TAK BYLO WCZESNIEJ I LADNIE SIE RYSOWALO I SKALOWALO
-//    private void drawButton(Texture textureActive, Texture textureInactive, int width,
-//                            int height, int y, float ratioWidth, float ratioHeight)
-//    {
-//        if (Gdx.input.getX() < (camera.position.x + (width / 2)) * ratioWidth &&
-//                Gdx.input.getX() > (camera.position.x - (width / 2)) * ratioWidth &&
-//                camera.viewportHeight - Gdx.input.getY() < (y + height) * ratioHeight &&
-//                camera.viewportHeight - Gdx.input.getY() > y * ratioHeight)
-//        {
-//            game.batch.draw(textureActive, camera.position.x - (width / 2), y, width, height);
-//        }
-//        else
-//        {
-//            game.batch.draw(textureInactive, camera.position.x - (width / 2), y, width, height);
-//        }
-//    }
+    private Button makeButton(String active, String inactive)
+    {
+        TextureRegionDrawable activeDrawable = new TextureRegionDrawable(atlas.findRegion(active));
+        TextureRegionDrawable inactiveDrawable = new TextureRegionDrawable(atlas.findRegion(inactive));
+        return new Button(activeDrawable, inactiveDrawable);
+    }
+
+    private void configButton(Button button, int width, int height, int y)
+    {
+        button.setSize(width, height);
+        button.setPosition((WORLD_WIDTH - width) / 2, y);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
 
     @Override
     public void render(float delta)
@@ -119,28 +104,11 @@ public class MainMenu extends BaseScreen
         Gdx.gl.glClearColor(255, 255, 255, 255);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        float ratioWidth = camera.viewportWidth / primalCameraWidth;
-        float ratioHeight = camera.viewportHeight / primalCameraHeight;
-
-        newGameButton.setPosition(camera.position.x - (NEW_GAME_BUTTON_WIDTH * ratioWidth / 2), NEW_GAME_BUTTON_Y);
-        loadGameButton.setPosition(camera.position.x - (LOAD_GAME_BUTTON_WIDTH * ratioWidth / 2), LOAD_GAME_BUTTON_Y);
-        exitButton.setPosition(camera.position.x - (EXIT_BUTTON_WIDTH * ratioWidth / 2), EXIT_BUTTON_Y);
-        newGameButton.setSize(NEW_GAME_BUTTON_WIDTH * ratioWidth, NEW_GAME_BUTTON_HEIGHT * ratioHeight);
-        loadGameButton.setSize(LOAD_GAME_BUTTON_WIDTH * ratioWidth, LOAD_GAME_BUTTON_HEIGHT * ratioHeight);
-        exitButton.setSize(EXIT_BUTTON_WIDTH * ratioWidth, EXIT_BUTTON_HEIGHT * ratioHeight);
-
         stage.act();
         stage.draw();
 
         game.batch.begin();
         game.batch.draw(title, camera.position.x - (TITLE_WIDTH / 2), TITLE_BUTTON_Y, TITLE_WIDTH, TITLE_HEIGHT);
         game.batch.end();
-
-//        drawButton(newGameButtonActive, newGameButtonInactive, NEW_GAME_BUTTON_WIDTH,
-//                NEW_GAME_BUTTON_HEIGHT, NEW_GAME_BUTTON_Y, ratioWidth, ratioHeight);
-//        drawButton(loadGameButtonActive, loadGameButtonInactive, LOAD_GAME_BUTTON_WIDTH,
-//                LOAD_GAME_BUTTON_HEIGHT, LOAD_GAME_BUTTON_Y, ratioWidth, ratioHeight);
-//        drawButton(exitButtonActive, exitButtonInactive, EXIT_BUTTON_WIDTH,
-//                EXIT_BUTTON_HEIGHT, EXIT_BUTTON_Y, ratioWidth, ratioHeight);
     }
 }
