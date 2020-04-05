@@ -5,25 +5,15 @@ import com.io2020.tileSet.Tile;
 
 public class TileEntity {
     private Tile tile;
-    private Coord relativeCoord;
-    private int layer;
+    public int relX, relY;
 
-    public TileEntity(Tile tile, Coord relativeCoord, int layer) {
+    public TileEntity(Tile tile, int relX, int relY) {
         this.tile = tile;
-        this.relativeCoord = relativeCoord;
-        this.layer = layer;
+        this.relX = relX;
+        this.relY = relY;
     }
 
     public TextureRegion getTexture() {
         return tile.getTexture();
     }
-
-    public Coord getRelativeCoord() {
-        return relativeCoord;
-    }
-
-    public int getLayer() {
-        return layer;
-    }
-
 }

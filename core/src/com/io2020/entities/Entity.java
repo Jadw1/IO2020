@@ -38,6 +38,6 @@ public abstract class Entity {
     }
 
     public abstract void draw(SpriteBatch batch);
-    public abstract void update(float dt);
 
+    public abstract void update(float dt);
 }

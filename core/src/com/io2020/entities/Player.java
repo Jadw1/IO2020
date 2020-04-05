@@ -30,7 +30,7 @@ public class Player extends Entity {
     @Override
     public void draw(SpriteBatch batch) {
         //TODO: ustawic dobrze te wartosci
-        float x = position.x + (flipped ? -width/2 : -width/2);
+        float x = position.x + (flipped ? width/2 : -width/2);
         batch.draw(currentFrame, x, position.y,  flipped ? -width : width, height);
     }
 
