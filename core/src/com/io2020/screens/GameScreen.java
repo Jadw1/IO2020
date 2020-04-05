@@ -1,6 +1,7 @@
 package com.io2020.screens;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.io2020.entities.Player;
 import com.io2020.entities.Resource;
 import com.io2020.game.IOGame;
@@ -30,32 +31,31 @@ public class GameScreen extends BaseScreen {
         tileSet = new TileSet("test3.png", 16.0f, 16.0f);
         atlas = new TextureAtlas("animation/Knight.pack");
         map = new Map(mapSize, mapSize, tileSize, tileSize);
-        player = new Player(0.0f,0.0f, atlas);
+        player = new Player(atlas);
 
-        addActors();
         createMap();
     }
 
-    private void addActors() {
-        map.setStage(stage);        //this must be first!
-        stage.addActor(player);
-        map.setForeground(stage);   //this must be at the end
-    }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
+    public void render(float dt) {
+        super.render(dt);
 
-        update();
+        update(dt);
 
-        spriteBatch.begin();
-        stage.draw();
-        spriteBatch.end();
+        draw();
     }
 
-    private void update() {
-        stage.act();
+    private void update(float dt) {
+        player.update(dt);
+        //TODO: tutaj tez cos zepsułem i kamera nie podaza
         camera.position.set(player.getX(), player.getY(), 0);
+    }
+
+    private void draw() {
+        spriteBatch.begin();
+        player.draw(spriteBatch);
+        spriteBatch.end();
     }
 
     private void createMap() {
@@ -93,4 +93,6 @@ public class GameScreen extends BaseScreen {
         }
         catch (CoordBusyException e) {}
     }
+
+
 }

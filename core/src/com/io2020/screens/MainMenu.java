@@ -1,4 +1,4 @@
-package com.io2020.screens;
+/*package com.io2020.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -112,3 +112,4 @@ public class MainMenu extends BaseScreen
         game.batch.end();
     }
 }
+*/

@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.io2020.game.IOGame;
 
 public abstract class BaseScreen implements Screen {
-    protected Stage stage;
     protected OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
 
@@ -22,18 +21,14 @@ public abstract class BaseScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        stage = new Stage(new ScreenViewport(camera));
         spriteBatch = new SpriteBatch();
-
-        //nie wiem co to robi do konca, czy to potrzebne
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void show() {}
 
     @Override
-    public void render(float delta) {
+    public void render(float dt) {
         Gdx.gl.glClearColor(0, 0, 0 , 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.setProjectionMatrix(camera.combined);

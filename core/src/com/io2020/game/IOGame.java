@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.io2020.screens.GameScreen;
-import com.io2020.screens.MainMenu;
+//import com.io2020.screens.MainMenu;
 
 public class IOGame extends Game {
 
@@ -18,8 +18,8 @@ public class IOGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-//		setScreen(new GameScreen(this));
-		setScreen(new MainMenu(this));
+		setScreen(new GameScreen(this));
+//		setScreen(new MainMenu(this));
 	}
 
 	public boolean isPaused() {
