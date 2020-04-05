@@ -1,4 +1,4 @@
-/*package com.io2020.screens;
+package com.io2020.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -34,6 +34,7 @@ public class MainMenu extends BaseScreen
     private static final int WORLD_WIDTH = 640;
     private static final int WORLD_HEIGHT = 480;
 
+    Stage stage;
     private Texture title;
 
     private TextureAtlas atlas;
@@ -112,4 +113,3 @@ public class MainMenu extends BaseScreen
         game.batch.end();
     }
 }
-*/
