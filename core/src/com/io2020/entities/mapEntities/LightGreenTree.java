@@ -36,10 +36,6 @@ public class LightGreenTree extends MapEntity
     @Override
     public void draw(SpriteBatch batch)
     {
-        drawTile(batch, leftDown, x, y);
-        drawTile(batch, leftUp, x, y + 1);
-        drawTile(batch, rightDown, x + 1, y);
-        drawTile(batch, rightUp, x + 1, y + 1);
     }
 
     @Override

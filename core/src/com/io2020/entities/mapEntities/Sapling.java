@@ -6,15 +6,15 @@ import com.io2020.map.MapEntity;
 import com.io2020.tileSet.Tile;
 import com.io2020.tileSet.TileSet;
 
-public class Rock extends MapEntity
+public class Sapling extends MapEntity
 {
-    Tile rock;
+    Tile sapling;
 
-    public Rock(TileSet tileSet, int x, int y)
+    public Sapling(TileSet tileSet, int x, int y)
     {
         super(EntityType.RESOURCE, x, y);
 
-        rock = tileSet.getTile(1, 8);
+        sapling = tileSet.getTile(3, 5);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Rock extends MapEntity
     @Override
     public void draw(SpriteBatch batch)
     {
-        drawTile(batch, rock, x, y);
+        drawTile(batch, sapling, x, y);
     }
 
     @Override
