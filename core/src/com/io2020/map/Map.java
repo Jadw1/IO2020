@@ -13,7 +13,7 @@ public class Map {
         this.width = width;
         this.height = height;
         this.tileWidth = tileWidth;
-        this.tileHeight = height;
+        this.tileHeight = tileHeight;
 
         ground = new Tile[width][height];
         entities = new MapEntity[width][height];

@@ -7,12 +7,9 @@ public abstract class Entity {
 
     protected EntityType type;
 
-
     public Entity(EntityType entityType) {
         this.type = entityType;
     }
-
-
 
     public abstract void draw(SpriteBatch batch);
 

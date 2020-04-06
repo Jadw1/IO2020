@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.Column;
+import com.io2020.entities.mapEntities.LightGreenTree;
+import com.io2020.entities.mapEntities.Rock;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.Tile;
@@ -16,13 +18,13 @@ public class GameScreen extends BaseScreen {
 
     private TileSet tileSet;
 
-    private int mapSize = 6;
-    private float tileSize = 16.0f;
+    private int mapSize = 10;
+    private float tileSize = 32.0f;
 
     public GameScreen(IOGame game) {
         super(game);
 
-        tileSet = new TileSet("0x72_DungeonTilesetII_v1.3.png", tileSize, tileSize);
+        tileSet = new TileSet("grass_trees.png", 16, 16);
         map = new Map(mapSize, mapSize, tileSize, tileSize);
         atlas = new TextureAtlas("animation/Knight.pack");
         player = new Player(atlas);
@@ -57,24 +59,29 @@ public class GameScreen extends BaseScreen {
     }
 
     public void createExampleMap() {
-        Tile grass = tileSet.getTile(1, 4);
+        Tile grass = tileSet.getTile(0, 0);
         Tile water = tileSet.getTile(4, 11);
 
-        for(int i = 0; i < mapSize; i++) {
-            map.setGround(i, 0, water);
-            map.setGround(i, mapSize - 1, water);
-        }
-        for(int i = 1; i < mapSize - 1; i++) {
-            map.setGround(0, i, water);
-            map.setGround(mapSize - 1, i, water);
-        }
+//        for(int i = 0; i < mapSize; i++) {
+//            map.setGround(i, 0, water);
+//            map.setGround(i, mapSize - 1, water);
+//        }
+//        for(int i = 1; i < mapSize - 1; i++) {
+//            map.setGround(0, i, water);
+//            map.setGround(mapSize - 1, i, water);
+//        }
         for(int i = 1; i < mapSize - 1; i++) {
             for(int j = 1; j < mapSize - 1; j++) {
                 map.setGround(i, j , grass);
             }
         }
 
-        Column column = new Column(tileSet, 2, 3);
-        map.placeObject(column);
+        Rock rock = new Rock(tileSet, 2, 3);
+        LightGreenTree tree = new LightGreenTree(tileSet, 5 ,5);
+        map.placeObject(rock);
+        map.placeObject(tree);
+
+//        Column column = new Column(tileSet, 2, 3);
+//        map.placeObject(column);
     }
 }
