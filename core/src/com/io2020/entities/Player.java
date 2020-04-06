@@ -23,8 +23,8 @@ public class Player extends Character {
     private Animation<TextureRegion> runAnimation;
 
 
-    public Player(TextureAtlas atlas, Box2DWorld box2d) {
-        super(EntityType.PLAYER, 32, 32);
+    public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
+        super(EntityType.PLAYER, position, 32.0f, 32.0f);
         body = Box2DHandler.createBody(box2d.world, 15, 15, position, BodyDef.BodyType.DynamicBody);
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);

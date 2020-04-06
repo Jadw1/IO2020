@@ -4,15 +4,10 @@ import com.badlogic.gdx.math.Vector3;
 
 public abstract class Character extends Entity {
 
-    protected float width, height;
-    protected Vector3 position;
-
-    public Character(EntityType entityType, float width, float height) {
-        super(entityType);
+    public Character(EntityType entityType, Vector3 position, float width, float height) {
+        super(entityType, position, width, height);
         this.width = width;
         this.height = height;
-
-        position = new Vector3();
     }
 
     public Vector3 getPosition() {
