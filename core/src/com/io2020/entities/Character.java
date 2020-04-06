@@ -1,25 +1,25 @@
 package com.io2020.entities;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public abstract class Character extends Entity {
 
     protected float width, height;
-    protected Vector2 position;
+    protected Vector3 position;
 
     public Character(EntityType entityType, float width, float height) {
         super(entityType);
         this.width = width;
         this.height = height;
 
-        position = new Vector2();
+        position = new Vector3();
     }
 
-    public Vector2 getPosition() {
+    public Vector3 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
+    public void setPosition(Vector3 position) {
         this.position = position;
     }
 
@@ -31,7 +31,7 @@ public abstract class Character extends Entity {
         return position.y;
     }
 
-    public void move(Vector2 moveBy) {
+    public void move(Vector3 moveBy) {
         position.add(moveBy);
     }
 }

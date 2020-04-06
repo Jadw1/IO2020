@@ -1,6 +1,10 @@
 package com.io2020.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.io2020.box2d.Box2DHandler;
+import com.io2020.box2d.Box2DWorld;
 import com.io2020.tileSet.Tile;
 
 public class Map {
@@ -70,6 +74,19 @@ public class Map {
             for(MapEntity entity: entitiesArray) {
                 if(entity != null) {
                     entity.update(dt);
+                }
+            }
+        }
+    }
+
+    public void generateHitboxes(Box2DWorld box2D) {
+        for (int i = 0; i < entities.length; i++) {
+            for (int j = 0; j < entities[0].length; j++) {
+                if(i < width && j < height && entities[i][j] != null) {
+                    MapEntity entity = entities[i][j];
+                    if (entity.isBlocking()) {
+                        Box2DHandler.createBody(box2D.world, entity.tileHeight, entity.tileWidth, entity.position, BodyDef.BodyType.StaticBody);
+                    }
                 }
             }
         }
