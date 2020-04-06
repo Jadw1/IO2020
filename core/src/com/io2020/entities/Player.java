@@ -26,7 +26,7 @@ public class Player extends Character {
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f);
-        body = Box2DHandler.createBody(box2d.world, 15, 15, position, BodyDef.BodyType.DynamicBody);
+        body = Box2DHandler.createBody(box2d.world, 7.5f, 7.5f, 0, 0, BodyDef.BodyType.DynamicBody);
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
         idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
@@ -66,9 +66,9 @@ public class Player extends Character {
         if (state != PlayerState.STANDING) {
             flipped = moveVec.x < 0.0f;
         }
-        body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
-        position.x = body.getPosition().x - width / 2;
-        position.y = body.getPosition().y - height / 4;
+        body.setLinearVelocity(moveVec.x*speed, moveVec.y*speed);
+        position.x = body.getPosition().x;// - width/2;
+        position.y = body.getPosition().y - height/4;
         //moveVec = moveVec.nor().scl(speed * dt);
         //move(moveVec);
     }

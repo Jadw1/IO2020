@@ -1,6 +1,9 @@
 package com.io2020.map;
 
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
+import com.io2020.box2d.Box2DHandler;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 
