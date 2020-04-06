@@ -14,7 +14,7 @@ public class Column extends MapEntity {
 
 
     public Column(TileSet tileSet, int x, int y) {
-        super(EntityType.RESOURCE, x, y);
+        super(EntityType.RESOURCE, x, y, true);
 
         floor = tileSet.getTile(5, 7);
         down = tileSet.getTile(5, 6);

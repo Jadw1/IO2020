@@ -20,6 +20,7 @@ public abstract class BaseScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
+        camera.zoom = 0.4f;
         camera.setToOrtho(false);
         spriteBatch = new SpriteBatch();
     }

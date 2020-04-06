@@ -1,7 +1,10 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.Column;
 import com.io2020.game.IOGame;
@@ -14,6 +17,8 @@ public class GameScreen extends BaseScreen {
     private Map map;
     private TextureAtlas atlas;
 
+    private Box2DWorld box2d;
+
     private TileSet tileSet;
 
     private int mapSize = 6;
@@ -22,12 +27,16 @@ public class GameScreen extends BaseScreen {
     public GameScreen(IOGame game) {
         super(game);
 
+        box2d = new Box2DWorld();
+
         tileSet = new TileSet("0x72_DungeonTilesetII_v1.3.png", tileSize, tileSize);
-        map = new Map(mapSize, mapSize, tileSize, tileSize);
+        map = new Map(mapSize, mapSize, tileSize, tileSize); // todo moze tutaj dodac box2d
         atlas = new TextureAtlas("animation/Knight.pack");
-        player = new Player(atlas);
+        player = new Player(atlas, box2d); // todo i tutaj
 
         createExampleMap();
+
+
     }
 
     @Override
@@ -36,6 +45,8 @@ public class GameScreen extends BaseScreen {
 
         update(dt);
         draw();
+
+        box2d.tick(camera);
     }
 
     private void update(float dt) {
@@ -76,5 +87,7 @@ public class GameScreen extends BaseScreen {
 
         Column column = new Column(tileSet, 2, 3);
         map.placeObject(column);
+
+        map.generateHitboxes(box2d);
     }
 }
