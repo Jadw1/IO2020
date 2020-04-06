@@ -78,17 +78,4 @@ public class Map {
             }
         }
     }
-
-    public void generateHitboxes(Box2DWorld box2D) {
-        for (int i = 0; i < entities.length; i++) {
-            for (int j = 0; j < entities[0].length; j++) {
-                if(i < width && j < height && entities[i][j] != null) {
-                    MapEntity entity = entities[i][j];
-                    if (entity.isBlocking()) {
-                        Box2DHandler.createBody(box2D.world, entity.tileHeight, entity.tileWidth, entity.position, BodyDef.BodyType.StaticBody);
-                    }
-                }
-            }
-        }
-    }
 }

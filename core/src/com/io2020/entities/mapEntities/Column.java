@@ -1,6 +1,7 @@
 package com.io2020.entities.mapEntities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.World;
 import com.io2020.entities.EntityType;
 import com.io2020.map.MapEntity;
 import com.io2020.tileSet.Tile;
@@ -13,7 +14,7 @@ public class Column extends MapEntity {
     Tile up;
 
 
-    public Column(TileSet tileSet, int x, int y) {
+    public Column(TileSet tileSet, int x, int y, World world) {
         super(EntityType.RESOURCE, x, y, true);
 
         floor = tileSet.getTile(5, 7);

@@ -85,11 +85,10 @@ public class GameScreen extends BaseScreen {
             }
         }
 
-        Rock rock = new Rock(tileSet, 2, 3);
-        LightGreenTree tree = new LightGreenTree(tileSet, 5 ,5);
+        Rock rock = new Rock(tileSet, 2, 3, box2d);
+        LightGreenTree tree = new LightGreenTree(tileSet, 5 ,5, box2d);
         map.placeObject(rock);
         map.placeObject(tree);
 
-        map.generateHitboxes(box2d);
     }
 }
