@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.io2020.game.IOGame;
 
 public abstract class BaseScreen implements Screen {
@@ -34,15 +31,15 @@ public abstract class BaseScreen implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float dt) {
-
         handleInput();
         camera.update();
 
-        Gdx.gl.glClearColor(0, 0, 0 , 0);
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.setProjectionMatrix(camera.combined);
     }
@@ -64,35 +61,30 @@ public abstract class BaseScreen implements Screen {
     }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 
-    private void handleInput()
-    {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT_BRACKET))
-        {
+    private void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT_BRACKET)) {
             camera.zoom += 0.02;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT_BRACKET))
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT_BRACKET)) {
             camera.zoom -= 0.02;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A))
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             camera.translate(-3, 0, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D))
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             camera.translate(3, 0, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S))
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             camera.translate(0, -3, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W))
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             camera.translate(0, 3, 0);
         }
 

@@ -1,21 +1,18 @@
 package com.io2020.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.io2020.box2d.Box2DHandler;
-import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.tileSet.Tile;
 
 import java.util.ArrayList;
 
 public class Map {
-    private Tile[][][] ground;
-    private ArrayList<MapEntity> entities;
     private int width, height;
     private float tileWidth, tileHeight;
-    int layerCount;
+    private int layerCount;
+    
+    private Tile[][][] ground;
+    private ArrayList<MapEntity> entities;
 
     public Map(int layerCount, int width, int height, float tileWidth, float tileHeight) {
         this.layerCount = layerCount;
@@ -33,17 +30,17 @@ public class Map {
     }
 
     public void setGround(int x, int y, int layer, Tile groundObject) {
-        if(x >= 0 && x < width && y >= 0 && y < height) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
             ground[layer][x][y] = groundObject;
         }
         //TODO: throw exception?
     }
 
     public void draw(SpriteBatch batch) {
-        for(int l = 0; l < layerCount; l++) {
-            for(int y = height - 1; y >= 0; y--) {
-                for(int x = 0; x < width; x++) {
-                    if(ground[l][x][y] != null) {
+        for (int l = 0; l < layerCount; l++) {
+            for (int y = height - 1; y >= 0; y--) {
+                for (int x = 0; x < width; x++) {
+                    if (ground[l][x][y] != null) {
                         batch.draw(ground[l][x][y].getTexture(), x * tileWidth, y * tileHeight, tileWidth, tileHeight);
                     }
                 }
@@ -53,7 +50,7 @@ public class Map {
 
 
     public void update(float dt) {
-        for(MapEntity entity: entities) {
+        for (MapEntity entity : entities) {
             entity.update(dt);
         }
     }

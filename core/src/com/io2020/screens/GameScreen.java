@@ -111,19 +111,19 @@ public class GameScreen extends BaseScreen {
         map.setGround(0, mapSize - 1, 1, shoreLeftUp);
         map.setGround(mapSize - 1, mapSize - 1, 1, shoreRightUp);
 
-        for(int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             map.placeObject(new Rock(tileSet, new Vector3(x, y, 0.0f)));
         }
 
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new LightGreenTree(tileSet, new Vector3(x, y, 0.0f)));
         }
 
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new Sapling(tileSet, new Vector3(x, y, 0.0f)));
