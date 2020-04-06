@@ -102,20 +102,19 @@ public class GameScreen extends BaseScreen
         map.placeObject(new ShoreLeftUp(tileSetWater, 0, mapSize - 1));
         map.placeObject(new ShoreRightUp(tileSetWater, mapSize - 1, mapSize - 1));
 
-        map.placeObject(new Rock(tileSet, 2, 3));
         map.placeObject(new Sapling(tileSet, 7, 1));
         map.placeObject(new Sapling(tileSet, 8, 1));
         map.placeObject(new Sapling(tileSet, 9, 2));
         map.placeObject(new Sapling(tileSet, 3, 4));
         map.placeObject(new Sapling(tileSet, 3, 2));
-        map.placeObject(new LightGreenTree(tileSet, 5, 5));
-        map.placeObject(new LightGreenTree(tileSet, 6, 6));
-        map.placeObject(new LightGreenTree(tileSet, 9, 8));
-        map.placeObject(new LightGreenTree(tileSet, 9, 4));
-        map.placeObject(new LightGreenTree(tileSet, 5, 8));
-        map.placeObject(new Rock(tileSet, 7, 7));
-        map.placeObject(new Rock(tileSet, 9, 6));
+        map.placeObject(new LightGreenTree(tileSet, 5, 5, box2d));
+        map.placeObject(new LightGreenTree(tileSet, 6, 6, box2d));
+        map.placeObject(new LightGreenTree(tileSet, 9, 8, box2d));
+        map.placeObject(new LightGreenTree(tileSet, 9, 4, box2d));
+        map.placeObject(new LightGreenTree(tileSet, 5, 8, box2d));
+        map.placeObject(new Rock(tileSet, 7, 7, box2d));
+        map.placeObject(new Rock(tileSet, 9, 6, box2d));
+        map.placeObject(new Rock(tileSet, 2, 3, box2d));
 
-        map.generateHitboxes(box2d);
     }
 }
