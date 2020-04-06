@@ -20,6 +20,7 @@ public class IOGame extends Game {
 		batch = new SpriteBatch();
 //		setScreen(new GameScreen(this));
 		setScreen(new MainMenu(this));
+
 	}
 
 	public boolean isPaused() {
