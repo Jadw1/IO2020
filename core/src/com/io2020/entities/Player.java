@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends Entity {
+public class Player extends Character {
     private float speed = 200.0f;
     private boolean flipped = false;
     private float stateTime = 0;
@@ -29,7 +29,6 @@ public class Player extends Entity {
 
     @Override
     public void draw(SpriteBatch batch) {
-        //TODO: ustawic dobrze te wartosci
         float x = position.x + (flipped ? width/2 : -width/2);
         batch.draw(currentFrame, x, position.y,  flipped ? -width : width, height);
     }

@@ -1,7 +1,6 @@
 package com.io2020.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.io2020.map.exception.CoordBusyException;
 import com.io2020.tileSet.Tile;
 
 public class Map {
@@ -20,14 +19,20 @@ public class Map {
         entities = new MapEntity[width][height];
     }
 
-    public void placeObject(int x, int y, MapEntity object) throws CoordBusyException {
+    public boolean placeObject(MapEntity object) {
+        int x = object.x;
+        int y = object.y;
         if(x >= 0 && x < width && y >= 0 && y < height) {
             if(entities[x][y] != null) {
-                throw new CoordBusyException();
+                return false;
             }
             entities[x][y] = object;
+            object.setTileWidth(tileWidth);
+            object.setTileHeight(tileHeight);
+
+            return true;
         }
-        //TODO: throw exception?
+        return false;
     }
 
     public void setGround(int x, int y, Tile groundObject) {

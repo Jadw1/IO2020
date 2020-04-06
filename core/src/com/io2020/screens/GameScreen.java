@@ -1,17 +1,13 @@
 package com.io2020.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Player;
+import com.io2020.entities.mapEntities.Column;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
-import com.io2020.map.TileEntity;
-import com.io2020.map.exception.CoordBusyException;
 import com.io2020.tileSet.Tile;
 import com.io2020.tileSet.TileSet;
-
-import java.util.ArrayList;
 
 public class GameScreen extends BaseScreen {
     private Player player;
@@ -45,8 +41,7 @@ public class GameScreen extends BaseScreen {
     private void update(float dt) {
         player.update(dt);
         map.update(dt);
-        //TODO: tutaj tez cos zepsułem i kamera nie podaza
-        //camera.position.set(player.getX(), player.getY(), 0);
+
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.1f);
         camera.update();
     }
@@ -78,5 +73,8 @@ public class GameScreen extends BaseScreen {
                 map.setGround(i, j , grass);
             }
         }
+
+        Column column = new Column(tileSet, 2, 3);
+        map.placeObject(column);
     }
 }
