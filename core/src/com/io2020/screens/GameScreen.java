@@ -1,6 +1,8 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
@@ -76,6 +78,18 @@ public class GameScreen extends BaseScreen {
             entity.draw(spriteBatch);
         }
         spriteBatch.end();
+
+        //debugDraw();
+    }
+
+    private void debugDraw() {
+        ShapeRenderer debug = new ShapeRenderer();
+        debug.setProjectionMatrix(camera.combined);
+        debug.setColor(Color.RED);
+
+        debug.begin(ShapeRenderer.ShapeType.Filled);
+        debug.circle(player.getX(), player.getY(), 3.0f);
+        debug.end();
     }
 
     public void createExampleMap() {
@@ -114,19 +128,19 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < 12; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
-            map.placeObject(new Rock(tileSet, new Vector3(x, y, 0.0f)));
+            map.placeObject(new Rock(tileSet, new Vector3(x, y, 0.0f), box2d));
         }
 
         for (int i = 0; i < 6; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
-            map.placeObject(new LightGreenTree(tileSet, new Vector3(x, y, 0.0f)));
+            map.placeObject(new LightGreenTree(tileSet, new Vector3(x, y, 0.0f), box2d));
         }
 
         for (int i = 0; i < 6; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
-            map.placeObject(new Sapling(tileSet, new Vector3(x, y, 0.0f)));
+            map.placeObject(new Sapling(tileSet, new Vector3(x, y, 0.0f), box2d));
         }
 
         //map.placeObject(new Rock(tileSet, new Vector3(25.0f, 14.0f, 0.0f)));
