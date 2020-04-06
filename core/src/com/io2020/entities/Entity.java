@@ -1,7 +1,6 @@
 package com.io2020.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public abstract class Entity implements Comparable<Entity> {
@@ -19,12 +18,6 @@ public abstract class Entity implements Comparable<Entity> {
 
     @Override
     public int compareTo(Entity entity) {
-        if(position.z > entity.position.z) {
-            return 1;
-        }
-        if(position.y > entity.position.y) {
-            return -1;
-        }
         return (position.z > entity.position.z) ? 1 : ((position.y > entity.position.y) ? -1 : 1);
     }
 

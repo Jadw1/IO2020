@@ -13,7 +13,7 @@ public class LightGreenTree extends MapEntity
     TextureRegion texture;
 
     public LightGreenTree(TileSet tileSet, Vector3 position) {
-        super(EntityType.RESOURCE, position, 32.0f, 32.0f);
+        super(EntityType.RESOURCE, position, 64.0f, 64.0f);
 
         texture = tileSet.getTextureRegion(0, 1, 2, 2);
     }
