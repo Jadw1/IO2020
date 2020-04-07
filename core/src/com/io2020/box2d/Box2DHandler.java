@@ -1,20 +1,21 @@
 package com.io2020.box2d;
 
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Box2DHandler {
-    public static Body createBody(World world, float boxWidth, float boxHeight, float posX, float posY, BodyDef.BodyType type) {
+    public static Body createBody(World world, Vector3 entityPos, Vector2 offset, float boxWidth, float boxHeight, BodyDef.BodyType type) {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(posX, posY); // offset due to the fact that position of is relative to its left bottom corner
+        bodyDef.position.set(new Vector2(entityPos.x, entityPos.y).add(offset));
         bodyDef.angle = 0;
         bodyDef.fixedRotation = true;
         bodyDef.type = type; // static 0, kinetic 1, dynamic 2
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(boxWidth, boxHeight);
+        shape.setAsBox(boxWidth/2.0f, boxHeight/2.0f);
         fixtureDef.shape = shape;
         fixtureDef.restitution = 0.4f;
 

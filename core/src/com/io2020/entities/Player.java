@@ -2,7 +2,10 @@ package com.io2020.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,21 +14,21 @@ import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 
 public class Player extends Character {
+    public Body body;
+    public TextureRegion currentFrame;
     private float speed = 200.0f;
     private boolean flipped = false;
     private float stateTime = 0;
     private PlayerState state = PlayerState.STANDING;
-    public Body body;
-
-    public TextureRegion currentFrame;
     private Animation<TextureRegion> idleAnimation;
     private Animation<TextureRegion> hitAnimation;
     private Animation<TextureRegion> runAnimation;
 
 
-    public Player(TextureAtlas atlas, Box2DWorld box2d) {
-        super(EntityType.PLAYER, 32, 32);
-        body = Box2DHandler.createBody(box2d.world, 7.5f, 7.5f, 0, 0, BodyDef.BodyType.DynamicBody);
+    public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
+        super(EntityType.PLAYER, position, 32.0f, 32.0f);
+        //body = Box2DHandler.createBody(box2d.world, 7.5f, 7.5f, 0, 0, BodyDef.BodyType.DynamicBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(), 16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
         idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
@@ -36,8 +39,8 @@ public class Player extends Character {
 
     @Override
     public void draw(SpriteBatch batch) {
-        float x = position.x + (flipped ? width/2 : -width/2);
-        batch.draw(currentFrame, x, position.y,  flipped ? -width : width, height);
+        float x = position.x + (flipped ? width / 2 : -width / 2);
+        batch.draw(currentFrame, x, position.y, flipped ? -width : width, height);
     }
 
     public void update(float dt) {
@@ -62,7 +65,7 @@ public class Player extends Character {
         }
 
         state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? PlayerState.MOVING : PlayerState.STANDING;
-        if(state != PlayerState.STANDING) {
+        if (state != PlayerState.STANDING) {
             flipped = moveVec.x < 0.0f;
         }
         body.setLinearVelocity(moveVec.x*speed, moveVec.y*speed);
