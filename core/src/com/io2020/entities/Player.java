@@ -12,6 +12,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
+import com.io2020.game.Control;
+
+import java.util.ArrayList;
 
 public class Player extends Character {
     public Body body;
@@ -24,10 +27,11 @@ public class Player extends Character {
     private Animation<TextureRegion> hitAnimation;
     private Animation<TextureRegion> runAnimation;
 
+    ArrayList<Entity> interactEntities;
+
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f);
-        //body = Box2DHandler.createBody(box2d.world, 7.5f, 7.5f, 0, 0, BodyDef.BodyType.DynamicBody);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(), 16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
@@ -35,6 +39,8 @@ public class Player extends Character {
         runAnimation = new Animation<TextureRegion>(1 / 8f, atlas.findRegions("knight_m_run_anim"), Animation.PlayMode.LOOP);
 
         currentFrame = idleAnimation.getKeyFrame(stateTime);
+
+        interactEntities = new ArrayList<Entity>();
     }
 
     @Override
@@ -43,24 +49,24 @@ public class Player extends Character {
         batch.draw(currentFrame, x, position.y, flipped ? -width : width, height);
     }
 
-    public void update(float dt) {
-        handleInput(dt);
+    public void update(float dt, Control control) {
+        handleInput(control);
         animate(dt);
     }
 
-    private void handleInput(float dt) {
+    private void handleInput(Control control) {
         Vector3 moveVec = new Vector3();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (control.up) {
             moveVec.y += 1.0f;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (control.down) {
             moveVec.y -= 1.0f;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (control.right) {
             moveVec.x += 1.0f;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (control.left) {
             moveVec.x -= 1.0f;
         }
 
@@ -68,11 +74,15 @@ public class Player extends Character {
         if (state != PlayerState.STANDING) {
             flipped = moveVec.x < 0.0f;
         }
-        body.setLinearVelocity(moveVec.x*speed, moveVec.y*speed);
+        body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
         position.x = body.getPosition().x;// - width/2;
         position.y = body.getPosition().y - height/4;
-        //moveVec = moveVec.nor().scl(speed * dt);
-        //move(moveVec);
+
+        if (control.interact && interactEntities.size() > 0){
+            interactEntities.get(0).interact();
+        }
+
+        control.interact = false;
     }
 
     private void animate(float dt) {
@@ -82,6 +92,15 @@ public class Player extends Character {
             currentFrame = runAnimation.getKeyFrame(stateTime);
         } else {
             currentFrame = idleAnimation.getKeyFrame(stateTime);
+        }
+    }
+
+    @Override
+    public void collision(Entity entity, boolean begin){
+        if (begin) {
+            interactEntities.add(entity); // enter hitbox
+        } else {
+            interactEntities.remove(entity); // left hitbox
         }
     }
 }
