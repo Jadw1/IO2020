@@ -18,8 +18,6 @@ public abstract class Character extends Entity {
     public Character(EntityType entityType, Vector3 position, float width,
                      float height, TextureAtlas atlas, String name) {
         super(entityType, position, width, height);
-        this.width = width;
-        this.height = height;
 
         idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions(name + "_idle_anim"), Animation.PlayMode.LOOP);
         runAnimation = new Animation<TextureRegion>(1 / 8f, atlas.findRegions(name + "_run_anim"), Animation.PlayMode.LOOP);

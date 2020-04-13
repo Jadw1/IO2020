@@ -55,6 +55,14 @@ public class Map {
         for (MapEntity entity : entities) {
             entity.update(dt);
         }
+
+        for (int y = height - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
+                if (ground[1][x][y] != null) {
+                    ground[1][x][y].update(dt);
+                }
+            }
+        }
     }
 
     public void collectEntities(ArrayList<Entity> entitiesArray) {

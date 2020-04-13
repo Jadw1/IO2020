@@ -1,0 +1,327 @@
+
+mapAssets.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+dead_tree
+  rotate: false
+  xy: 1, 19
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+tree
+  rotate: false
+  xy: 35, 19
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fireplace
+  rotate: false
+  xy: 69, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+firegoblet
+  rotate: false
+  xy: 87, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+firegoblet
+  rotate: false
+  xy: 105, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+firegoblet
+  rotate: false
+  xy: 123, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+fireplace
+  rotate: false
+  xy: 141, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+fireplace
+  rotate: false
+  xy: 159, 19
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+ocean_left_down
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_right_up
+  rotate: false
+  xy: 177, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+lake_right_down
+  rotate: false
+  xy: 19, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+lake_right_up
+  rotate: false
+  xy: 195, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_down
+  rotate: false
+  xy: 37, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+ocean_right
+  rotate: false
+  xy: 213, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_right_up
+  rotate: false
+  xy: 55, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tree_right_up
+  rotate: false
+  xy: 231, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+lake_left_down
+  rotate: false
+  xy: 73, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+lake_left_down
+  rotate: false
+  xy: 249, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+lilypad
+  rotate: false
+  xy: 91, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+flower4
+  rotate: false
+  xy: 267, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tree_right_down
+  rotate: false
+  xy: 109, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+rock
+  rotate: false
+  xy: 285, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+lake_left_up
+  rotate: false
+  xy: 127, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tree_left_down
+  rotate: false
+  xy: 303, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+lake_left_up
+  rotate: false
+  xy: 145, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_left_down
+  rotate: false
+  xy: 321, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+ocean_left
+  rotate: false
+  xy: 339, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+ocean_middle
+  rotate: false
+  xy: 357, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+lake_right_up
+  rotate: false
+  xy: 375, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+ocean_left_up
+  rotate: false
+  xy: 393, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_left
+  rotate: false
+  xy: 411, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_right_down
+  rotate: false
+  xy: 429, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+flower2
+  rotate: false
+  xy: 447, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+sapling
+  rotate: false
+  xy: 465, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+flower3
+  rotate: false
+  xy: 483, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ocean_left_up
+  rotate: false
+  xy: 177, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+flower1
+  rotate: false
+  xy: 195, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ocean_up
+  rotate: false
+  xy: 213, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+wood_pile
+  rotate: false
+  xy: 231, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ocean_right_down
+  rotate: false
+  xy: 249, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+grass
+  rotate: false
+  xy: 267, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+lake_right_down
+  rotate: false
+  xy: 285, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tree_left_up
+  rotate: false
+  xy: 303, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ocean_right
+  rotate: false
+  xy: 321, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+ocean_down
+  rotate: false
+  xy: 339, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+ocean_up
+  rotate: false
+  xy: 357, 17
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
