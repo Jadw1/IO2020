@@ -99,7 +99,7 @@ public class Player extends Character {
                     public void run() {
                         control.allowBlock = true;
                     }
-                }, 0.16f);
+                }, 0.2f);
             }
         }, 0.16f);
     }
