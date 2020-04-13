@@ -20,7 +20,7 @@ public class Rock extends MapEntity {
         texture = tileSet.getTextureRegion(1, 8, 1, 1);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 3.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);
-
+        hashcode = sensor.getFixtureList().get(0).hashCode();
     }
 
     @Override

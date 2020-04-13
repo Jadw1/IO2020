@@ -20,7 +20,7 @@ public class Sapling extends MapEntity {
         texture = tileSet.getTextureRegion(3, 5, 1, 1);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 4.0f), 8.0f, 8.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 8.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);
-
+        hashcode = sensor.getFixtureList().get(0).hashCode();
     }
 
     @Override

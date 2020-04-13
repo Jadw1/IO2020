@@ -14,6 +14,9 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean left;
     public boolean right;
 
+    public boolean zoomIn;
+    public boolean zoomOut;
+
     public boolean interact;
 
     public Control(OrthographicCamera camera){
@@ -46,6 +49,12 @@ public class Control extends InputAdapter implements InputProcessor {
                 break;
             case Keys.D:
                 right = true;
+                break;
+            case Keys.LEFT_BRACKET:
+                zoomIn = true;
+                break;
+            case Keys.RIGHT_BRACKET:
+                zoomOut = true;
                 break;
         }
         return false;
@@ -80,6 +89,12 @@ public class Control extends InputAdapter implements InputProcessor {
                 break;
             case Keys.E:
                 interact = true;
+                break;
+            case Keys.LEFT_BRACKET:
+                zoomIn = false;
+                break;
+            case Keys.RIGHT_BRACKET:
+                zoomOut = false;
                 break;
 //            case Keys.ESCAPE:
 //                Gdx.app.exit();

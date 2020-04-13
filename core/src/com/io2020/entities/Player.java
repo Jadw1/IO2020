@@ -29,10 +29,11 @@ public class Player extends Character {
 
     ArrayList<Entity> interactEntities;
 
-
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(), 16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
+        hashcode = body.getFixtureList().get(0).hashCode();
+        sensor = null;
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
         idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
@@ -40,7 +41,8 @@ public class Player extends Character {
 
         currentFrame = idleAnimation.getKeyFrame(stateTime);
 
-        interactEntities = new ArrayList<Entity>();
+        interactEntities = new ArrayList<>();
+        box2d.setPlayer(this);
     }
 
     @Override
@@ -49,12 +51,7 @@ public class Player extends Character {
         batch.draw(currentFrame, x, position.y, flipped ? -width : width, height);
     }
 
-    public void update(float dt, Control control) {
-        handleInput(control);
-        animate(dt);
-    }
-
-    private void handleInput(Control control) {
+    public void updateControl(Control control) {
         Vector3 moveVec = new Vector3();
 
         if (control.up) {
@@ -85,7 +82,12 @@ public class Player extends Character {
         control.interact = false;
     }
 
-    private void animate(float dt) {
+    public void updatePlayer(float dt, Control control) {
+        update(dt);
+        updateControl(control);
+    }
+
+    public void update(float dt) {
         stateTime += dt;
 
         if (state == PlayerState.MOVING) {

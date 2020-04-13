@@ -22,33 +22,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameScreen extends BaseScreen {
-    private Player player;
-    private Map map;
-    private TextureAtlas atlas;
-    private Control control;
+    private final Player player;
+    private final Map map;
+    private final TextureAtlas atlas;
 
-    private Box2DWorld box2d;
+    private final Box2DWorld box2d;
 
-    private TileSet tileSet;
-    private TileSet tileSetWater;
+    private final TileSet tileSet;
+    private final TileSet tileSetWater;
 
-    private int mapSize = 12;
-    private float tileSize = 32.0f;
+    private final int mapSize = 12;
+    private final float tileSize = 32.0f;
 
     public GameScreen(IOGame game) {
         super(game);
 
         box2d = new Box2DWorld();
-        control = new Control(camera);
-        Gdx.input.setInputProcessor(control);
 
         tileSet = new TileSet("grass_trees.png", 16, 16);
         tileSetWater = new TileSet("water.png", 16, 16);
-        map = new Map(2, mapSize, mapSize, tileSize, tileSize); // todo moze tutaj dodac box2d
+        map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         atlas = new TextureAtlas("animation/Knight.pack");
         player = new Player(new Vector3(), atlas, box2d);
 
         createExampleMap();
+
+        box2d.populateEntityHashMap(map.getEntities());
     }
 
     @Override
@@ -59,10 +58,11 @@ public class GameScreen extends BaseScreen {
         draw();
 
         box2d.tick(camera);
+        map.clearRemovedEntities(box2d);
     }
 
     private void update(float dt) {
-        player.update(dt, control);
+        player.updatePlayer(dt, control);
         map.update(dt);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
