@@ -17,6 +17,8 @@ public class Rock extends MapEntity {
     public Rock(TileSet tileSet, Vector3 position, Box2DWorld box2d) {
         super(EntityType.RESOURCE, position, 16.0f, 16.0f);
 
+        hitPoints = 5;
+
         texture = tileSet.getTextureRegion(1, 8, 1, 1);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 3.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);

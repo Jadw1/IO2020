@@ -17,6 +17,8 @@ public class Sapling extends MapEntity {
     public Sapling(TileSet tileSet, Vector3 position, Box2DWorld box2d) {
         super(EntityType.RESOURCE, position, 16.0f, 16.0f);
 
+        hitPoints = 1;
+
         texture = tileSet.getTextureRegion(3, 5, 1, 1);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 4.0f), 8.0f, 8.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 8.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);

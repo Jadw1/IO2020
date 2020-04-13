@@ -17,6 +17,8 @@ public class LightGreenTree extends MapEntity {
     public LightGreenTree(TileSet tileSet, Vector3 position, Box2DWorld box2d) {
         super(EntityType.RESOURCE, position, 64.0f, 64.0f);
 
+        hitPoints = 3;
+
         texture = tileSet.getTextureRegion(0, 1, 2, 2);
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 17.0f), 20.0f, 30.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 17.0f), 50.0f, 50.0f, BodyDef.BodyType.DynamicBody);

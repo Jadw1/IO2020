@@ -16,6 +16,7 @@ public abstract class Entity implements Comparable<Entity> {
     transient protected Body sensor;
     protected int hashcode;
     public boolean remove;
+    public int hitPoints;
 
     public Entity(EntityType entityType, Vector3 position, float width, float height) {
         this.type = entityType;

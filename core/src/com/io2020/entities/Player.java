@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.Timer;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.game.Control;
@@ -45,6 +46,7 @@ public class Player extends Character {
         box2d.setPlayer(this);
     }
 
+
     @Override
     public void draw(SpriteBatch batch) {
         float x = position.x + (flipped ? width / 2 : -width / 2);
@@ -52,34 +54,54 @@ public class Player extends Character {
     }
 
     public void updateControl(Control control) {
-        Vector3 moveVec = new Vector3();
+        if (control.interact && interactEntities.size() > 0 && control.allowBlock) {
+            hit(control);
+        } else if (!control.blockControl) {
+            Vector3 moveVec = new Vector3();
 
-        if (control.up) {
-            moveVec.y += 1.0f;
-        }
-        if (control.down) {
-            moveVec.y -= 1.0f;
-        }
-        if (control.right) {
-            moveVec.x += 1.0f;
-        }
-        if (control.left) {
-            moveVec.x -= 1.0f;
-        }
+            if (control.up) {
+                moveVec.y += 1.0f;
+            }
+            if (control.down) {
+                moveVec.y -= 1.0f;
+            }
+            if (control.right) {
+                moveVec.x += 1.0f;
+            }
+            if (control.left) {
+                moveVec.x -= 1.0f;
+            }
 
-        state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? PlayerState.MOVING : PlayerState.STANDING;
-        if (state != PlayerState.STANDING) {
-            flipped = moveVec.x < 0.0f;
-        }
-        body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
-        position.x = body.getPosition().x;// - width/2;
-        position.y = body.getPosition().y - height/4;
+            state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? PlayerState.MOVING : PlayerState.STANDING;
 
-        if (control.interact && interactEntities.size() > 0){
-            interactEntities.get(0).interact();
+            if (state != PlayerState.STANDING) {
+                flipped = moveVec.x < 0.0f;
+            }
+            body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
+            position.x = body.getPosition().x;
+            position.y = body.getPosition().y - height/4;
         }
+    }
 
-        control.interact = false;
+    private void hit(final Control control)
+    {
+        control.block();
+        body.setLinearVelocity(0, 0);
+
+        state = PlayerState.HITTING;
+
+        Timer.schedule(new Timer.Task() {
+            public void run() {
+                control.blockControl = false;
+                interactEntities.get(0).interact();
+
+                Timer.schedule(new Timer.Task() {
+                    public void run() {
+                        control.allowBlock = true;
+                    }
+                }, 0.16f);
+            }
+        }, 0.16f);
     }
 
     public void updatePlayer(float dt, Control control) {
@@ -92,6 +114,8 @@ public class Player extends Character {
 
         if (state == PlayerState.MOVING) {
             currentFrame = runAnimation.getKeyFrame(stateTime);
+        } else if (state == PlayerState.HITTING){
+            currentFrame = hitAnimation.getKeyFrame(stateTime);
         } else {
             currentFrame = idleAnimation.getKeyFrame(stateTime);
         }
