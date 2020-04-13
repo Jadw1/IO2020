@@ -42,7 +42,7 @@ public class GameScreen extends BaseScreen {
         tileSet = new TileSet("grass_trees.png", 16, 16);
         tileSetWater = new TileSet("water.png", 16, 16);
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
-        atlas = new TextureAtlas("animation/Knight.pack");
+        atlas = new TextureAtlas("animation/characterAnimation.pack");
         player = new Player(new Vector3(), atlas, box2d);
 
         createExampleMap();

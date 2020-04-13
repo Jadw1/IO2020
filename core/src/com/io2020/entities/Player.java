@@ -1,14 +1,11 @@
 package com.io2020.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Timer;
 import com.io2020.box2d.Box2DHandler;
@@ -18,29 +15,20 @@ import com.io2020.game.Control;
 import java.util.ArrayList;
 
 public class Player extends Character {
-    public Body body;
-    public TextureRegion currentFrame;
-    private float speed = 200.0f;
-    private boolean flipped = false;
-    private float stateTime = 0;
-    private PlayerState state = PlayerState.STANDING;
-    private Animation<TextureRegion> idleAnimation;
-    private Animation<TextureRegion> hitAnimation;
-    private Animation<TextureRegion> runAnimation;
 
+    private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
-        super(EntityType.PLAYER, position, 32.0f, 32.0f);
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(), 16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
+        super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
+
+        hitAnimation = new Animation<TextureRegion>(1f / 8f,
+                atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
+
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(),
+                16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
         hashcode = body.getFixtureList().get(0).hashCode();
         sensor = null;
-
-        hitAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
-        idleAnimation = new Animation<TextureRegion>(1f / 8f, atlas.findRegions("knight_m_idle_anim"), Animation.PlayMode.LOOP);
-        runAnimation = new Animation<TextureRegion>(1 / 8f, atlas.findRegions("knight_m_run_anim"), Animation.PlayMode.LOOP);
-
-        currentFrame = idleAnimation.getKeyFrame(stateTime);
 
         interactEntities = new ArrayList<>();
         box2d.setPlayer(this);
@@ -72,9 +60,9 @@ public class Player extends Character {
                 moveVec.x -= 1.0f;
             }
 
-            state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? PlayerState.MOVING : PlayerState.STANDING;
+            state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? CharacterState.MOVING : CharacterState.STANDING;
 
-            if (state != PlayerState.STANDING) {
+            if (state != CharacterState.STANDING) {
                 flipped = moveVec.x < 0.0f;
             }
             body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
@@ -88,7 +76,7 @@ public class Player extends Character {
         control.block();
         body.setLinearVelocity(0, 0);
 
-        state = PlayerState.HITTING;
+        state = CharacterState.HITTING;
 
         Timer.schedule(new Timer.Task() {
             public void run() {
@@ -109,12 +97,13 @@ public class Player extends Character {
         updateControl(control);
     }
 
+    @Override
     public void update(float dt) {
         stateTime += dt;
 
-        if (state == PlayerState.MOVING) {
+        if (state == CharacterState.MOVING) {
             currentFrame = runAnimation.getKeyFrame(stateTime);
-        } else if (state == PlayerState.HITTING){
+        } else if (state == CharacterState.HITTING){
             currentFrame = hitAnimation.getKeyFrame(stateTime);
         } else {
             currentFrame = idleAnimation.getKeyFrame(stateTime);
