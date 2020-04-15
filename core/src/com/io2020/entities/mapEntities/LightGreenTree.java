@@ -19,7 +19,7 @@ public class LightGreenTree extends MapEntity {
         hitPoints = 3;
 
         texture = atlas.findRegion("tree");
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 17.0f), 20.0f, 30.0f, BodyDef.BodyType.StaticBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 17.0f), 12.0f, 30.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 17.0f), 50.0f, 50.0f, BodyDef.BodyType.DynamicBody);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }
