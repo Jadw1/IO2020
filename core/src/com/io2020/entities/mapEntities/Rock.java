@@ -1,8 +1,6 @@
 package com.io2020.entities.mapEntities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -19,7 +17,7 @@ public class Rock extends MapEntity {
         hitPoints = 5;
 
         texture = atlas.findRegion("rock");
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 3.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 6.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }

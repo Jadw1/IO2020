@@ -11,10 +11,8 @@ import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
 import com.io2020.entities.mobs.*;
-import com.io2020.game.Control;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
-import com.io2020.tileSet.Tile;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
 
@@ -42,8 +40,8 @@ public class GameScreen extends BaseScreen {
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         characterAtlas = new TextureAtlas("animation/characterAnimation.pack");
         mapAtlas = new TextureAtlas("mapAssets.pack");
-        player = new Player(new Vector3(), characterAtlas, box2d);
-        bigDemon = new BigDemon(new Vector3(), characterAtlas);
+        player = new Player(new Vector3(50, 50, 0), characterAtlas, box2d);
+        bigDemon = new BigDemon(new Vector3(100, 50, 0), characterAtlas);
 
         createExampleMap();
 
@@ -101,14 +99,6 @@ public class GameScreen extends BaseScreen {
 
     public void createExampleMap() {
         Grass grass = new Grass(mapAtlas);
-        Shore shoreRight = new Shore(mapAtlas, "ocean_right");
-        Shore shoreLeft = new Shore(mapAtlas, "ocean_left");
-        Shore shoreDown = new Shore(mapAtlas, "ocean_down");
-        Shore shoreUp = new Shore(mapAtlas, "ocean_up");
-        Shore shoreRightDown = new Shore(mapAtlas, "ocean_right_down");
-        Shore shoreRightUp = new Shore(mapAtlas, "ocean_right_up");
-        Shore shoreLeftDown = new Shore(mapAtlas, "ocean_left_down");
-        Shore shoreLeftUp = new Shore(mapAtlas, "ocean_left_up");
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -117,19 +107,19 @@ public class GameScreen extends BaseScreen {
         }
 
         for (int i = 1; i < mapSize - 1; i++) {
-            map.setGround(i, 0, 1, shoreUp);
-            map.setGround(i, mapSize - 1, 1, shoreDown);
+            map.setGround(i, 0, 1, new Shore(mapAtlas, "ocean_up", box2d, tileSize * i, 0));
+            map.setGround(i, mapSize - 1, 1, new Shore(mapAtlas, "ocean_down", box2d, tileSize * i, mapSize * tileSize));
         }
 
         for (int i = 1; i < mapSize - 1; i++) {
-            map.setGround(0, i, 1, shoreRight);
-            map.setGround(mapSize - 1, i, 1, shoreLeft);
+            map.setGround(0, i, 1, new Shore(mapAtlas, "ocean_right", box2d, 0, tileSize * i));
+            map.setGround(mapSize - 1, i, 1, new Shore(mapAtlas, "ocean_left", box2d, mapSize * tileSize, i * tileSize));
         }
 
-        map.setGround(0, 0, 1, shoreRightUp);
-        map.setGround(mapSize - 1, 0, 1, shoreLeftUp);
-        map.setGround(0, mapSize - 1, 1, shoreRightDown);
-        map.setGround(mapSize - 1, mapSize - 1, 1, shoreLeftDown);
+        map.setGround(0, 0, 1, new Shore(mapAtlas, "ocean_right_up", box2d, 0, 0));
+        map.setGround(mapSize - 1, 0, 1, new Shore(mapAtlas, "ocean_left_up", box2d, mapSize * tileSize, 0));
+        map.setGround(0, mapSize - 1, 1, new Shore(mapAtlas, "ocean_right_down", box2d, 0, mapSize * tileSize));
+        map.setGround(mapSize - 1, mapSize - 1, 1, new Shore(mapAtlas, "ocean_left_down", box2d, mapSize * tileSize, mapSize * tileSize));
 
         for (int i = 0; i < 12; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
