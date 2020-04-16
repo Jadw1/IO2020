@@ -15,15 +15,6 @@ import com.io2020.game.Control;
 import java.util.ArrayList;
 
 public class Player extends Character {
-    public Body body;
-    public TextureRegion currentFrame;
-    private float speed = 200.0f;
-    private boolean flipped = false;
-    private float stateTime = 0;
-    private PlayerState state = PlayerState.STANDING;
-    private Animation<TextureRegion> idleAnimation;
-    private Animation<TextureRegion> hitAnimation;
-    private Animation<TextureRegion> runAnimation;
 
     private Control controller;
     private Animation<TextureRegion> hitAnimation;
@@ -75,7 +66,7 @@ public class Player extends Character {
 
             state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? CharacterState.MOVING : CharacterState.STANDING;
 
-            if(state != PlayerState.STANDING) {
+            if(state != CharacterState.STANDING) {
                 flipped = moveVec.x < 0.0f;
             }
             body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
@@ -109,10 +100,10 @@ public class Player extends Character {
 
         stateTime += dt;
 
-        if(state == PlayerState.MOVING) {
+        if(state == CharacterState.MOVING) {
             currentFrame = runAnimation.getKeyFrame(stateTime);
         }
-        else if(state == PlayerState.HITTING) {
+        else if(state == CharacterState.HITTING) {
             currentFrame = hitAnimation.getKeyFrame(stateTime);
         }
         else {

@@ -60,7 +60,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void update(float dt) {
-        player.updatePlayer(dt, control);
+        player.update(dt);
         map.update(dt);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
