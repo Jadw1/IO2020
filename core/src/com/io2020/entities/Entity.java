@@ -34,11 +34,11 @@ public abstract class Entity implements Comparable<Entity> {
 
     public void interact(){}
 
+    public void collision(Entity entity, boolean begin){}
+
     public Vector3 getPosition() {
         return position.cpy();
     }
-
-    public void collision(Entity entity, boolean begin){}
 
     public int getHashcode()
     {

@@ -3,7 +3,6 @@ package com.io2020.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
-import com.io2020.entities.Player;
 import com.io2020.tileSet.Tile;
 
 import java.util.ArrayList;
@@ -54,6 +53,14 @@ public class Map {
     public void update(float dt) {
         for (MapEntity entity : entities) {
             entity.update(dt);
+        }
+
+        for (int y = height - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
+                if (ground[1][x][y] != null) {
+                    ground[1][x][y].update(dt);
+                }
+            }
         }
     }
 
