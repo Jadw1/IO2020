@@ -1,16 +1,19 @@
 package com.io2020.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
+import com.io2020.entities.Player;
 import com.io2020.tileSet.Tile;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Map {
     private int width, height;
     private float tileWidth, tileHeight;
     private int layerCount;
-    
+
     private Tile[][][] ground;
     private ArrayList<MapEntity> entities;
 
@@ -48,7 +51,6 @@ public class Map {
         }
     }
 
-
     public void update(float dt) {
         for (MapEntity entity : entities) {
             entity.update(dt);
@@ -57,6 +59,25 @@ public class Map {
 
     public void collectEntities(ArrayList<Entity> entitiesArray) {
         entitiesArray.addAll(entities);
+    }
+
+    public void clearRemovedEntities(Box2DWorld box2D) {
+        Iterator<MapEntity> it = entities.iterator();
+        while(it.hasNext()) {
+            Entity entity = it.next();
+
+            if (entity.remove) {
+                entity.removeBodies(box2D);
+                box2D.removeEntity(entity);
+
+                it.remove();
+            }
+        }
+    }
+
+    public ArrayList<MapEntity> getEntities()
+    {
+        return entities;
     }
 
     /*public void generateHitboxes(Box2DWorld box2D) {

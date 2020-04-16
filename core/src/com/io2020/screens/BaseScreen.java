@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.io2020.game.Control;
 import com.io2020.game.IOGame;
 
 public abstract class BaseScreen implements Screen {
@@ -17,6 +18,7 @@ public abstract class BaseScreen implements Screen {
 
     protected OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
+    protected Control control;
 
     protected IOGame game;
 
@@ -25,9 +27,11 @@ public abstract class BaseScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
+        camera.zoom = CAM_ZOOM;
         spriteBatch = new SpriteBatch();
 
-        camera.zoom = CAM_ZOOM;
+        control = new Control(camera);
+        Gdx.input.setInputProcessor(control);
     }
 
     @Override
@@ -69,22 +73,22 @@ public abstract class BaseScreen implements Screen {
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT_BRACKET)) {
+        if (control.zoomIn) {
             camera.zoom += 0.02;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT_BRACKET)) {
+        if (control.zoomOut) {
             camera.zoom -= 0.02;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (control.left) {
             camera.translate(-3, 0, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (control.right) {
             camera.translate(3, 0, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (control.down) {
             camera.translate(0, -3, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (control.up) {
             camera.translate(0, 3, 0);
         }
 

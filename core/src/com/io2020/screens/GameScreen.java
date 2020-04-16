@@ -1,5 +1,6 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,6 +12,7 @@ import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.LightGreenTree;
 import com.io2020.entities.mapEntities.Rock;
 import com.io2020.entities.mapEntities.Sapling;
+import com.io2020.game.Control;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.Tile;
@@ -20,17 +22,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameScreen extends BaseScreen {
-    private Player player;
-    private Map map;
-    private TextureAtlas atlas;
+    private final Player player;
+    private final Map map;
+    private final TextureAtlas atlas;
 
-    private Box2DWorld box2d;
+    private final Box2DWorld box2d;
 
-    private TileSet tileSet;
-    private TileSet tileSetWater;
+    private final TileSet tileSet;
+    private final TileSet tileSetWater;
 
-    private int mapSize = 12;
-    private float tileSize = 32.0f;
+    private final int mapSize = 12;
+    private final float tileSize = 32.0f;
 
     public GameScreen(IOGame game) {
         super(game);
@@ -39,11 +41,13 @@ public class GameScreen extends BaseScreen {
 
         tileSet = new TileSet("grass_trees.png", 16, 16);
         tileSetWater = new TileSet("water.png", 16, 16);
-        map = new Map(2, mapSize, mapSize, tileSize, tileSize); // todo moze tutaj dodac box2d
+        map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         atlas = new TextureAtlas("animation/Knight.pack");
-        player = new Player(new Vector3(), atlas, box2d); // todo i tutaj
+        player = new Player(new Vector3(), control, atlas, box2d);
 
         createExampleMap();
+
+        box2d.populateEntityHashMap(map.getEntities());
     }
 
     @Override
@@ -54,6 +58,7 @@ public class GameScreen extends BaseScreen {
         draw();
 
         box2d.tick(camera);
+        map.clearRemovedEntities(box2d);
     }
 
     private void update(float dt) {
@@ -79,7 +84,7 @@ public class GameScreen extends BaseScreen {
         }
         spriteBatch.end();
 
-        //debugDraw();
+//        debugDraw();
     }
 
     private void debugDraw() {
@@ -108,7 +113,6 @@ public class GameScreen extends BaseScreen {
                 map.setGround(i, j, 0, grass);
             }
         }
-
 
         for (int i = 1; i < mapSize - 1; i++) {
             map.setGround(i, 0, 1, shoreDown);
