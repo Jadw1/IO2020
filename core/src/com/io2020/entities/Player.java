@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Timer;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
+import com.io2020.entities.Items.Item;
 import com.io2020.game.Control;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Player extends Character {
 
     private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
+    public ArrayList<Item> inventory;
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
@@ -81,7 +83,7 @@ public class Player extends Character {
         Timer.schedule(new Timer.Task() {
             public void run() {
                 control.blockControl = false;
-                interactEntities.get(0).interact();
+                interactEntities.get(0).interact(this);
 
                 Timer.schedule(new Timer.Task() {
                     public void run() {

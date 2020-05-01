@@ -7,7 +7,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
+import com.io2020.entities.Items.Flint;
+import com.io2020.entities.Items.Gold;
+import com.io2020.entities.Items.Item;
+import com.io2020.entities.Items.Stone;
 import com.io2020.map.MapEntity;
+import java.util.Random;
 
 public class Rock extends MapEntity {
 
@@ -20,5 +25,23 @@ public class Rock extends MapEntity {
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 6.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);
         hashcode = sensor.getFixtureList().get(0).hashCode();
+    }
+
+    protected void addItemsToInventory(ArrayList<Item> inventory) {
+        Random r = new Random();
+        int flintsNumber = r.nextInt(1)+1; // 1-2
+        int stoneNumber = 3;
+        int goldNumber = (r.nextInt(9) == 9); // 10% chance of getting a gold nugget
+
+        for(int i = 0 ; i < flintsNumber; i++) {
+            inventory.add(new Flint());
+        }
+        for(int i = 0 ; i < stoneNumber; i++) {
+            inventory.add(new Stone());
+        }
+        for(int i = 0; i < Gold; i++) {
+            inventory.add(new Gold());
+        }
+
     }
 }

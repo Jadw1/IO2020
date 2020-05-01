@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import com.io2020.HUD.Inventory;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
@@ -26,6 +28,9 @@ public class GameScreen extends BaseScreen {
     private final TextureAtlas characterAtlas;
     private final TextureAtlas mapAtlas;
     private final BigDemon bigDemon;
+    private final Inventory inventory;
+
+    Matrix4 screenMatrix;
 
     private final Box2DWorld box2d;
 
@@ -42,6 +47,10 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(50, 50, 0), characterAtlas, box2d);
         bigDemon = new BigDemon(new Vector3(100, 50, 0), characterAtlas);
+
+        // inventory
+        screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0, mapSize, mapSize));
+        inventory = new Inventory(player);
 
         createExampleMap();
 
@@ -82,6 +91,9 @@ public class GameScreen extends BaseScreen {
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
         }
+
+        inventory.draw(spriteBatch);
+
         spriteBatch.end();
 
 //        debugDraw();
