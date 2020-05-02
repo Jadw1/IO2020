@@ -8,18 +8,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Timer;
+import com.io2020.HUD.Inventory;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Items.Item;
 import com.io2020.game.Control;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class Player extends Character {
 
     private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
-    public ArrayList<Item> inventory;
+    public LinkedHashMap<String, ArrayList<Item>> inventory;
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
@@ -34,6 +36,8 @@ public class Player extends Character {
 
         interactEntities = new ArrayList<>();
         box2d.setPlayer(this);
+
+        inventory = new LinkedHashMap<>();
     }
 
 
@@ -42,6 +46,7 @@ public class Player extends Character {
         float x = position.x + (flipped ? width / 2 : -width / 2);
         batch.draw(currentFrame, x, position.y, flipped ? -width : width, height);
     }
+
 
     public void updateControl(Control control) {
         if (control.interact && interactEntities.size() > 0 && control.allowBlock) {
@@ -83,7 +88,7 @@ public class Player extends Character {
         Timer.schedule(new Timer.Task() {
             public void run() {
                 control.blockControl = false;
-                interactEntities.get(0).interact(this);
+                interactEntities.get(0).interact(inventory);
 
                 Timer.schedule(new Timer.Task() {
                     public void run() {

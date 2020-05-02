@@ -1,6 +1,7 @@
 package com.io2020.entities.Items;
 
-public class Gold implements Item {
+public class Gold extends Item {
     public Gold() {
+        super();
     }
 }

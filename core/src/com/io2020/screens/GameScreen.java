@@ -92,7 +92,7 @@ public class GameScreen extends BaseScreen {
             entity.draw(spriteBatch);
         }
 
-        inventory.draw(spriteBatch);
+        inventory.draw(spriteBatch, player.inventory);
 
         spriteBatch.end();
 
