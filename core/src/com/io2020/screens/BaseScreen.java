@@ -30,7 +30,7 @@ public abstract class BaseScreen implements Screen {
         camera.zoom = CAM_ZOOM;
         spriteBatch = new SpriteBatch();
 
-        control = new Control(camera);
+        control = new Control(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         Gdx.input.setInputProcessor(control);
     }
 

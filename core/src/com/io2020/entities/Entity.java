@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.io2020.box2d.Box2DWorld;
+import com.io2020.entities.Items.Item;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public abstract class Entity implements Comparable<Entity> {
 
@@ -32,7 +36,9 @@ public abstract class Entity implements Comparable<Entity> {
 
     public abstract void draw(SpriteBatch batch);
 
-    public void interact(){}
+    public void interact(Player player){
+
+    }
 
     public void collision(Entity entity, boolean begin){}
 

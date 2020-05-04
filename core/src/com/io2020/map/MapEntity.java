@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
+import com.io2020.entities.Player;
 
 public abstract class MapEntity extends Entity {
     protected TextureRegion texture;
@@ -13,10 +14,10 @@ public abstract class MapEntity extends Entity {
         super(entityType, position, width, height);
     }
 
-    public void interact() {
+    public void interact(Player player) {
         hitPoints--;
         if (hitPoints == 0) {
-            //TODO: tutaj mozna np wrzucic item ze zniszczonego enitity do ekwipunku
+            this.giveItemsToPlayer(player);
             remove = true;
         }
     }
@@ -28,4 +29,9 @@ public abstract class MapEntity extends Entity {
 
     @Override
     public void update(float dt) {}
+
+    protected void giveItemsToPlayer(Player player) {
+        // do nothing
+        // functions is not overrode <=> entity doesn't drop anything
+    }
 }
