@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
+    private Control controller;
     private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
     public ArrayList<ArrayList<Item>> inventory;
@@ -27,7 +28,7 @@ public class Player extends Character {
     public Item weapon;
     public Item tool;
 
-    public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
+    public Player(Vector3 position, Control controller, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
 
         hitAnimation = new Animation<TextureRegion>(1f / 8f,
@@ -41,10 +42,7 @@ public class Player extends Character {
         interactEntities = new ArrayList<>();
         box2d.setPlayer(this);
 
-        inventory = new ArrayList<>();
-        inventorySize = 10;
-        weapon = new WoodenSword();
-        tool = new Axe();
+        this.controller = controller;
     }
 
 
@@ -54,40 +52,39 @@ public class Player extends Character {
         batch.draw(currentFrame, x, position.y, flipped ? -width : width, height);
     }
 
-
-    public void updateControl(Control control) {
-        if (control.interact && interactEntities.size() > 0 && control.allowBlock) {
-            hit(control);
-        } else if (!control.blockControl) {
+    public void handleControl() {
+        if(controller.interact && interactEntities.size() > 0 && controller.allowBlock) {
+            hit();
+        }
+        else if(!controller.blockControl) {
             Vector3 moveVec = new Vector3();
 
-            if (control.up) {
+            if(controller.up) {
                 moveVec.y += 1.0f;
             }
-            if (control.down) {
+            if(controller.down) {
                 moveVec.y -= 1.0f;
             }
-            if (control.right) {
+            if(controller.right) {
                 moveVec.x += 1.0f;
             }
-            if (control.left) {
+            if(controller.left) {
                 moveVec.x -= 1.0f;
             }
 
             state = (moveVec.x != 0.0f || moveVec.y != 0.0f) ? CharacterState.MOVING : CharacterState.STANDING;
 
-            if (state != CharacterState.STANDING) {
+            if(state != CharacterState.STANDING) {
                 flipped = moveVec.x < 0.0f;
             }
             body.setLinearVelocity(moveVec.x * speed, moveVec.y * speed);
             position.x = body.getPosition().x;
-            position.y = body.getPosition().y - height/4;
+            position.y = body.getPosition().y - height / 4;
         }
     }
 
-    private void hit(final Control control)
-    {
-        control.block();
+    private void hit() {
+        controller.block();
         body.setLinearVelocity(0, 0);
 
         state = CharacterState.HITTING;
@@ -95,41 +92,40 @@ public class Player extends Character {
 
         Timer.schedule(new Timer.Task() {
             public void run() {
-                control.blockControl = false;
+                controller.blockControl = false;
                 interactEntities.get(0).interact(p);
 
                 Timer.schedule(new Timer.Task() {
                     public void run() {
-                        control.allowBlock = true;
+                        controller.allowBlock = true;
                     }
                 }, 0.2f);
             }
         }, 0.16f);
     }
 
-    public void updatePlayer(float dt, Control control) {
-        update(dt);
-        updateControl(control);
-    }
-
-    @Override
     public void update(float dt) {
+        handleControl();
+
         stateTime += dt;
 
-        if (state == CharacterState.MOVING) {
+        if(state == CharacterState.MOVING) {
             currentFrame = runAnimation.getKeyFrame(stateTime);
-        } else if (state == CharacterState.HITTING){
+        }
+        else if(state == CharacterState.HITTING) {
             currentFrame = hitAnimation.getKeyFrame(stateTime);
-        } else {
+        }
+        else {
             currentFrame = idleAnimation.getKeyFrame(stateTime);
         }
     }
 
     @Override
-    public void collision(Entity entity, boolean begin){
-        if (begin) {
+    public void collision(Entity entity, boolean begin) {
+        if(begin) {
             interactEntities.add(entity); // enter hitbox
-        } else {
+        }
+        else {
             interactEntities.remove(entity); // left hitbox
         }
     }

@@ -30,7 +30,7 @@ public class GameScreen extends BaseScreen {
     private final TextureAtlas mapAtlas;
     private final BigDemon bigDemon;
 
-    private Matrix4 screenMatrix;
+    private final Matrix4 screenMatrix;
     private final SquareMenu squareMenu;
 
     private final Box2DWorld box2d;
@@ -46,7 +46,7 @@ public class GameScreen extends BaseScreen {
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         characterAtlas = new TextureAtlas("animation/characterAnimation.pack");
         mapAtlas = new TextureAtlas("mapAssets.pack");
-        player = new Player(new Vector3(50, 50, 0), control,  characterAtlas, box2d);
+        player = new Player(new Vector3(50, 50, 0), control, characterAtlas, box2d);
         bigDemon = new BigDemon(new Vector3(100, 50, 0), characterAtlas);
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
