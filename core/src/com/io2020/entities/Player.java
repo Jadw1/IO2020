@@ -8,16 +8,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Timer;
-import com.io2020.HUD.Inventory;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Items.Item;
-import com.io2020.entities.Items.Pickaxe;
+import com.io2020.entities.Items.Axe;
+import com.io2020.entities.Items.WoodenSword;
 import com.io2020.entities.Items.itemType;
 import com.io2020.game.Control;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class Player extends Character {
 
@@ -26,6 +25,7 @@ public class Player extends Character {
     public ArrayList<ArrayList<Item>> inventory;
     private int inventorySize;
     public Item weapon;
+    public Item tool;
 
     public Player(Vector3 position, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
@@ -43,7 +43,8 @@ public class Player extends Character {
 
         inventory = new ArrayList<>();
         inventorySize = 10;
-        weapon = new Pickaxe(); // daje mu od razu zeby pokazac na prezentacji sprintu
+        weapon = new WoodenSword();
+        tool = new Axe();
     }
 
 

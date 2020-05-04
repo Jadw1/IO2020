@@ -5,5 +5,8 @@ public enum itemType {
     FLINT,
     GOLD,
     WOOD,
-    PICKAXE
+    PICKAXE,
+    SWORD,
+    SAPLING,
+    FLOWER
 }
