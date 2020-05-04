@@ -62,29 +62,25 @@ public abstract class Enemy extends Character {
             case OTHER:
                 return;
 
-
-
+                //dont work!
             case OVERWATCH:
                 Random r = new Random(System.currentTimeMillis());
                 if(goOverwatch == null) {
                     goOverwatch = new Vector2(r.nextFloat() % minDistance, r.nextFloat() % minDistance).add(goTo);
-                    System.out.println("RANDOM");
                 }
-                else if(goOverwatch.sub(position.x, position.y).len2() <= 10.0f) {
-                    System.out.println("RESET: " + goOverwatch.x + " " + goOverwatch.y);
+                else if(goOverwatch.sub(position.x, position.y).len2() <= 5) {
                     goOverwatch = null;
                     return;
                 }
 
-                move = goOverwatch.sub(position.x, position.y).nor().scl(speed * dt);
-
+                //move = new Vector2(goOverwatch).sub(position.x, position.y).nor().scl(speed * dt);
                 break;
 
             case FOLLOW:
                 goTo = new Vector2(toFollow.getPosition().x, toFollow.getPosition().y);
 
             case GOTO:
-                Vector2 pos = goTo.sub(position.x, position.y);
+                Vector2 pos = new Vector2(goTo).sub(position.x, position.y);
 
                 if(pos.len2() > minDistance) {
                     move = pos.nor().scl(speed * dt);

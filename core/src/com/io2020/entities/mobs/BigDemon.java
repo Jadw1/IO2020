@@ -16,15 +16,15 @@ public class BigDemon extends Enemy
     }
 
 
-    private boolean direction = true;
+    private boolean direction = false;
     @Override
     public void update(float dt) {
         super.update(dt);
 
-        //to czemuś nie działa XD
-        //if(action == EnemyAction.OTHER) {
-        //    Vector2 pos = (direction) ? new Vector2(100, 50) : new Vector2(250, 250);
-        //    goTo(pos, 10);
-        //}
+        if(action == EnemyAction.OTHER) {
+            Vector2 pos = (direction) ? new Vector2(30, 30) : new Vector2(100, 250);
+            direction = !direction;
+            goTo(pos, 10);
+        }
     }
 }
