@@ -76,7 +76,7 @@ public class SquareMenu extends Menu {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         build.draw(batch);
-        inventory.setItems(playersInventory);
+        inventory.addItemsToButtons(playersInventory);
         inventory.draw(batch);
     }
 

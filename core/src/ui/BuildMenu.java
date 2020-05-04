@@ -18,6 +18,18 @@ public class BuildMenu extends Menu {
     public BuildMenu(float x, int y, int scale, Texture mainBack) {
         super(x, y, 2, mainBack);
         addButtons(3, 11, 2, pinkButton, selector, 2);
+
+        for (Button b : buttons) {
+            b.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(Button b) {
+                    if (b.stack != null && !b.stack.isEmpty()) {
+                        System.out.println(b.stack.get(0).getClass().getSimpleName());
+                    }
+                }
+            });
+        }
+
         setInactive();
 
         items = new ArrayList<>();
@@ -27,23 +39,25 @@ public class BuildMenu extends Menu {
     public void draw(SpriteBatch batch) {
         if (isActive()) {
             super.draw(batch);
-
-            int i = 0;
-
-            for (Button b : buttons) {
-                if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
-                    items.get(i).get(0).draw(batch, b, items.get(i).size());
-                    i++;
-                } else {
-                    while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
-                        i++;
-                    }
-                }
-            }
         }
     }
 
-    public void setItems(ArrayList<ArrayList<Item>> items) {
-        this.items = items;
+    public void addItemsToButtons(ArrayList<ArrayList<Item>> items) {
+        int i = 0;
+
+        for (Button b : buttons) {
+
+            while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
+                i++;
+            }
+
+            if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
+                b.setStack(items.get(i));
+
+                i++;
+            } else {
+                b.setStack(null);
+            }
+        }
     }
 }
