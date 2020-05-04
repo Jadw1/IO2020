@@ -1,0 +1,12 @@
+package com.io2020.entities.Items;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
+public class Flint extends Item {
+    public Flint() {
+        super();
+        type = itemType.FLINT;
+        texture = new Texture(Gdx.files.internal("WorldAnimation/flint32.png"));
+    }
+}

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
@@ -16,6 +17,8 @@ import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
+import ui.Menu;
+import ui.SquareMenu;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,9 @@ public class GameScreen extends BaseScreen {
     private final Map map;
     private final TextureAtlas characterAtlas;
     private final TextureAtlas mapAtlas;
+
+    private final Matrix4 screenMatrix;
+    private final SquareMenu squareMenu;
 
     private final Box2DWorld box2d;
     private final EnemyManager enemyManager;
@@ -42,8 +48,12 @@ public class GameScreen extends BaseScreen {
         characterAtlas = new TextureAtlas("animation/characterAnimation.pack");
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(50, 50, 0), control,  characterAtlas, box2d);
-
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
+
+
+        screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
+                control.screenWidth, control.screenHeight));
+        squareMenu = new SquareMenu(control);
 
         createExampleMap();
 
@@ -65,6 +75,16 @@ public class GameScreen extends BaseScreen {
         player.update(dt);
         enemyManager.update(dt);
         map.update(dt);
+        control.update();
+
+        squareMenu.setPlayersInventory(player.inventory);
+        // Menu Logic
+        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
+//        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
+        control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
+        squareMenu.checkHover(control.mousePos);
+
+        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -84,6 +104,10 @@ public class GameScreen extends BaseScreen {
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
         }
+
+        spriteBatch.setProjectionMatrix(screenMatrix);
+        squareMenu.draw(spriteBatch);
+
         spriteBatch.end();
 
         debugDraw();
