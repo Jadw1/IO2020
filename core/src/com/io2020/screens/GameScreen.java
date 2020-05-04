@@ -110,7 +110,7 @@ public class GameScreen extends BaseScreen {
 
         spriteBatch.end();
 
-        debugDraw();
+        //debugDraw();
     }
 
     private void debugDraw() {
