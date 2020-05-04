@@ -33,7 +33,7 @@ public class Rock extends MapEntity {
         Random r = new Random();
         int flintsNumber = r.nextInt(1)+1; // 1-2
         int stoneNumber = 3;
-        int goldNumber = (r.nextInt(9) == 9) ? 1 : 0; // 10% chance of getting a gold nugget
+        int goldNumber = (r.nextInt(10) == 0) ? 1 : 0; // 10% chance of getting a gold nugget
 
         ArrayList<Item> stones = new ArrayList<>();
         for(int i = 0 ; i < stoneNumber; i++) {
