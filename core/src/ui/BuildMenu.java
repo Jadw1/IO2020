@@ -32,7 +32,7 @@ public class BuildMenu extends Menu {
 
             for (Button b : buttons) {
                 if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
-                    items.get(i).get(0).draw(batch, b);
+                    items.get(i).get(0).draw(batch, b, items.get(i).size());
                     i++;
                 } else {
                     while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
