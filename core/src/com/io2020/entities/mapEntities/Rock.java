@@ -7,10 +7,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
-import com.io2020.entities.Items.Flint;
-import com.io2020.entities.Items.Gold;
-import com.io2020.entities.Items.Item;
-import com.io2020.entities.Items.Stone;
+import com.io2020.entities.Items.*;
+import com.io2020.entities.Player;
 import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
@@ -21,7 +19,6 @@ public class Rock extends MapEntity {
 
     public Rock(TextureAtlas atlas, Vector3 position, Box2DWorld box2d) {
         super(EntityType.RESOURCE, position, 16.0f, 16.0f);
-
         hitPoints = 5;
 
         texture = atlas.findRegion("rock");
@@ -30,30 +27,33 @@ public class Rock extends MapEntity {
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }
 
-    protected void addItemsToInventory(LinkedHashMap<String, ArrayList<Item>> inventory) {
+
+    @Override
+    protected void giveItemsToPlayer(Player player) {
         Random r = new Random();
         int flintsNumber = r.nextInt(1)+1; // 1-2
         int stoneNumber = 3;
         int goldNumber = (r.nextInt(9) == 9) ? 1 : 0; // 10% chance of getting a gold nugget
 
-        for(int i = 0 ; i < flintsNumber; i++) {
-            if(!inventory.containsKey("Flint")) {
-                inventory.put("Flint", new ArrayList<Item>());
-            }
-            inventory.get("Flint").add(new Flint());
-        }
+        ArrayList<Item> stones = new ArrayList<>();
         for(int i = 0 ; i < stoneNumber; i++) {
-            if(!inventory.containsKey("Stone")) {
-                inventory.put("Stone", new ArrayList<Item>());
-            }
-            inventory.get("Stone").add(new Stone());
+            stones.add(new Stone());
         }
-        for(int i = 0; i < goldNumber; i++) {
-            if(!inventory.containsKey("Gold")) {
-                inventory.put("Gold", new ArrayList<Item>());
-            }
-            inventory.get("Gold").add(new Gold());
+        player.addItemsToInventory(stones);
+
+        ArrayList<Item> golds = new ArrayList<>();
+        for(int i = 0 ; i < goldNumber; i++) {
+            golds.add(new Gold());
         }
+        if(goldNumber > 0) {
+            player.addItemsToInventory(golds);
+        }
+
+        ArrayList<Item> flints = new ArrayList<>();
+        for(int i = 0 ; i < flintsNumber; i++) {
+            flints.add(new Flint());
+        }
+        player.addItemsToInventory(flints);
 
     }
 }

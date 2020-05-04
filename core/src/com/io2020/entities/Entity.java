@@ -36,7 +36,7 @@ public abstract class Entity implements Comparable<Entity> {
 
     public abstract void draw(SpriteBatch batch);
 
-    public void interact(LinkedHashMap<String, ArrayList<Item>> inventory){
+    public void interact(Player player){
 
     }
 

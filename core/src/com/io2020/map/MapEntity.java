@@ -6,9 +6,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.Player;
-import com.io2020.entities.Items.Item;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public abstract class MapEntity extends Entity {
     protected TextureRegion texture;
@@ -17,10 +14,10 @@ public abstract class MapEntity extends Entity {
         super(entityType, position, width, height);
     }
 
-    public void interact(LinkedHashMap<String, ArrayList<Item>> inventory) {
+    public void interact(Player player) {
         hitPoints--;
         if (hitPoints == 0) {
-            this.addItemsToInventory(inventory);
+            this.giveItemsToPlayer(player);
             remove = true;
         }
     }
@@ -33,8 +30,7 @@ public abstract class MapEntity extends Entity {
     @Override
     public void update(float dt) {}
 
-    protected void addItemsToInventory(LinkedHashMap<String, ArrayList<Item>> inventory) {
-        System.out.println("empty add items");
+    protected void giveItemsToPlayer(Player player) {
         // do nothing
         // functions is not overrode <=> entity doesn't drop anything
     }

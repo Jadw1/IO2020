@@ -4,6 +4,8 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Control extends InputAdapter implements InputProcessor {
 
@@ -11,17 +13,34 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean blockControl;
     public boolean allowBlock;
 
+    // DIRECTIONS
     public boolean up;
     public boolean down;
     public boolean left;
     public boolean right;
 
+    // CAMERA
     public boolean zoomIn;
     public boolean zoomOut;
 
+    //ACTIONS
     public boolean interact;
 
-    public Control(OrthographicCamera camera) {
+    // MOUSE
+    public boolean  leftMouseBtn;
+    public boolean  rightMouseBtn;
+    public boolean  processedClick = true;
+    public Vector2  mouseClickPos = new Vector2();
+    public Vector2  mousePos = new Vector2();
+    public Vector2  mapClickPos = new Vector2();
+
+    // SCREEN
+    public int screenWidth;
+    public int screenHeight;
+
+    public Control(int screenWidth, int screenHeight, OrthographicCamera camera) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         this.camera = camera;
         allowBlock = true;
     }
@@ -33,6 +52,17 @@ public class Control extends InputAdapter implements InputProcessor {
         up = down = left = right = zoomIn = zoomOut = false;
     }
 
+    private void setMouseClickedPos(int screenX, int screenY){
+        // Set mouse position (flip screen Y)
+        mouseClickPos.set(screenX, screenHeight - screenY);
+        mapClickPos.set(get_map_coords(mouseClickPos));
+    }
+
+    public Vector2 get_map_coords(Vector2 mouseCoords){
+        Vector3 v3 = new Vector3(mouseCoords.x, screenHeight - mouseCoords.y, 0);
+        this.camera.unproject(v3);
+        return new Vector2(v3.x,v3.y);
+    }
 
     @Override
     public boolean keyDown(int keyCode) {
@@ -116,6 +146,43 @@ public class Control extends InputAdapter implements InputProcessor {
         }
 
         if (keyCode == Keys.E) interact = false;
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if(pointer == 0 && button == 0){
+            leftMouseBtn = true;
+        } else if (pointer == 0 && button == 0){
+            rightMouseBtn = true;
+        }
+
+        setMouseClickedPos(screenX, screenY);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(pointer == 0 && button == 0){
+            leftMouseBtn = false;
+            processedClick = false;
+        } else if (pointer == 0 && button == 0){
+            rightMouseBtn = false;
+        }
+
+        setMouseClickedPos(screenX, screenY);
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        setMouseClickedPos(screenX, screenY);
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        mousePos.set(screenX, screenHeight - screenY);
         return false;
     }
 }

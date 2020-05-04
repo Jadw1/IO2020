@@ -9,10 +9,10 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.Items.Item;
 import com.io2020.entities.Items.Wood;
+import com.io2020.entities.Player;
 import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class LightGreenTree extends MapEntity {
@@ -29,18 +29,17 @@ public class LightGreenTree extends MapEntity {
     }
 
     @Override
-    protected void addItemsToInventory(LinkedHashMap<String, ArrayList<Item>> inventory) {
-        super.addItemsToInventory(inventory);
+    protected void giveItemsToPlayer(Player player) {
+        super.giveItemsToPlayer(player);
+
         Random r = new Random();
         int woodNumber = r.nextInt(1)+2; // 2-3
-        System.out.println("Will add " + woodNumber + "to the inventory");
+        ArrayList<Item> woods = new ArrayList<>();
 
         for(int i = 0 ; i < woodNumber; i++) {
-            if(!inventory.containsKey("Wood")) {
-                inventory.put("Wood", new ArrayList<Item>());
-            }
-            inventory.get("Wood").add(new Wood());
-            System.out.println("Added wood to the inventory");
+            woods.add(new Wood());
         }
+        player.addItemsToInventory(woods);
     }
 }
+
