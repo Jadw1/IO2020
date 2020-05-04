@@ -1,5 +1,6 @@
 package com.io2020.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
@@ -184,5 +185,10 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean mouseMoved(int screenX, int screenY) {
         mousePos.set(screenX, screenHeight - screenY);
         return false;
+    }
+
+    public void update() {
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
     }
 }

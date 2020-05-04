@@ -72,16 +72,14 @@ public class GameScreen extends BaseScreen {
     private void update(float dt) {
         player.update(dt);
         map.update(dt);
+        control.update();
 
-//        squareMenu.update(control);
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
         control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
         squareMenu.checkHover(control.mousePos);
 
-        control.screenHeight = Gdx.graphics.getHeight();
-        control.screenWidth = Gdx.graphics.getWidth();
-
+        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -102,17 +100,11 @@ public class GameScreen extends BaseScreen {
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
         }
-//        spriteBatch.end();
-
-        // GUI begin
-//        spriteBatch.begin();
 
         spriteBatch.setProjectionMatrix(screenMatrix);
         squareMenu.draw(spriteBatch);
 
         spriteBatch.end();
-        // GUI end
-
 
 //        debugDraw();
     }

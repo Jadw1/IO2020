@@ -7,6 +7,7 @@ import com.io2020.game.Control;
 
 public class SquareMenu extends Menu {
     public BuildMenu build;
+    public BuildMenu inventory;
 
     public SquareMenu(final Control control){
         super(0, 0, 2, new Texture("GUI/square_menu.png"));
@@ -16,11 +17,12 @@ public class SquareMenu extends Menu {
                 new Texture("GUI/selector.png"), scale);
 
         Button btn = buttons.get(0);
+        btn.icon = new Texture("GUI/icons/inventory.png");
         btn.setOnClickListener(
                 new OnClickListener(){
                     @Override
                     public void onClick(Button b) {
-
+                        inventory.toggleActive();
                     }
                 });
 
@@ -56,6 +58,10 @@ public class SquareMenu extends Menu {
 
         // BUILDING
         build = new BuildMenu(pos.x + width, 0, 2,
+                new Texture("GUI/main_background.png"));
+
+        // INVENTORY
+        inventory = new BuildMenu(pos.x + width, 0, 2,
                 new Texture("GUI/main_background.png"));
     }
 
