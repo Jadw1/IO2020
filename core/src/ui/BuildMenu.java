@@ -20,20 +20,6 @@ public class BuildMenu extends Menu {
         addButtons(3, 11, 2, pinkButton, selector, 2);
         setInactive();
 
-//        // Add a close button
-//        Button close = new Button(new Vector3(), close_menu.getWidth() * scale,
-//                close_menu.getHeight() * scale, close_menu, null);
-//        close.getPosition().x = x + width - (close_menu.getWidth() * scale) - (6 * scale);
-//        close.getPosition().y = height - (close_menu.getHeight() * scale) - (6 * scale);
-//        close.updateHitbox();
-//        close.setOnClickListener(
-//                new OnClickListener() {
-//                    @Override
-//                    public void onClick(Button b) {
-//                        toggleActive();
-//                    }
-//                });
-//        buttons.add(close);
         items = new ArrayList<>();
     }
 
@@ -41,6 +27,19 @@ public class BuildMenu extends Menu {
     public void draw(SpriteBatch batch) {
         if (isActive()) {
             super.draw(batch);
+
+            int i = 0;
+
+            for (Button b : buttons) {
+                if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
+                    items.get(i).get(0).draw(batch, b);
+                    i++;
+                } else {
+                    while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
+                        i++;
+                    }
+                }
+            }
         }
     }
 

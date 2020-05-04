@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.EntityType;
+import com.io2020.entities.Items.Item;
 
 import java.util.ArrayList;
 
