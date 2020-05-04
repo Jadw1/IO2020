@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
@@ -15,6 +16,8 @@ import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
+import ui.Menu;
+import ui.SquareMenu;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,9 @@ public class GameScreen extends BaseScreen {
     private final TextureAtlas characterAtlas;
     private final TextureAtlas mapAtlas;
     private final BigDemon bigDemon;
+
+    private Matrix4 screenMatrix;
+    private final SquareMenu squareMenu;
 
     private final Box2DWorld box2d;
 
@@ -42,6 +48,10 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(50, 50, 0), control,  characterAtlas, box2d);
         bigDemon = new BigDemon(new Vector3(100, 50, 0), characterAtlas);
+
+        screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
+                control.screenWidth, control.screenHeight));
+        squareMenu = new SquareMenu(control);
 
         createExampleMap();
 
@@ -63,6 +73,16 @@ public class GameScreen extends BaseScreen {
         player.update(dt);
         map.update(dt);
 
+//        squareMenu.update(control);
+        // Menu Logic
+        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
+        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
+        squareMenu.checkHover(control.mousePos);
+
+        control.screenHeight = Gdx.graphics.getHeight();
+        control.screenWidth = Gdx.graphics.getWidth();
+
+
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
     }
@@ -76,12 +96,23 @@ public class GameScreen extends BaseScreen {
         Collections.sort(entities);
 
         spriteBatch.begin();
+
         map.draw(spriteBatch);
 
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
         }
+//        spriteBatch.end();
+
+        // GUI begin
+//        spriteBatch.begin();
+
+        spriteBatch.setProjectionMatrix(screenMatrix);
+        squareMenu.draw(spriteBatch);
+
         spriteBatch.end();
+        // GUI end
+
 
 //        debugDraw();
     }
