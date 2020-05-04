@@ -42,6 +42,11 @@ public class Player extends Character {
         interactEntities = new ArrayList<>();
         box2d.setPlayer(this);
 
+        inventory = new ArrayList<>();
+        inventorySize = 10;
+        weapon = new WoodenSword();
+        tool = new Axe();
+
         this.controller = controller;
     }
 
