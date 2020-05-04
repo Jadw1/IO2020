@@ -12,6 +12,7 @@ import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
 import com.io2020.entities.mobs.*;
+import com.io2020.game.EnemyManager;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
@@ -28,12 +29,12 @@ public class GameScreen extends BaseScreen {
     private final Map map;
     private final TextureAtlas characterAtlas;
     private final TextureAtlas mapAtlas;
-    private final BigDemon bigDemon;
 
     private final Matrix4 screenMatrix;
     private final SquareMenu squareMenu;
 
     private final Box2DWorld box2d;
+    private final EnemyManager enemyManager;
 
     private final int mapSize = 12;
     private final float tileSize = 32.0f;
@@ -46,8 +47,9 @@ public class GameScreen extends BaseScreen {
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         characterAtlas = new TextureAtlas("animation/characterAnimation.pack");
         mapAtlas = new TextureAtlas("mapAssets.pack");
-        player = new Player(new Vector3(50, 50, 0), control, characterAtlas, box2d);
-        bigDemon = new BigDemon(new Vector3(100, 50, 0), characterAtlas);
+        player = new Player(new Vector3(50, 50, 0), control,  characterAtlas, box2d);
+        enemyManager = new EnemyManager(box2d, characterAtlas, player);
+
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
                 control.screenWidth, control.screenHeight));
@@ -71,6 +73,7 @@ public class GameScreen extends BaseScreen {
 
     private void update(float dt) {
         player.update(dt);
+        enemyManager.update(dt);
         map.update(dt);
         control.update();
 
@@ -92,7 +95,7 @@ public class GameScreen extends BaseScreen {
         ArrayList<Entity> entities = new ArrayList<>();
         map.collectEntities(entities);
         entities.add(player);
-        entities.add(bigDemon);
+        entities.addAll(enemyManager.getEntities());
         Collections.sort(entities);
 
         spriteBatch.begin();
@@ -107,7 +110,7 @@ public class GameScreen extends BaseScreen {
 
         spriteBatch.end();
 
-//        debugDraw();
+        debugDraw();
     }
 
     private void debugDraw() {
@@ -116,7 +119,8 @@ public class GameScreen extends BaseScreen {
         debug.setColor(Color.RED);
 
         debug.begin(ShapeRenderer.ShapeType.Filled);
-        debug.circle(player.getX(), player.getY(), 3.0f);
+        Vector3 pos = player.getPosition();
+        debug.circle(pos.x, pos.y, 3.0f);
         debug.end();
     }
 
@@ -144,19 +148,23 @@ public class GameScreen extends BaseScreen {
         map.setGround(0, mapSize - 1, 1, new Shore(mapAtlas, "ocean_right_down", box2d, 0, mapSize * tileSize));
         map.setGround(mapSize - 1, mapSize - 1, 1, new Shore(mapAtlas, "ocean_left_down", box2d, mapSize * tileSize, mapSize * tileSize));
 
-        for (int i = 0; i < 12; i++) {
+        enemyManager.spawnEnemy(EnemyType.BigDemon, new Vector3(100, 50, 0));
+        enemyManager.spawnEnemy(EnemyType.Necromancer, new Vector3(250, 300, 0)).follow(player, 50.0f);
+        enemyManager.spawnEnemy(EnemyType.BigZombie, new Vector3(50, 250, 0)).follow(player, 20);
+
+        for (int i = 0; i < 5; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             map.placeObject(new Rock(mapAtlas, new Vector3(x, y, 0.0f), box2d));
         }
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 2; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new LightGreenTree(mapAtlas, new Vector3(x, y, 0.0f), box2d));
         }
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new Sapling(mapAtlas, new Vector3(x, y, 0.0f), box2d));
