@@ -94,7 +94,6 @@ public class GameScreen extends BaseScreen {
         Collections.sort(entities);
 
         spriteBatch.begin();
-
         map.draw(spriteBatch);
 
         for (Entity entity : entities) {
