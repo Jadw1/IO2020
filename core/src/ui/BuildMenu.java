@@ -6,14 +6,13 @@ import com.badlogic.gdx.math.Vector3;
 
 public class BuildMenu extends Menu {
 
-    static final Texture menuBackground = new Texture("GUI/main_background11.png");
     static final Texture pinkButton = new Texture("GUI/pink_button.png");
     static final Texture selector = new Texture("GUI/selector.png");
     static final Texture close_menu = new Texture("GUI/icons/close_menu.png");
 
 
     public BuildMenu(float x, int y, int scale, Texture mainBack) {
-        super(x, y, 2, menuBackground);
+        super(x, y, 2, mainBack);
         addButtons(3, 11, 2, pinkButton, selector, 2);
         setInactive();
 

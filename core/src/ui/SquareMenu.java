@@ -48,7 +48,7 @@ public class SquareMenu extends Menu {
 
         btn = buttons.get(3);
         btn.icon = new Texture("GUI/icons/build.png");
-        buttons.get(3).setOnClickListener(
+        btn.setOnClickListener(
                 new OnClickListener(){
                     @Override
                     public void onClick(Button b) {
@@ -56,13 +56,13 @@ public class SquareMenu extends Menu {
                     }
                 });
 
+        final Texture menuBackground = new Texture("GUI/main_background11.png");
+
         // BUILDING
-        build = new BuildMenu(pos.x + width, 0, 2,
-                new Texture("GUI/main_background.png"));
+        build = new BuildMenu(pos.x + width, 0, 2, menuBackground);
 
         // INVENTORY
-        inventory = new BuildMenu(pos.x + width, 0, 2,
-                new Texture("GUI/main_background.png"));
+        inventory = new BuildMenu(pos.x + width, 0, 2, menuBackground);
     }
 
     // Draw the extended menu and also the build menu.
@@ -70,6 +70,7 @@ public class SquareMenu extends Menu {
     public void draw(SpriteBatch batch){
         super.draw(batch);
         build.draw(batch);
+        inventory.draw(batch);
     }
 
     // Check if the menu / build menu buttons are being hovered over.
@@ -77,6 +78,7 @@ public class SquareMenu extends Menu {
     public void checkHover(Vector2 pos) {
         super.checkHover(pos);
         build.checkHover(pos);
+        inventory.checkHover(pos);
     }
 
 }
