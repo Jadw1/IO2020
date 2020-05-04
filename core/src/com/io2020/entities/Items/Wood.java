@@ -7,6 +7,6 @@ public class Wood extends Item {
     public Wood() {
         super();
         type = itemType.WOOD;
-        texture = new Texture(Gdx.files.internal("WorldAnimation/wood_pile.png"));
+        texture = new Texture(Gdx.files.internal("WorldAnimation/wood32.png"));
     }
 }

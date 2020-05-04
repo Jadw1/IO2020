@@ -3,10 +3,12 @@ package com.io2020.entities.Items;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public class PickedSapling extends Item {
-        public PickedSapling() {
+public class Stick extends Item {
+        public Stick() {
             super();
-            type = itemType.SAPLING;
+            type = itemType.STICK;
             texture = new Texture(Gdx.files.internal("WorldAnimation/sapling.png"));
         }
+
+
 }

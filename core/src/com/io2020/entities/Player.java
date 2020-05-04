@@ -25,8 +25,8 @@ public class Player extends Character {
     ArrayList<Entity> interactEntities;
     public ArrayList<ArrayList<Item>> inventory;
     private int inventorySize;
-    public Item weapon;
-    public Item tool;
+   /* public Item weapon;
+    public Item tool;*/
 
     public Player(Vector3 position, Control controller, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
@@ -43,9 +43,13 @@ public class Player extends Character {
         box2d.setPlayer(this);
 
         inventory = new ArrayList<>();
-        inventorySize = 10;
-        weapon = new WoodenSword();
-        tool = new Axe();
+        inventorySize = 22;
+        ArrayList<Item> weaponStack = new ArrayList<>();
+        ArrayList<Item> toolsStack = new ArrayList<>();
+        weaponStack.add(new WoodenSword());
+        toolsStack.add(new Axe());
+        inventory.add(weaponStack);
+        inventory.add(toolsStack);
 
         this.controller = controller;
     }

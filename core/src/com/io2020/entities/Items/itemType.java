@@ -7,6 +7,6 @@ public enum itemType {
     WOOD,
     PICKAXE,
     SWORD,
-    SAPLING,
+    STICK,
     FLOWER
 }
