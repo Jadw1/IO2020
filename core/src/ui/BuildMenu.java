@@ -27,23 +27,32 @@ public class BuildMenu extends Menu {
     public void draw(SpriteBatch batch) {
         if (isActive()) {
             super.draw(batch);
-
-            int i = 0;
-
-            for (Button b : buttons) {
-                if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
-                    items.get(i).get(0).draw(batch, b);
-                    i++;
-                } else {
-                    while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
-                        i++;
-                    }
-                }
-            }
         }
     }
 
-    public void setItems(ArrayList<ArrayList<Item>> items) {
-        this.items = items;
+    public void addItemsToButtons(ArrayList<ArrayList<Item>> items) {
+        int i = 0;
+
+        for (Button b : buttons) {
+
+            while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
+                i++;
+            }
+
+            if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
+                b.setStack(items.get(i));
+                b.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(Button b) {
+                        System.out.println("lol");
+                        b.useItem();
+                    }
+                });
+                i++;
+            } else {
+                b.setStack(null);
+                b.setOnClickListener(null);
+            }
+        }
     }
 }
