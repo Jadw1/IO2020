@@ -78,6 +78,7 @@ public class GameScreen extends BaseScreen {
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
         control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
         squareMenu.checkHover(control.mousePos);
+        squareMenu.setPlayersInventory(player.inventory);
 
         screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
 

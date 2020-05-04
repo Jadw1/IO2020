@@ -98,7 +98,10 @@ public class Player extends Character {
         Timer.schedule(new Timer.Task() {
             public void run() {
                 controller.blockControl = false;
-                interactEntities.get(0).interact(p);
+
+                if (!interactEntities.isEmpty()) {
+                    interactEntities.get(0).interact(p);
+                }
 
                 Timer.schedule(new Timer.Task() {
                     public void run() {
