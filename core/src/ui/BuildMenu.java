@@ -18,6 +18,18 @@ public class BuildMenu extends Menu {
     public BuildMenu(float x, int y, int scale, Texture mainBack) {
         super(x, y, 2, mainBack);
         addButtons(3, 11, 2, pinkButton, selector, 2);
+
+        for (Button b : buttons) {
+            b.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(Button b) {
+                    if (b.stack != null && !b.stack.isEmpty()) {
+                        System.out.println(b.stack.get(0).getClass().getSimpleName());
+                    }
+                }
+            });
+        }
+
         setInactive();
 
         items = new ArrayList<>();
@@ -41,17 +53,10 @@ public class BuildMenu extends Menu {
 
             if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
                 b.setStack(items.get(i));
-                b.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(Button b) {
-                        System.out.println("lol");
-                        b.useItem();
-                    }
-                });
+
                 i++;
             } else {
                 b.setStack(null);
-                b.setOnClickListener(null);
             }
         }
     }

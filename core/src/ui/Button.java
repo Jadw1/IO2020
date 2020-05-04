@@ -58,10 +58,4 @@ public class Button extends GUIEntity {
     public void setStack(ArrayList<Item> stack) {
         this.stack = stack;
     }
-
-    public void useItem() {
-        if (stack != null && !stack.isEmpty()) {
-            System.out.println("Using: " + stack.get(0).getClass().toString());
-        }
-    }
 }
