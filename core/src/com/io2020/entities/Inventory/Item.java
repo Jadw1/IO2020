@@ -1,10 +1,9 @@
-package com.io2020.entities.Items;
+package com.io2020.entities.Inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import ui.Button;
 
 public class Item {
     public Texture texture;
