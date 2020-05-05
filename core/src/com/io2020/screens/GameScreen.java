@@ -77,14 +77,8 @@ public class GameScreen extends BaseScreen {
         map.update(dt);
         control.update();
 
-        squareMenu.setPlayersInventory(player.inventory);
-        // Menu Logic
-        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-//        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
-        control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
-        squareMenu.checkHover(control.mousePos);
+        processMenu();
 
-        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -122,6 +116,22 @@ public class GameScreen extends BaseScreen {
         Vector3 pos = player.getPosition();
         debug.circle(pos.x, pos.y, 3.0f);
         debug.end();
+    }
+
+    public void processMenu() {
+        squareMenu.setPlayersInventory(player.inventory);
+
+        // Menu Logic
+        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
+        if (squareMenu.build.isActive()) {
+            control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
+        }
+        if (squareMenu.inventory.isActive()) {
+            control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
+        }
+        squareMenu.checkHover(control.mousePos);
+
+        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
     }
 
     public void createExampleMap() {

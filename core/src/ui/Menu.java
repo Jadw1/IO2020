@@ -140,5 +140,11 @@ public class Menu {
             setActive();
         }
     }
+
+    public void disactive() {
+        if (isActive()) {
+            setInactive();
+        }
+    }
 }
 

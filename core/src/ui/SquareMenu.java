@@ -26,6 +26,7 @@ public class SquareMenu extends Menu {
                 new OnClickListener() {
                     @Override
                     public void onClick(Button b) {
+                        build.disactive();
                         inventory.toggleActive();
                     }
                 });
@@ -56,6 +57,7 @@ public class SquareMenu extends Menu {
                 new OnClickListener() {
                     @Override
                     public void onClick(Button b) {
+                        inventory.disactive();
                         build.toggleActive();
                     }
                 });
