@@ -39,7 +39,9 @@ public class Rock extends MapEntity {
         for(int i = 0 ; i < stoneNumber; i++) {
             stones.add(new Stone());
         }
-        player.addItemsToInventory(stones);
+        if(stoneNumber > 0 ) {
+            player.addItemsToInventory(stones);
+        }
 
         ArrayList<Item> golds = new ArrayList<>();
         for(int i = 0 ; i < goldNumber; i++) {
@@ -53,7 +55,8 @@ public class Rock extends MapEntity {
         for(int i = 0 ; i < flintsNumber; i++) {
             flints.add(new Flint());
         }
-        player.addItemsToInventory(flints);
-
+        if(flintsNumber > 0) {
+            player.addItemsToInventory(flints);
+        }
     }
 }
