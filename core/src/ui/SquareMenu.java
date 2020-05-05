@@ -3,7 +3,8 @@ package ui;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.io2020.entities.Items.Item;
+import com.io2020.entities.Inventory.Inventory;
+import com.io2020.entities.Inventory.Item;
 import com.io2020.game.Control;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class SquareMenu extends Menu {
     public BuildMenu build;
     public BuildMenu inventory;
-    private ArrayList<ArrayList<Item>> playersInventory;
+    private Inventory playersInventory;
 
     public SquareMenu(final Control control) {
         super(0, 0, 2, new Texture("GUI/square_menu.png"));
@@ -69,8 +70,6 @@ public class SquareMenu extends Menu {
 
         // INVENTORY
         inventory = new BuildMenu(pos.x + width, 0, 2, menuBackground);
-
-        playersInventory = new ArrayList<>();
     }
 
     // Draw the extended menu and also the build menu.
@@ -90,7 +89,7 @@ public class SquareMenu extends Menu {
         inventory.checkHover(pos);
     }
 
-    public void setPlayersInventory(ArrayList<ArrayList<Item>> playersInventory) {
+    public void setPlayersInventory(Inventory playersInventory) {
         this.playersInventory = playersInventory;
     }
 

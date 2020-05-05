@@ -2,8 +2,8 @@ package ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.io2020.entities.Items.Item;
+import com.io2020.entities.Inventory.Inventory;
+import com.io2020.entities.Inventory.Item;
 
 import java.util.ArrayList;
 
@@ -42,11 +42,11 @@ public class BuildMenu extends Menu {
         }
     }
 
-    public void addItemsToButtons(ArrayList<ArrayList<Item>> items) {
+    public void addItemsToButtons(Inventory playersInventory) {
+        ArrayList<ArrayList<Item>> items = playersInventory.items;
         int i = 0;
 
         for (Button b : buttons) {
-
             while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
                 i++;
             }

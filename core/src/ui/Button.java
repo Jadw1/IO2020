@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
-import com.io2020.entities.Items.Item;
+import com.io2020.entities.Inventory.Item;
 
 import java.util.ArrayList;
 

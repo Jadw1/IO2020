@@ -10,10 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Timer;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
-import com.io2020.entities.Items.Item;
-import com.io2020.entities.Items.Axe;
-import com.io2020.entities.Items.WoodenSword;
-import com.io2020.entities.Items.itemType;
+import com.io2020.entities.Inventory.*;
 import com.io2020.game.Control;
 
 import java.util.ArrayList;
@@ -23,10 +20,7 @@ public class Player extends Character {
     private Control controller;
     private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
-    public ArrayList<ArrayList<Item>> inventory;
-    private int inventorySize;
-   /* public Item weapon;
-    public Item tool;*/
+    public Inventory inventory;
 
     public Player(Vector3 position, Control controller, TextureAtlas atlas, Box2DWorld box2d) {
         super(EntityType.PLAYER, position, 32.0f, 32.0f, atlas, "knight_m");
@@ -42,14 +36,10 @@ public class Player extends Character {
         interactEntities = new ArrayList<>();
         box2d.setPlayer(this);
 
-        inventory = new ArrayList<>();
-        inventorySize = 22;
-        ArrayList<Item> weaponStack = new ArrayList<>();
-        ArrayList<Item> toolsStack = new ArrayList<>();
-        weaponStack.add(new WoodenSword());
-        toolsStack.add(new Axe());
-        inventory.add(weaponStack);
-        inventory.add(toolsStack);
+        int inventorySize = 22;
+        inventory = new Inventory(inventorySize);
+        inventory.addItem(new WoodenSword());
+        inventory.addItem(new Axe());
 
         this.controller = controller;
     }
@@ -144,20 +134,7 @@ public class Player extends Character {
     // tutaj tez beda metody do sprawdzania czy cos jest w ekwipunku (czy da sie zbudowac)
     // i zabierania przedmiotow jak sie cos uda zbudowac
     public void addItemsToInventory(ArrayList<Item> items) {
-        itemType type = items.get(0).type;
-        boolean alreadyIn = false;
-        int i;
-        for(i = 0; i < inventory.size(); i++) {
-            if(inventory.get(i).get(0).type == type) {
-                alreadyIn = true;
-                break;
-            }
-        }
-        if(alreadyIn){
-            inventory.get(i).addAll(items);
-        } else
-        if(inventory.size() < inventorySize) {
-            inventory.add(items);
-        }
+        inventory.addItems(items);
+        assert (inventory.containsX(items.size(), items.get(0).type));
     }
 }
