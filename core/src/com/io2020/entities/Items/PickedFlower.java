@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class PickedFlower extends Item {
     public PickedFlower() {
-        super();
+        super(false, false);
         type = itemType.FLOWER;
         texture = new Texture(Gdx.files.internal("WorldAnimation/flower2.png"));
     }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Gold extends Item {
     public Gold() {
-        super();
+        super(false, false);
         type = itemType.GOLD;
         texture = new Texture(Gdx.files.internal("WorldAnimation/gold32.png"));
     }

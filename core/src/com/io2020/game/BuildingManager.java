@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.io2020.entities.Items.Item;
+import ui.BuildMenu;
 
 public class BuildingManager
 {
@@ -22,4 +24,9 @@ public class BuildingManager
         return new Vector2((int) (playerPosition.x + cursorRelativeToCameraMiddle.x) / 32,
                 (int) (playerPosition.y + cursorRelativeToCameraMiddle.y) / 32);
     }
+
+    public static void craft(BuildMenu inventory, Item item) {
+        // robi item i wrzuca go do inventory
+    }
+
 }

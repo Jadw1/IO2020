@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Stone extends Item {
     public Stone() {
-        super();
+        super(false, false);
         type = itemType.STONE;
         texture = new Texture(Gdx.files.internal("WorldAnimation/rock.png"));
     }

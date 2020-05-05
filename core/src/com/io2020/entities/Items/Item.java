@@ -9,9 +9,13 @@ import ui.Button;
 public class Item {
     public Texture texture;
     public itemType type;
+    public boolean toBuild;
+    public boolean toCraft;
 
-    public Item() {
+    public Item(boolean toBuild, boolean toCraft) {
         this.texture = null;
+        this.toBuild = toBuild;
+        this.toCraft = toCraft;
     }
 
     public void draw(SpriteBatch batch, Vector3 pos, int number) {

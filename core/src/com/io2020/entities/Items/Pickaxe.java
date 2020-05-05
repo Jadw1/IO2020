@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Pickaxe extends Item {
     public Pickaxe() {
-        super();
+        super(false, true);
         type = itemType.PICKAXE;
         texture = new Texture(Gdx.files.internal("WorldAnimation/pickaxe32.png"));
     }

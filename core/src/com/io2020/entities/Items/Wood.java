@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Wood extends Item {
     public Wood() {
-        super();
+        super(false, false);
         type = itemType.WOOD;
         texture = new Texture(Gdx.files.internal("WorldAnimation/wood32.png"));
     }
