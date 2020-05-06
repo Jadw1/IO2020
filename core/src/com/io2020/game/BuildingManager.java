@@ -10,7 +10,7 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Inventory.Inventory;
 import com.io2020.entities.Inventory.Item;
 import com.io2020.entities.Inventory.Pair;
-import com.io2020.entities.mapEntities.Buildings.Fireplace;
+import com.io2020.entities.mapEntities.Buildings.*;
 import com.io2020.map.Map;
 import com.io2020.map.MapEntity;
 
@@ -103,20 +103,27 @@ public class BuildingManager
                 mapEntity = new Fireplace(atlas, touchedFile, box2D);
                 break;
             case WOODEN_WALL:
+                mapEntity = new WoodenWall(atlas, touchedFile, box2D);
                 break;
             case STONE_WALL:
+                mapEntity = new StonedWall(atlas, touchedFile, box2D);
                 break;
             case TOWER1:
+                mapEntity = new Tower1(atlas, touchedFile, box2D);
                 break;
             case TOWER2:
+                mapEntity = new Tower2(atlas, touchedFile, box2D);
                 break;
             case TOWER3:
+                mapEntity = new Tower3(atlas, touchedFile, box2D);
                 break;
             case TOWER4:
+                mapEntity = new Tower4(atlas, touchedFile, box2D);
                 break;
 
         }
 
+//        inventory.deleteX(1, buildingItem.type);
         map.placeObject(mapEntity);
     }
 }
