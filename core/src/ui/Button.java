@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.Inventory.Item;
+import com.io2020.game.BuildingManager;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,16 @@ public class Button extends GUIEntity {
     public Texture icon;
     public Entity selector;
     public ArrayList<Item> stack;
+    public Item item;
+    public BuildingManager buildingManager;
 
-    public Button(Vector3 position, float width, float height, Texture texture, Entity selector) {
+    public Button(Vector3 position, float width, float height, Texture texture, Entity selector,  BuildingManager buildingManager) {
         super(EntityType.GUI, position, width, height);
         this.texture = texture;
         this.selector = selector;
         hitbox = new Rectangle(position.x, position.y, width, height);
         stack = null;
+        this.buildingManager = buildingManager;
     }
 
     public void setOnClickListener(OnClickListener listener) {
@@ -58,4 +62,10 @@ public class Button extends GUIEntity {
     public void setStack(ArrayList<Item> stack) {
         this.stack = stack;
     }
+
+    public void setItem(Item item) {
+        this.item = item;
+        this.icon = item.getTexture();
+    }
+
 }

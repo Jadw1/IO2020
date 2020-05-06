@@ -50,12 +50,12 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(tileSize + 16, tileSize + 8, 0), control,  characterAtlas, box2d);
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
-        buildingManager = new BuildingManager(player.getPosition(), camera);
+        buildingManager = new BuildingManager(player.getPosition(), camera, player.inventory);
 
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
                 control.screenWidth, control.screenHeight));
-        squareMenu = new SquareMenu(control);
+        squareMenu = new SquareMenu(control, player.inventory, buildingManager);
 
         createExampleMap();
 
@@ -104,8 +104,8 @@ public class GameScreen extends BaseScreen {
         spriteBatch.setProjectionMatrix(screenMatrix);
         squareMenu.draw(spriteBatch);
         Vector2 touchedFile = buildingManager.getTouchedTile();
-        System.out.println(touchedFile.x + " " + touchedFile.y);
-        debugDraw(touchedFile.x, touchedFile.y);
+//        System.out.println(touchedFile.x + " " + touchedFile.y);
+//        debugDraw(touchedFile.x, touchedFile.y);
 
         spriteBatch.end();
 
@@ -122,7 +122,7 @@ public class GameScreen extends BaseScreen {
     }
 
     public void processMenu() {
-        squareMenu.setPlayersInventory(player.inventory);
+//        squareMenu.setPlayersInventory(player.inventory);
 
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);

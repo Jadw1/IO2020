@@ -3,6 +3,7 @@ package ui;
 import com.badlogic.gdx.graphics.Texture;
 import com.io2020.entities.Inventory.Inventory;
 import com.io2020.entities.Inventory.Item;
+import com.io2020.game.BuildingManager;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,8 @@ public class InventoryMenu extends BuildMenu {
 
     private ArrayList<ArrayList<Item>> items;
 
-    public InventoryMenu(float x, int y, int scale, Texture mainBack) {
-        super(x, y, scale, mainBack);
+    public InventoryMenu(float x, int y, int scale, Texture mainBack, BuildingManager buildingManager) {
+        super(x, y, scale, mainBack, 2, buildingManager);
 
         for (Button b : buttons) {
             b.setOnClickListener(new OnClickListener() {
