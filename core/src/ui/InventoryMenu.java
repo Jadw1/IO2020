@@ -11,7 +11,7 @@ public class InventoryMenu extends BuildMenu {
 
     private ArrayList<ArrayList<Item>> items;
 
-    public InventoryMenu(float x, int y, int scale, Texture mainBack, BuildingManager buildingManager) {
+    public InventoryMenu(float x, int y, int scale, Texture mainBack, final BuildingManager buildingManager) {
         super(x, y, scale, mainBack, 2, buildingManager);
 
         for (Button b : buttons) {
@@ -19,7 +19,10 @@ public class InventoryMenu extends BuildMenu {
                 @Override
                 public void onClick(Button b) {
                     if (b.stack != null && !b.stack.isEmpty()) {
-                        System.out.println(b.stack.get(0).getClass().getSimpleName());
+                        if (b.stack.get(0).toBuild) {
+                            buildingManager.build(b.stack.get(0));
+                        }
+//                        System.out.println(b.stack.get(0).getClass().getSimpleName());
                     }
                 }
             });

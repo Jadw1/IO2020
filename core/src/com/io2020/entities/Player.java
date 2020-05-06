@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
-    private Control controller;
+    public Control controller;
     private Animation<TextureRegion> hitAnimation;
     ArrayList<Entity> interactEntities;
     public Inventory inventory;
@@ -40,6 +40,7 @@ public class Player extends Character {
         inventory = new Inventory(inventorySize);
         inventory.addItem(new WoodenSword());
         inventory.addItem(new Axe());
+        inventory.addItem(new Fireplace());
 
         this.controller = controller;
     }

@@ -1,4 +1,4 @@
-package com.io2020.entities.mapEntities;
+package com.io2020.entities.mapEntities.Buildings;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -11,8 +11,7 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
 import com.io2020.map.MapEntity;
 
-public class Fireplace extends MapEntity
-{
+public class Fireplace extends MapEntity {
     private final Animation<TextureRegion> fireAnimation;
     protected float stateTime = 0;
 

@@ -49,9 +49,9 @@ public class Menu {
     public boolean checkClick(Vector2 pos, boolean processedClick) {
         boolean processed = false;
         if (!processedClick) {
-            if (hitbox.contains(pos)) {
-                System.out.println("Hit: " + name);
-            }
+//            if (hitbox.contains(pos)) {
+//                System.out.println("Hit: " + name);
+//            }
 
             // Check if a button has been clicked
             for (Button b : buttons) {

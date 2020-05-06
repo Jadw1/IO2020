@@ -4,10 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
 
-public class Item {
+public abstract class Item {
     public Texture texture;
     public itemType type;
     public boolean toBuild;

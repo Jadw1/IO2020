@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
+import com.io2020.entities.mapEntities.Buildings.Fireplace;
 import com.io2020.entities.mobs.*;
 import com.io2020.game.BuildingManager;
 import com.io2020.game.EnemyManager;
@@ -50,7 +50,8 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(tileSize + 16, tileSize + 8, 0), control,  characterAtlas, box2d);
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
-        buildingManager = new BuildingManager(player.getPosition(), camera, player.inventory);
+        buildingManager = new BuildingManager(player.getPosition(), camera,
+                player.inventory, player.controller, map, mapAtlas, box2d);
 
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
@@ -78,9 +79,9 @@ public class GameScreen extends BaseScreen {
         enemyManager.update(dt);
         map.update(dt);
         control.update();
+        buildingManager.update();
 
         processMenu();
-
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -96,6 +97,8 @@ public class GameScreen extends BaseScreen {
 
         spriteBatch.begin();
         map.draw(spriteBatch);
+        buildingManager.draw(spriteBatch);
+
 
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
@@ -103,9 +106,6 @@ public class GameScreen extends BaseScreen {
 
         spriteBatch.setProjectionMatrix(screenMatrix);
         squareMenu.draw(spriteBatch);
-        Vector2 touchedFile = buildingManager.getTouchedTile();
-//        System.out.println(touchedFile.x + " " + touchedFile.y);
-//        debugDraw(touchedFile.x, touchedFile.y);
 
         spriteBatch.end();
 

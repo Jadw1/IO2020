@@ -39,6 +39,9 @@ public class Control extends InputAdapter implements InputProcessor {
     public int screenWidth;
     public int screenHeight;
 
+    // BUILDING
+    public boolean building;
+
     public Control(int screenWidth, int screenHeight, OrthographicCamera camera) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -98,6 +101,9 @@ public class Control extends InputAdapter implements InputProcessor {
                     break;
                 case Keys.RIGHT_BRACKET:
                     zoomOut = true;
+                    break;
+                case Keys.ESCAPE:
+                    if (building) building = false;
                     break;
             }
         }

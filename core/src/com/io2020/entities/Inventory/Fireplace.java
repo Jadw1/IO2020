@@ -2,6 +2,7 @@ package com.io2020.entities.Inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
 
