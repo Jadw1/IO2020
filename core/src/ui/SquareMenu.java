@@ -4,14 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.io2020.entities.Inventory.Inventory;
-import com.io2020.entities.Inventory.Item;
 import com.io2020.game.Control;
 
-import java.util.ArrayList;
-
 public class SquareMenu extends Menu {
-    public BuildMenu build;
-    public BuildMenu inventory;
+    public CraftingMenu crafting;
+    public InventoryMenu inventory;
     private Inventory playersInventory;
 
     public SquareMenu(final Control control) {
@@ -27,7 +24,7 @@ public class SquareMenu extends Menu {
                 new OnClickListener() {
                     @Override
                     public void onClick(Button b) {
-                        build.disactive();
+                        crafting.disactive();
                         inventory.toggleActive();
                     }
                 });
@@ -59,24 +56,24 @@ public class SquareMenu extends Menu {
                     @Override
                     public void onClick(Button b) {
                         inventory.disactive();
-                        build.toggleActive();
+                        crafting.toggleActive();
                     }
                 });
 
         final Texture menuBackground = new Texture("GUI/main_background11.png");
 
-        // BUILDING
-        build = new BuildMenu(pos.x + width, 0, 2, menuBackground);
+        // CRAFTING
+        crafting = new CraftingMenu(pos.x + width, 0, 2, menuBackground);
 
         // INVENTORY
-        inventory = new BuildMenu(pos.x + width, 0, 2, menuBackground);
+        inventory = new InventoryMenu(pos.x + width, 0, 2, menuBackground);
     }
 
     // Draw the extended menu and also the build menu.
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        build.draw(batch);
+        crafting.draw(batch);
         inventory.addItemsToButtons(playersInventory);
         inventory.draw(batch);
     }
@@ -85,7 +82,7 @@ public class SquareMenu extends Menu {
     @Override
     public void checkHover(Vector2 pos) {
         super.checkHover(pos);
-        build.checkHover(pos);
+        crafting.checkHover(pos);
         inventory.checkHover(pos);
     }
 
