@@ -1,4 +1,4 @@
-package com.io2020.entities.Items;
+package com.io2020.entities.Inventory;
 
 public enum itemType {
     STONE,

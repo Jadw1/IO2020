@@ -7,12 +7,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
-import com.io2020.entities.Items.*;
+import com.io2020.entities.Inventory.*;
 import com.io2020.entities.Player;
 import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class Rock extends MapEntity {

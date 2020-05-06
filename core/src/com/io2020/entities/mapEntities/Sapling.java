@@ -7,14 +7,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
-import com.io2020.entities.Items.Item;
-import com.io2020.entities.Items.Stick;
-import com.io2020.entities.Items.Wood;
+import com.io2020.entities.Inventory.Item;
+import com.io2020.entities.Inventory.Stick;
 import com.io2020.entities.Player;
 import com.io2020.map.MapEntity;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Sapling extends MapEntity {
 

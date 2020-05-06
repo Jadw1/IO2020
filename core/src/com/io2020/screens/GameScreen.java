@@ -1,6 +1,5 @@
 package com.io2020.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -19,7 +18,6 @@ import com.io2020.game.IOGame;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
-import ui.Menu;
 import ui.SquareMenu;
 
 import java.util.ArrayList;
@@ -128,8 +126,8 @@ public class GameScreen extends BaseScreen {
 
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-        if (squareMenu.build.isActive()) {
-            control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
+        if (squareMenu.crafting.isActive()) {
+            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
         }
         if (squareMenu.inventory.isActive()) {
             control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
