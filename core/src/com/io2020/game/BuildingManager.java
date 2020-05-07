@@ -120,7 +120,6 @@ public class BuildingManager
             case TOWER4:
                 mapEntity = new Tower4(atlas, touchedFile, box2D);
                 break;
-
         }
 
 //        inventory.deleteX(1, buildingItem.type);

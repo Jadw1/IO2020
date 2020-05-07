@@ -20,6 +20,7 @@ public class InventoryMenu extends BuildMenu {
                 public void onClick(Button b) {
                     if (b.stack != null && !b.stack.isEmpty()) {
                         if (b.stack.get(0).toBuild) {
+                            System.out.println("CLICK");
                             buildingManager.build(b.stack.get(0));
                         }
 //                        System.out.println(b.stack.get(0).getClass().getSimpleName());

@@ -41,6 +41,12 @@ public class Player extends Character {
         inventory.addItem(new WoodenSword());
         inventory.addItem(new Axe());
         inventory.addItem(new Fireplace());
+        inventory.addItem(new Tower1());
+        inventory.addItem(new Tower2());
+        inventory.addItem(new Tower3());
+        inventory.addItem(new Tower4());
+        inventory.addItem(new WoodenWall());
+        inventory.addItem(new StoneWall());
 
         this.controller = controller;
     }

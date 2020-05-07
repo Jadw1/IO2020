@@ -24,6 +24,7 @@ public class CraftingMenu extends BuildMenu {
             button.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(Button b) {
+                    System.out.println("CRAFT");
                     buildingManager.craft(b.item);
                 }
             });

@@ -19,7 +19,7 @@ public class StonedWall extends MapEntity {
 
         hitPoints = 1000;
 
-        texture = atlas.findRegion("flower" + type);
+        texture = atlas.findRegion("flower1");
 
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 8.0f), width - 4.0f, 8.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 10.0f), width + 10.0f, 30, BodyDef.BodyType.DynamicBody);
