@@ -52,19 +52,26 @@ public class Inventory {
     }
 
     public boolean deleteX(int x, itemType type) {
+        //System.out.println("deleting " + x + "of " + type.toString());
         if(x == 0) {
+            //System.out.println("asked to delete 0");
             return true;
         }
         int i = findX(type);
         if (i == -1) {
+            //System.out.println("item was not found");
             return false;
         }
         int sizeAfterDeletion = items.get(i).quantity - x;
+        //System.out.println("there will be " + sizeAfterDeletion + " items  after deletion");
         if (sizeAfterDeletion > 0) {
+            //System.out.println("size before deletion " + items.get(i).quantity);
             items.get(i).quantity = sizeAfterDeletion;
+            //System.out.println("size after deletion " + items.get(i).quantity);
             return true;
         } else if(sizeAfterDeletion == 0) {
             items.remove(i);
+            assert(findX(type) == -1);
             return true;
         } else {
             return false;

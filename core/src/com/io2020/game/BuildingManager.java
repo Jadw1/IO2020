@@ -74,6 +74,7 @@ public class BuildingManager
 
         for (Pair req: craftReq) {
             if (!inventory.containsX(req.quantity, req.item.type)) {
+                System.out.println("You cant't craft "+ item.type + " because you lack " + req.item.type);
                 available = false;
                 break;
             }
