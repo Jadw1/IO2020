@@ -1,4 +1,4 @@
-package com.io2020.entities.mapEntities;
+    package com.io2020.entities.mapEntities;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -34,12 +34,9 @@ public class LightGreenTree extends MapEntity {
 
         Random r = new Random();
         int woodNumber = r.nextInt(1)+2; // 2-3
-        ArrayList<Item> woods = new ArrayList<>();
-
-        for(int i = 0 ; i < woodNumber; i++) {
-            woods.add(new Wood());
+        if(woodNumber > 0) {
+            player.addItemsToInventory(new Wood(), woodNumber);
         }
-        player.addItemsToInventory(woods);
     }
 }
 

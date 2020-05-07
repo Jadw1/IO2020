@@ -32,11 +32,6 @@ public class Flower extends MapEntity
         super.giveItemsToPlayer(player);
 
         int flowerNumber = 1;
-        ArrayList<Item> flowers = new ArrayList<>();
-
-        for(int i = 0 ; i < flowerNumber; i++) {
-            flowers.add(new PickedFlower());
-        }
-        player.addItemsToInventory(flowers);
+        player.addItemsToInventory(new PickedFlower(), flowerNumber);
     }
 }

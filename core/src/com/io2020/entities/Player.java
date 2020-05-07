@@ -48,6 +48,14 @@ public class Player extends Character {
         inventory.addItem(new WoodenWall());
         inventory.addItem(new StoneWall());
 
+        inventory.addItems(new Wood(), 10);
+        assert (inventory.containsX(10, itemType.WOOD));
+        assert (!inventory.containsX(20, itemType.WOOD));
+        assert (inventory.deleteX(10, itemType.WOOD));
+        assert (inventory.containsX(0, itemType.WOOD));
+        assert (!inventory.containsX(10, itemType.WOOD));
+        assert (!inventory.deleteX(10, itemType.WOOD));
+
         this.controller = controller;
     }
 
@@ -140,7 +148,7 @@ public class Player extends Character {
     }
     // tutaj tez beda metody do sprawdzania czy cos jest w ekwipunku (czy da sie zbudowac)
     // i zabierania przedmiotow jak sie cos uda zbudowac
-    public void addItemsToInventory(ArrayList<Item> items) {
-        inventory.addItems(items);
+    public void addItemsToInventory(Item item, Integer quantity) {
+        inventory.addItems(item, quantity);
     }
 }

@@ -121,8 +121,9 @@ public class BuildingManager
                 mapEntity = new Tower4(atlas, touchedFile, box2D);
                 break;
         }
-
-        inventory.deleteX(1, buildingItem.type);
-        map.placeObject(mapEntity);
+        if(inventory.containsX(1, buildingItem.type)) {
+            inventory.deleteX(1, buildingItem.type);
+            map.placeObject(mapEntity);
+        }
     }
 }

@@ -31,11 +31,8 @@ public class Sapling extends MapEntity {
         super.giveItemsToPlayer(player);
 
         int stickNumber = 2;
-        ArrayList<Item> sticks = new ArrayList<>();
-
-        for(int i = 0 ; i < stickNumber; i++) {
-            sticks.add(new Stick());
+        if(stickNumber > 0){
+            player.addItemsToInventory(new Stick(), stickNumber);
         }
-        player.addItemsToInventory(sticks);
     }
 }

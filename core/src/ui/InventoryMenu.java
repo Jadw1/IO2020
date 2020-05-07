@@ -3,6 +3,7 @@ package ui;
 import com.badlogic.gdx.graphics.Texture;
 import com.io2020.entities.Inventory.Inventory;
 import com.io2020.entities.Inventory.Item;
+import com.io2020.entities.Inventory.Pair;
 import com.io2020.game.BuildingManager;
 
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class InventoryMenu extends BuildMenu {
             b.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(Button b) {
-                    if (b.stack != null && !b.stack.isEmpty()) {
-                        if (b.stack.get(0).toBuild) {
+                    if (b.stack != null && b.stack.quantity > 0) {
+                        if (b.stack.item.toBuild) {
                             System.out.println("CLICK");
-                            buildingManager.build(b.stack.get(0));
+                            buildingManager.build(b.stack.item);
                         }
 //                        System.out.println(b.stack.get(0).getClass().getSimpleName());
                     }
@@ -33,15 +34,15 @@ public class InventoryMenu extends BuildMenu {
     }
 
     public void addItemsToButtons(Inventory playersInventory) {
-        ArrayList<ArrayList<Item>> items = playersInventory.items;
+        ArrayList<Pair> items = playersInventory.items;
         int i = 0;
 
         for (Button b : buttons) {
-            while (!items.isEmpty() && i < items.size() && items.get(i).isEmpty()) {
+            while (!items.isEmpty() && i < items.size() && items.get(i).quantity == 0) {
                 i++;
             }
 
-            if (!items.isEmpty() && i < items.size() && !items.get(i).isEmpty()) {
+            if (!items.isEmpty() && i < items.size() && items.get(i).quantity > 0) {
                 b.setStack(items.get(i));
 
                 i++;
