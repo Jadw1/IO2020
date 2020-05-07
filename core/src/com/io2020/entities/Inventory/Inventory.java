@@ -9,7 +9,6 @@ public class Inventory {
     public Inventory(int inventorySize) {
         this.inventorySize = inventorySize;
         items = new ArrayList<>();
-
     }
 
     public void addItem(Item item) {

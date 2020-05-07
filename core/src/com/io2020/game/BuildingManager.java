@@ -73,7 +73,7 @@ public class BuildingManager
         boolean available = true;
 
         for (Pair req: craftReq) {
-            if (inventory.containsX(req.quantity, req.item.type)) {
+            if (!inventory.containsX(req.quantity, req.item.type)) {
                 available = false;
                 break;
             }
@@ -122,7 +122,7 @@ public class BuildingManager
                 break;
         }
 
-//        inventory.deleteX(1, buildingItem.type);
+        inventory.deleteX(1, buildingItem.type);
         map.placeObject(mapEntity);
     }
 }
