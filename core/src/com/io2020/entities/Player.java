@@ -142,6 +142,5 @@ public class Player extends Character {
     // i zabierania przedmiotow jak sie cos uda zbudowac
     public void addItemsToInventory(ArrayList<Item> items) {
         inventory.addItems(items);
-        assert (inventory.containsX(items.size(), items.get(0).type));
     }
 }

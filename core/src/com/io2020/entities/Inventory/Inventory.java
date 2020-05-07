@@ -49,24 +49,7 @@ public class Inventory {
         }
     }
 
-    public boolean containsX(int x, itemType type) {
-        boolean contains = false;
-        int i;
-        for(i = 0; i < items.size(); i++) {
-            if(items.get(i).get(0).type == type) {
-                contains = true;
-                break;
-            }
-        }
-        if(contains) {
-            return (items.get(i).size() >= x);
-        } else {
-            return false;
-        }
-    }
-
-    public boolean deleteX(int x, itemType type) {
-        // assert (this.containsX(x, type));
+    private int findX(itemType type) {
         boolean found = false;
         int i;
         for(i = 0; i < items.size(); i++) {
@@ -75,10 +58,30 @@ public class Inventory {
                 break;
             }
         }
+        if(found) {
+            return i;
+        } else {
+            return -1;
+        }
+    }
+    public boolean containsX(int x, itemType type) {
+        int i = findX(type);
+        if(i != -1 && items.get(i).size() >= x) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteX(int x, itemType type) {
+        int i = findX(type);
+        if(i == -1) {
+            return false;
+        }
         int sizeAfterDeletion = items.get(i).size() - x;
-        if(found && sizeAfterDeletion >= 0) {
+        if(sizeAfterDeletion >= 0) {
             while(items.get(i).size() > sizeAfterDeletion) {
-                items.get(i).remove(items.get(i).size());
+                items.get(i).remove(0);
             }
             return true;
         } else {

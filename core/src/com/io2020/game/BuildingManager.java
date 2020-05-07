@@ -73,14 +73,14 @@ public class BuildingManager
         boolean available = true;
 
         for (Pair req: craftReq) {
-            if (!inventory.containsX(req.quantity, req.item.type)) {
+            if (inventory.containsX(req.quantity, req.item.type)) {
                 available = false;
                 break;
             }
         }
         if (available) {
             for (Pair req: craftReq) {
-//                inventory.deleteX(req.quantity, req.item.type);
+                inventory.deleteX(req.quantity, req.item.type);
             }
             inventory.addItem(item);
         }
