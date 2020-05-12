@@ -46,6 +46,10 @@ public class Player extends Character {
         inventory.addItem(new Tower3());
         inventory.addItem(new Tower4());
         inventory.addItem(new WoodenWall());
+        inventory.addItem(new WoodenWall());
+        inventory.addItem(new WoodenWall());
+        inventory.addItem(new StoneWall());
+        inventory.addItem(new StoneWall());
         inventory.addItem(new StoneWall());
 
         // PRINTF DEBUGGING do wyrzucenia jak bedzie wiadomo ze wszystko dziala

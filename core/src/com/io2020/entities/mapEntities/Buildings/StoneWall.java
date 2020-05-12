@@ -13,15 +13,16 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
 import com.io2020.map.MapEntity;
 
-public class StonedWall extends MapEntity {
-    public StonedWall(TextureAtlas atlas, Vector3 position, Box2DWorld box2d) {
-        super(EntityType.BUILDING, position, 32, 32);
+public class StoneWall extends MapEntity {
+    public StoneWall(TextureAtlas atlas, Vector3 position, Box2DWorld box2d) {
+        super(EntityType.BUILDING, position, 32, 48);
 
         hitPoints = 1000;
 
-        texture = atlas.findRegion("flower1");
+        texture = new TextureRegion(new Texture(Gdx.files.internal("WorldAnimation/stone_wall.png")), 32, 48);
 
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 8.0f), width - 4.0f, 8.0f, BodyDef.BodyType.StaticBody);
+
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 18.0f), width, 32.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 10.0f), width + 10.0f, 30, BodyDef.BodyType.DynamicBody);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }

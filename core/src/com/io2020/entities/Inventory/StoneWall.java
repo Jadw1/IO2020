@@ -9,7 +9,7 @@ public class StoneWall extends Item {
     public StoneWall() {
         super(true, false);
         type = itemType.STONE_WALL;
-        texture = new Texture(Gdx.files.internal("WorldAnimation/ocean_middle.png"));
+        texture = new Texture(Gdx.files.internal("WorldAnimation/stone_wall.png"));
 
         craftReq = new ArrayList<>();
         craftReq.add(new Pair(new Stone(), 3));

@@ -15,13 +15,13 @@ import com.io2020.map.MapEntity;
 
 public class WoodenWall extends MapEntity {
     public WoodenWall(TextureAtlas atlas, Vector3 position, Box2DWorld box2d) {
-        super(EntityType.BUILDING, position, 32, 32);
+        super(EntityType.BUILDING, position, 32, 48);
 
         hitPoints = 1000;
 
-        texture = atlas.findRegion("flower2");
+        texture = new TextureRegion(new Texture(Gdx.files.internal("WorldAnimation/wooden_wall.png")), 32, 48);
 
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 8.0f), width - 4.0f, 8.0f, BodyDef.BodyType.StaticBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 18.0f), width, 32.0f, BodyDef.BodyType.StaticBody);
         sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 10.0f), width + 10.0f, 30, BodyDef.BodyType.DynamicBody);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }

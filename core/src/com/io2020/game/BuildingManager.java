@@ -107,7 +107,7 @@ public class BuildingManager
                 mapEntity = new WoodenWall(atlas, touchedFile, box2D);
                 break;
             case STONE_WALL:
-                mapEntity = new StonedWall(atlas, touchedFile, box2D);
+                mapEntity = new StoneWall(atlas, touchedFile, box2D);
                 break;
             case TOWER1:
                 mapEntity = new Tower1(atlas, touchedFile, box2D);
