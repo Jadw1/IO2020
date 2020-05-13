@@ -9,14 +9,15 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.EntityType;
+import com.io2020.game.ShootingManager;
 import com.io2020.map.MapEntity;
 
-public class Tower1 extends MapEntity {
+public class Tower1 extends Tower {
     private final Animation<TextureRegion> animation;
     protected float stateTime = 0;
 
-    public Tower1(TextureAtlas atlas, Vector3 position, Box2DWorld box2d) {
-        super(EntityType.BUILDING, position, 32, 32);
+    public Tower1(TextureAtlas atlas, Vector3 position, Box2DWorld box2d, ShootingManager shootingManager) {
+        super(EntityType.BUILDING, position, 32, 32, shootingManager);
 
         hitPoints = 1000;
 
@@ -32,6 +33,7 @@ public class Tower1 extends MapEntity {
 
     @Override
     public void update(float dt) {
+        super.update(dt);
         stateTime += dt;
         texture = animation.getKeyFrame(stateTime);
     }

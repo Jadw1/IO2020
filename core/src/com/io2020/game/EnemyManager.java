@@ -68,4 +68,8 @@ public class EnemyManager {
             entry.getValue().update(dt);
         }
     }
+
+    public Map<Integer, Enemy> getEnemies() {
+        return enemies;
+    }
 }

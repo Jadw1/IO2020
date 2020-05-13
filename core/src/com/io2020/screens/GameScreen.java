@@ -1,6 +1,8 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
+import com.io2020.entities.EntityType;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
 import com.io2020.entities.mapEntities.Buildings.Fireplace;
@@ -15,6 +18,7 @@ import com.io2020.entities.mobs.*;
 import com.io2020.game.BuildingManager;
 import com.io2020.game.EnemyManager;
 import com.io2020.game.IOGame;
+import com.io2020.game.ShootingManager;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
@@ -36,6 +40,7 @@ public class GameScreen extends BaseScreen {
     private final Box2DWorld box2d;
     private final EnemyManager enemyManager;
     private final BuildingManager buildingManager;
+    private final ShootingManager shootingManager;
 
     private final int mapSize = 12;
     private final float tileSize = 32.0f;
@@ -50,8 +55,9 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(tileSize + 16, tileSize + 8, 0), control,  characterAtlas, box2d);
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
+        shootingManager = new ShootingManager(enemyManager.getEnemies(), box2d);
         buildingManager = new BuildingManager(player.getPosition(), camera,
-                player.inventory, player.controller, map, mapAtlas, box2d);
+                player.inventory, player.controller, map, mapAtlas, box2d, shootingManager);
 
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
@@ -80,6 +86,7 @@ public class GameScreen extends BaseScreen {
         map.update(dt);
         control.update();
         buildingManager.update();
+        shootingManager.update();
 
         processMenu();
 
@@ -92,7 +99,8 @@ public class GameScreen extends BaseScreen {
         ArrayList<Entity> entities = new ArrayList<>();
         map.collectEntities(entities);
         entities.add(player);
-//        entities.addAll(enemyManager.getEntities());
+        entities.addAll(enemyManager.getEntities());
+        entities.addAll(shootingManager.getBulletsShot());
         Collections.sort(entities);
 
         spriteBatch.begin();
