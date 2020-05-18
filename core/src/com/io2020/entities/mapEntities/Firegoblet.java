@@ -25,8 +25,8 @@ public class Firegoblet extends MapEntity
                 atlas.findRegions("firegoblet"), Animation.PlayMode.LOOP);
         texture = fireAnimation.getKeyFrame(stateTime);
 
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 8.0f), width - 4.0f, 8.0f, BodyDef.BodyType.StaticBody);
-        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 10.0f), width + 10.0f, 30, BodyDef.BodyType.DynamicBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 8.0f), width - 4.0f, 8.0f, BodyDef.BodyType.StaticBody, Box2DHandler.BUILDING, Box2DHandler.ALL);
+        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 10.0f), width + 10.0f, 30, BodyDef.BodyType.DynamicBody, Box2DHandler.BUILDING, Box2DHandler.ALL);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }
 

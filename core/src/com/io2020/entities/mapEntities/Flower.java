@@ -23,7 +23,7 @@ public class Flower extends MapEntity
         hitPoints = 1;
 
         texture = atlas.findRegion("flower" + type);
-        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 8.0f), width + 20.0f, height + 10.0f, BodyDef.BodyType.DynamicBody);
+        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 8.0f), width + 20.0f, height + 10.0f, BodyDef.BodyType.DynamicBody, Box2DHandler.OTHER, Box2DHandler.ALL);
         hashcode = sensor.getFixtureList().get(0).hashCode();
 
     }
