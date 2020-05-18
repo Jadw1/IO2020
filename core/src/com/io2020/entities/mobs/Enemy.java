@@ -117,6 +117,7 @@ public abstract class Enemy extends Character {
             if(health <= 0) {
                 this.remove = true;
             }
+            entity.remove = true;
         }
     }
 }
