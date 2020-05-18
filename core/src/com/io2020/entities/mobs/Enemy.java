@@ -113,7 +113,7 @@ public abstract class Enemy extends Character {
             }
         }
         if(entity.getType() == EntityType.BULLET) {
-            health -= 10;
+            health -= 5;
             if(health <= 0) {
                 this.remove = true;
             }
