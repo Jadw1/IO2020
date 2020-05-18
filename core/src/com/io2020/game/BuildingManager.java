@@ -112,16 +112,16 @@ public class BuildingManager
                 mapEntity = new StoneWall(atlas, touchedFile, box2D);
                 break;
             case TOWER1:
-                mapEntity = new Tower1(atlas, touchedFile, box2D, shootingManager);
+                mapEntity = new Tower1(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER2:
-                mapEntity = new Tower2(atlas, touchedFile, box2D, shootingManager);
+                mapEntity = new Tower2(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER3:
-                mapEntity = new Tower3(atlas, touchedFile, box2D, shootingManager);
+                mapEntity = new Tower3(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER4:
-                mapEntity = new Tower4(atlas, touchedFile, box2D, shootingManager);
+                mapEntity = new Tower4(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
         }
         if(inventory.containsX(1, buildingItem.type)) {
