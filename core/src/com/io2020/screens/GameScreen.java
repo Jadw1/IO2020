@@ -134,11 +134,11 @@ public class GameScreen extends BaseScreen {
 
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-        if (squareMenu.crafting.isActive()) {
-            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
-        }
         if (squareMenu.inventory.isActive()) {
             control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
+        }
+        else if (squareMenu.crafting.isActive()) {
+            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
         }
         squareMenu.checkHover(control.mousePos);
 
