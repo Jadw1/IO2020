@@ -25,8 +25,10 @@ public abstract class Enemy extends Character {
         super(EntityType.ENEMY, position, width, height, atlas, name);
         action = EnemyAction.OTHER;
         body = Box2DHandler.createBody(box2d.world, position, offset, colliderWidth, colliderHeight, BodyDef.BodyType.DynamicBody, Box2DHandler.ENEMIES, (short)(Box2DHandler.BUILDING | Box2DHandler.BULLET));
-        //hashcode = body.getFixtureList().get(0).hashCode();
+        hashcode = body.getFixtureList().get(0).hashCode();
         //sensor = null;
+
+        box2d.addEntity(this);
     }
 
     @Override
@@ -98,5 +100,12 @@ public abstract class Enemy extends Character {
 
     public EnemyAction getAction() {
         return action;
+    }
+
+    @Override
+    public void collision(Entity entity, boolean begin) {
+        if(entity.getType() == EntityType.BUILDING) {
+            //System.out.println("LOOOL");
+        }
     }
 }

@@ -78,7 +78,7 @@ public class Box2DWorld {
     }
 
     public void populateEntityHashMap(ArrayList<MapEntity> entities) {
-        entityHashMap.clear();
+        //entityHashMap.clear();
         for (Entity entity: entities) {
             entityHashMap.put(entity.getHashcode(), entity);
         }
