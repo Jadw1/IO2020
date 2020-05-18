@@ -105,7 +105,11 @@ public abstract class Enemy extends Character {
     @Override
     public void collision(Entity entity, boolean begin) {
         if(entity.getType() == EntityType.BUILDING) {
-            //System.out.println("LOOOL");
+            entity.hitPoints -= 250;
+
+            if(entity.hitPoints <= 0) {
+                entity.remove = true;
+            }
         }
     }
 }
