@@ -87,7 +87,7 @@ public class GameScreen extends BaseScreen {
         control.update();
         buildingManager.update();
 
-        squareMenu.setPlayersInventory(player.inventory);
+       // squareMenu.setPlayersInventory(player.inventory);
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
 //        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);

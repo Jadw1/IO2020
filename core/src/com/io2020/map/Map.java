@@ -3,7 +3,6 @@ package com.io2020.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
-import com.io2020.entities.mapEntities.Fireplace;
 import com.io2020.tileSet.Tile;
 
 import java.util.ArrayList;
