@@ -34,28 +34,14 @@ public class Rock extends MapEntity {
         int stoneNumber = 3;
         int goldNumber = (r.nextInt(10) == 0) ? 1 : 0; // 10% chance of getting a gold nugget
 
-        ArrayList<Item> stones = new ArrayList<>();
-        for(int i = 0 ; i < stoneNumber; i++) {
-            stones.add(new Stone());
-        }
         if(stoneNumber > 0 ) {
-            player.addItemsToInventory(stones);
-        }
-
-        ArrayList<Item> golds = new ArrayList<>();
-        for(int i = 0 ; i < goldNumber; i++) {
-            golds.add(new Gold());
+            player.addItemsToInventory(new Stone(), stoneNumber);
         }
         if(goldNumber > 0) {
-            player.addItemsToInventory(golds);
-        }
-
-        ArrayList<Item> flints = new ArrayList<>();
-        for(int i = 0 ; i < flintsNumber; i++) {
-            flints.add(new Flint());
+            player.addItemsToInventory(new Gold(), goldNumber);
         }
         if(flintsNumber > 0) {
-            player.addItemsToInventory(flints);
+            player.addItemsToInventory(new Flint(), flintsNumber);
         }
     }
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Flint extends Item {
     public Flint() {
-        super();
+        super(false, false);
         type = itemType.FLINT;
         texture = new Texture(Gdx.files.internal("WorldAnimation/flint32.png"));
     }

@@ -88,6 +88,11 @@ public class Map {
         return entities;
     }
 
+    public int getHeight()
+    {
+        return height;
+    }
+
     /*public void generateHitboxes(Box2DWorld box2D) {
         for (int i = 0; i < entities.length; i++) {
             for (int j = 0; j < entities[0].length; j++) {

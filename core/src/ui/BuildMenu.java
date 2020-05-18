@@ -2,6 +2,7 @@ package ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.io2020.game.BuildingManager;
 
 public abstract class BuildMenu extends Menu {
 
@@ -10,9 +11,9 @@ public abstract class BuildMenu extends Menu {
     static final Texture close_menu = new Texture("GUI/icons/close_menu.png");
 
 
-    public BuildMenu(float x, int y, int scale, Texture mainBack) {
+    public BuildMenu(float x, int y, int scale, Texture mainBack, int rowNum, BuildingManager buildingManager) {
         super(x, y, 2, mainBack);
-        addButtons(3, 11, 2, pinkButton, selector, 2);
+        addButtons(3, 11, rowNum, pinkButton, selector, 2, buildingManager);
 
         setInactive();
     }
