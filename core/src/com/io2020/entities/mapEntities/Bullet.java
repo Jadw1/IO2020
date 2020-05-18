@@ -21,7 +21,6 @@ public class Bullet extends MapEntity {
     Texture texture;
     protected float speed = 2000.0f;
     public Vector2 direction;
-    private Body body;
 
     public Bullet(EntityType entityType, Vector3 position, float width, float height, Tower tower) {
         super(entityType, position, width, height);
