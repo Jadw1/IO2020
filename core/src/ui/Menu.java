@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.entities.EntityType;
+import com.io2020.game.BuildingManager;
 
 import java.util.ArrayList;
 
@@ -48,9 +49,9 @@ public class Menu {
     public boolean checkClick(Vector2 pos, boolean processedClick) {
         boolean processed = false;
         if (!processedClick) {
-            if (hitbox.contains(pos)) {
-                System.out.println("Hit: " + name);
-            }
+//            if (hitbox.contains(pos)) {
+//                System.out.println("Hit: " + name);
+//            }
 
             // Check if a button has been clicked
             for (Button b : buttons) {
@@ -91,7 +92,7 @@ public class Menu {
 
     // A function to add multiply buttons to our menu
     // It is possible to add any size grid of buttons with a certain sized padding
-    public void addButtons(float offset, int columns, int rows, Texture texture, Texture select, int scale) {
+    public void addButtons(float offset, int columns, int rows, Texture texture, Texture select, int scale, BuildingManager buildingManager) {
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 float bx = pos.x + (offset + ((i + 1) * offset) + (i * texture.getWidth())) * 2;
@@ -111,7 +112,7 @@ public class Menu {
                 GUIEntity selector = new GUIEntity(EntityType.GUI, selectorPosition, selectorWidth, selectorHeight);
                 selector.texture = select;
 
-                buttons.add(new Button(buttonPosition, width, height, texture, selector));
+                buttons.add(new Button(buttonPosition, width, height, texture, selector, buildingManager));
             }
         }
     }

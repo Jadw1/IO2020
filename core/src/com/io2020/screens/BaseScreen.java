@@ -93,5 +93,6 @@ public abstract class BaseScreen implements Screen {
         }
 
         camera.zoom = MathUtils.clamp(camera.zoom, MIN_ZOOM, MAX_ZOOM);
+        control.zoom = camera.zoom;
     }
 }

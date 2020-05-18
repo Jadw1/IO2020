@@ -10,7 +10,9 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
+import com.io2020.entities.mapEntities.Buildings.Fireplace;
 import com.io2020.entities.mobs.*;
+import com.io2020.game.BuildingManager;
 import com.io2020.game.EnemyManager;
 import com.io2020.game.IOGame;
 import com.io2020.map.Map;
@@ -33,6 +35,7 @@ public class GameScreen extends BaseScreen {
 
     private final Box2DWorld box2d;
     private final EnemyManager enemyManager;
+    private final BuildingManager buildingManager;
 
     private final int mapSize = 12;
     private final float tileSize = 32.0f;
@@ -45,13 +48,15 @@ public class GameScreen extends BaseScreen {
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
         characterAtlas = new TextureAtlas("animation/characterAnimation.pack");
         mapAtlas = new TextureAtlas("mapAssets.pack");
-        player = new Player(new Vector3(50, 50, 0), control,  characterAtlas, box2d);
+        player = new Player(new Vector3(tileSize + 16, tileSize + 8, 0), control,  characterAtlas, box2d);
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
+        buildingManager = new BuildingManager(player.getPosition(), camera,
+                player.inventory, player.controller, map, mapAtlas, box2d);
 
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
                 control.screenWidth, control.screenHeight));
-        squareMenu = new SquareMenu(control);
+        squareMenu = new SquareMenu(control, player.inventory, buildingManager);
 
         createExampleMap();
 
@@ -74,9 +79,9 @@ public class GameScreen extends BaseScreen {
         enemyManager.update(dt);
         map.update(dt);
         control.update();
+        buildingManager.update();
 
         processMenu();
-
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -87,11 +92,13 @@ public class GameScreen extends BaseScreen {
         ArrayList<Entity> entities = new ArrayList<>();
         map.collectEntities(entities);
         entities.add(player);
-        entities.addAll(enemyManager.getEntities());
+//        entities.addAll(enemyManager.getEntities());
         Collections.sort(entities);
 
         spriteBatch.begin();
         map.draw(spriteBatch);
+        buildingManager.draw(spriteBatch);
+
 
         for (Entity entity : entities) {
             entity.draw(spriteBatch);
@@ -102,22 +109,20 @@ public class GameScreen extends BaseScreen {
 
         spriteBatch.end();
 
-        //debugDraw();
     }
 
-    private void debugDraw() {
+    private void debugDraw(float x, float y) {
         ShapeRenderer debug = new ShapeRenderer();
         debug.setProjectionMatrix(camera.combined);
         debug.setColor(Color.RED);
 
         debug.begin(ShapeRenderer.ShapeType.Filled);
-        Vector3 pos = player.getPosition();
-        debug.circle(pos.x, pos.y, 3.0f);
+        debug.circle(x * tileSize + 16, y * tileSize, 3.0f);
         debug.end();
     }
 
     public void processMenu() {
-        squareMenu.setPlayersInventory(player.inventory);
+//        squareMenu.setPlayersInventory(player.inventory);
 
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
