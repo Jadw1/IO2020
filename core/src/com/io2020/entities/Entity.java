@@ -53,4 +53,16 @@ public abstract class Entity implements Comparable<Entity> {
         if (sensor != null) box2D.world.destroyBody(sensor);
         if (body != null) box2D.world.destroyBody(body);
     }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
 }

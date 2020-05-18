@@ -51,7 +51,7 @@ public class Box2DWorld {
     }
 
     public void tick(OrthographicCamera camera){
-//        debugRenderer.render(world, camera.combined); // DEBUG show hitboxes
+        debugRenderer.render(world, camera.combined); // DEBUG show hitboxes
         world.step(Gdx.app.getGraphics().getDeltaTime(), 6, 2);
         world.clearForces();
     }
@@ -78,7 +78,7 @@ public class Box2DWorld {
     }
 
     public void populateEntityHashMap(ArrayList<MapEntity> entities) {
-        entityHashMap.clear();
+        //entityHashMap.clear();
         for (Entity entity: entities) {
             entityHashMap.put(entity.getHashcode(), entity);
         }

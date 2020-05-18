@@ -13,5 +13,6 @@ public class BigZombie extends Enemy
     {
         super(position, 64, 64, atlas, "big_zombie", box2d, new Vector2(32.5f, 15.0f), 20, 20);
         speed = 10.0f;
+        health = 150;
     }
 }

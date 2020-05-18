@@ -20,13 +20,16 @@ public abstract class Enemy extends Character {
     protected EnemyAction action;
     protected Vector2 goOverwatch;
     protected Entity toFollow;
+    protected Integer health;
 
     public Enemy(Vector3 position, float width, float height, TextureAtlas atlas, String name, Box2DWorld box2d, Vector2 offset, float colliderWidth, float colliderHeight) {
         super(EntityType.ENEMY, position, width, height, atlas, name);
         action = EnemyAction.OTHER;
-       // body = Box2DHandler.createBody(box2d.world, position, offset, colliderWidth, colliderHeight, BodyDef.BodyType.StaticBody);
-        //hashcode = body.getFixtureList().get(0).hashCode();
+        body = Box2DHandler.createBody(box2d.world, position, offset, colliderWidth, colliderHeight, BodyDef.BodyType.DynamicBody, Box2DHandler.ENEMIES, (short)(Box2DHandler.BUILDING | Box2DHandler.BULLET));
+        hashcode = body.getFixtureList().get(0).hashCode();
         //sensor = null;
+
+        box2d.addEntity(this);
     }
 
     @Override
@@ -83,7 +86,7 @@ public abstract class Enemy extends Character {
                 Vector2 pos = new Vector2(goTo).sub(position.x, position.y);
 
                 if(pos.len2() > minDistance) {
-                    move = pos.nor().scl(speed * dt);
+                    move = pos.nor();
                 }
                 else if(action == EnemyAction.GOTO) {
                     action = EnemyAction.OTHER;
@@ -91,10 +94,30 @@ public abstract class Enemy extends Character {
                 break;
         }
 
-        this.move(new Vector3(move.x, move.y, 0.0f));
+        body.setLinearVelocity(move.scl(speed));
+        position.x = body.getPosition().x - width / 2;
+        position.y = body.getPosition().y - height / 4;
     }
 
     public EnemyAction getAction() {
         return action;
+    }
+
+    @Override
+    public void collision(Entity entity, boolean begin) {
+        if(entity.getType() == EntityType.BUILDING) {
+            entity.hitPoints -= 250;
+
+            if (entity.hitPoints <= 0) {
+                entity.remove = true;
+            }
+        }
+        if(entity.getType() == EntityType.BULLET) {
+            health -= 5;
+            if(health <= 0) {
+                this.remove = true;
+            }
+            entity.remove = true;
+        }
     }
 }

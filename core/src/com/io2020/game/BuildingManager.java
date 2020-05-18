@@ -28,11 +28,12 @@ public class BuildingManager
     private final Map map;
     private final TextureAtlas atlas;
     private final Box2DWorld box2D;
+    private final ShootingManager shootingManager;
 
     private Item buildingItem;
 
     public BuildingManager(Vector3 playerPosition, OrthographicCamera camera, Inventory inventory,
-                           Control control, Map map, TextureAtlas atlas, Box2DWorld box2D) {
+                           Control control, Map map, TextureAtlas atlas, Box2DWorld box2D, ShootingManager shootingManager) {
         this.playerPosition = playerPosition;
         this.camera = camera;
         this.inventory = inventory;
@@ -41,6 +42,7 @@ public class BuildingManager
         this.atlas = atlas;
         this.box2D = box2D;
         this.buildingItem = null;
+        this.shootingManager = shootingManager;
     }
 
     public void draw(SpriteBatch batch) {
@@ -113,16 +115,16 @@ public class BuildingManager
                 mapEntity = new StoneWall(atlas, touchedFile, box2D);
                 break;
             case TOWER1:
-                mapEntity = new Tower1(atlas, touchedFile, box2D);
+                mapEntity = new Tower1(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER2:
-                mapEntity = new Tower2(atlas, touchedFile, box2D);
+                mapEntity = new Tower2(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER3:
-                mapEntity = new Tower3(atlas, touchedFile, box2D);
+                mapEntity = new Tower3(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
             case TOWER4:
-                mapEntity = new Tower4(atlas, touchedFile, box2D);
+                mapEntity = new Tower4(buildingItem.texture, touchedFile, box2D, shootingManager);
                 break;
         }
         if(inventory.containsX(1, buildingItem.type)) {

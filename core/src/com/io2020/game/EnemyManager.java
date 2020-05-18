@@ -8,11 +8,9 @@ import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mobs.*;
+import jdk.nashorn.internal.objects.MapIterator;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EnemyManager {
 
@@ -61,11 +59,21 @@ public class EnemyManager {
     }
     
     public void update(float dt) {
-        Vector3 playerPos = player.getPosition();
-        for(Map.Entry<Integer, Enemy> entry: enemies.entrySet()) {
-            //entry.getValue().goTo(new Vector2(playerPos.x, playerPos.y), 100.0f);
-            //entry.getValue().overwatch(4000.0f);
-            entry.getValue().update(dt);
+
+        Iterator<Map.Entry<Integer,Enemy>> iter = enemies.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer,Enemy> entry = iter.next();
+            if(entry.getValue().remove) {
+                entry.getValue().removeBodies(box2d);
+                box2d.removeEntity(entry.getValue());
+                iter.remove();
+            } else {
+                entry.getValue().update(dt);
+            }
         }
+    }
+
+    public Map<Integer, Enemy> getEnemies() {
+        return enemies;
     }
 }

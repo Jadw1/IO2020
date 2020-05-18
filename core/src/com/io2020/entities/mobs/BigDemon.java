@@ -11,8 +11,10 @@ public class BigDemon extends Enemy
 {
     public BigDemon(Vector3 position, TextureAtlas atlas, Box2DWorld box2d)
     {
-        super(position, 64, 64, atlas, "big_demon", box2d, new Vector2(32.5f, 15.0f), 20, 20);
+        //super(position, 64, 64, atlas, "big_demon", box2d, new Vector2(32.5f, 15.0f), 20, 20);
+        super(position, 64, 64, atlas, "big_demon", box2d, new Vector2(0.0f, 0.0f), 20, 20);
         speed = 50.0f;
+        health = 100;
     }
 
 

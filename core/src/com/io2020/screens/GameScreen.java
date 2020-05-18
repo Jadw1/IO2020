@@ -2,6 +2,7 @@ package com.io2020.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
+import com.io2020.entities.EntityType;
 import com.io2020.entities.Player;
 import com.io2020.entities.mapEntities.*;
 import com.io2020.entities.mapEntities.Buildings.Fireplace;
@@ -16,6 +18,7 @@ import com.io2020.entities.mobs.*;
 import com.io2020.game.BuildingManager;
 import com.io2020.game.EnemyManager;
 import com.io2020.game.IOGame;
+import com.io2020.game.ShootingManager;
 import com.io2020.game.Lighting;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
@@ -40,6 +43,7 @@ public class GameScreen extends BaseScreen {
     private final EnemyManager enemyManager;
     private final Lighting light;
     private final BuildingManager buildingManager;
+    private final ShootingManager shootingManager;
 
     private final int mapSize = 12;
     private final float tileSize = 32.0f;
@@ -54,8 +58,9 @@ public class GameScreen extends BaseScreen {
         mapAtlas = new TextureAtlas("mapAssets.pack");
         player = new Player(new Vector3(tileSize + 16, tileSize + 8, 0), control,  characterAtlas, box2d);
         enemyManager = new EnemyManager(box2d, characterAtlas, player);
+        shootingManager = new ShootingManager(enemyManager.getEnemies(), box2d);
         buildingManager = new BuildingManager(player.getPosition(), camera,
-                player.inventory, player.controller, map, mapAtlas, box2d);
+                player.inventory, player.controller, map, mapAtlas, box2d, shootingManager);
 
 
         screenMatrix = new Matrix4(spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0,
@@ -86,15 +91,10 @@ public class GameScreen extends BaseScreen {
         map.update(dt);
         control.update();
         buildingManager.update();
+        shootingManager.update();
 
-       // squareMenu.setPlayersInventory(player.inventory);
-        // Menu Logic
-        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-//        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
-        control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
-        squareMenu.checkHover(control.mousePos);
+        processMenu();
 
-        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
     }
@@ -104,7 +104,8 @@ public class GameScreen extends BaseScreen {
         ArrayList<Entity> entities = new ArrayList<>();
         map.collectEntities(entities);
         entities.add(player);
-//        entities.addAll(enemyManager.getEntities());
+        entities.addAll(enemyManager.getEntities());
+        entities.addAll(shootingManager.getBulletsShot());
         Collections.sort(entities);
 
         spriteBatch.begin();
@@ -147,11 +148,11 @@ public class GameScreen extends BaseScreen {
 
         // Menu Logic
         control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-        if (squareMenu.crafting.isActive()) {
-            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
-        }
         if (squareMenu.inventory.isActive()) {
             control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
+        }
+        else if (squareMenu.crafting.isActive()) {
+            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
         }
         squareMenu.checkHover(control.mousePos);
 

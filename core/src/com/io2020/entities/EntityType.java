@@ -5,5 +5,6 @@ public enum EntityType {
     ENEMY,
     BUILDING,
     GUI,
+    BULLET,
     RESOURCE    //może bedziemy chcieli rozdzielac te resource na konkretne rzeczy
 }

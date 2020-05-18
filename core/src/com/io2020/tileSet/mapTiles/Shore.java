@@ -24,7 +24,7 @@ public class Shore extends Tile
                 atlas.findRegions(name), Animation.PlayMode.LOOP);
 
         body = Box2DHandler.createBody(box2d.world, new Vector3(x + setOffsetX(name), y + setOffsetY(name), 0.0f),
-                new Vector2(0.0f, 0.0f), 32.0f, 32.0f, BodyDef.BodyType.StaticBody);
+                new Vector2(0.0f, 0.0f), 32.0f, 32.0f, BodyDef.BodyType.StaticBody, Box2DHandler.BUILDING, Box2DHandler.ALL);
         texture = shoreAnimation.getKeyFrame(stateTime);
     }
 

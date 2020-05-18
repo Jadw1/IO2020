@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.io2020.box2d.Box2DHandler;
 import com.io2020.box2d.Box2DWorld;
+import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.Inventory.*;
 import com.io2020.entities.Player;
@@ -21,8 +22,8 @@ public class Rock extends MapEntity {
         hitPoints = 5;
 
         texture = atlas.findRegion("rock");
-        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 6.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody);
-        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody);
+        body = Box2DHandler.createBody(box2d.world, position, new Vector2(0.0f, 6.0f), width - 4.0f, 6.0f, BodyDef.BodyType.StaticBody, Box2DHandler.OTHER, Box2DHandler.ALL);
+        sensor = Box2DHandler.createSensor(box2d.world, position, new Vector2(0.0f, 6.0f), width + 20.0f, height + 22.0f, BodyDef.BodyType.DynamicBody, Box2DHandler.OTHER, Box2DHandler.ALL);
         hashcode = sensor.getFixtureList().get(0).hashCode();
     }
 

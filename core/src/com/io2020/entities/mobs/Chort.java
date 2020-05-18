@@ -14,6 +14,7 @@ public class Chort extends Enemy
     {
         super(position, 32, 32, atlas, "chort", box2d, new Vector2(32.5f, 15.0f), 20, 20);
         speed = 80.0f;
+        health = 30;
     }
 
 }

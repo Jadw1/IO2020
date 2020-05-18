@@ -13,5 +13,6 @@ public class Necromancer extends Enemy
     {
         super(position, 32, 32, atlas, "necromancer", box2d, new Vector2(32.5f, 15.0f), 20, 20);
         speed = 50.0f;
+        health = 50;
     }
 }
