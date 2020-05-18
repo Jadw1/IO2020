@@ -1,5 +1,6 @@
 package com.io2020.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -13,9 +14,11 @@ import com.io2020.entities.mapEntities.*;
 import com.io2020.entities.mobs.*;
 import com.io2020.game.EnemyManager;
 import com.io2020.game.IOGame;
+import com.io2020.game.Lighting;
 import com.io2020.map.Map;
 import com.io2020.tileSet.mapTiles.Grass;
 import com.io2020.tileSet.mapTiles.Shore;
+import ui.Menu;
 import ui.SquareMenu;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class GameScreen extends BaseScreen {
 
     private final Box2DWorld box2d;
     private final EnemyManager enemyManager;
+    private final Lighting light;
 
     private final int mapSize = 12;
     private final float tileSize = 32.0f;
@@ -55,6 +59,7 @@ public class GameScreen extends BaseScreen {
 
         createExampleMap();
 
+        light = new Lighting();
         box2d.populateEntityHashMap(map.getEntities());
     }
 
@@ -70,13 +75,20 @@ public class GameScreen extends BaseScreen {
     }
 
     private void update(float dt) {
+        light.update(dt);
         player.update(dt);
         enemyManager.update(dt);
         map.update(dt);
         control.update();
 
-        processMenu();
+        squareMenu.setPlayersInventory(player.inventory);
+        // Menu Logic
+        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
+//        control.processedClick = squareMenu.build.checkClick(control.mouseClickPos, control.processedClick);
+        control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
+        squareMenu.checkHover(control.mousePos);
 
+        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
 
         camera.position.lerp(new Vector3(player.getX(), player.getY(), 0.0f), 0.2f);
         camera.update();
@@ -91,10 +103,19 @@ public class GameScreen extends BaseScreen {
         Collections.sort(entities);
 
         spriteBatch.begin();
+        light.setLight(spriteBatch);
         map.draw(spriteBatch);
 
         for (Entity entity : entities) {
+            if(entity instanceof Fireplace) {
+                light.resetLight(spriteBatch);
+            }
+
             entity.draw(spriteBatch);
+
+            if(entity instanceof Fireplace) {
+                light.setLight(spriteBatch);
+            }
         }
 
         spriteBatch.setProjectionMatrix(screenMatrix);
@@ -114,22 +135,6 @@ public class GameScreen extends BaseScreen {
         Vector3 pos = player.getPosition();
         debug.circle(pos.x, pos.y, 3.0f);
         debug.end();
-    }
-
-    public void processMenu() {
-        squareMenu.setPlayersInventory(player.inventory);
-
-        // Menu Logic
-        control.processedClick = squareMenu.checkClick(control.mouseClickPos, control.processedClick);
-        if (squareMenu.crafting.isActive()) {
-            control.processedClick = squareMenu.crafting.checkClick(control.mouseClickPos, control.processedClick);
-        }
-        if (squareMenu.inventory.isActive()) {
-            control.processedClick = squareMenu.inventory.checkClick(control.mouseClickPos, control.processedClick);
-        }
-        squareMenu.checkHover(control.mousePos);
-
-        screenMatrix.setToOrtho2D(0,0, control.screenWidth, control.screenHeight);
     }
 
     public void createExampleMap() {
