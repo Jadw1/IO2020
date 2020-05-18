@@ -23,6 +23,7 @@ public class Control extends InputAdapter implements InputProcessor {
     // CAMERA
     public boolean zoomIn;
     public boolean zoomOut;
+    public float zoom;
 
     //ACTIONS
     public boolean interact;
@@ -47,6 +48,7 @@ public class Control extends InputAdapter implements InputProcessor {
         this.screenHeight = screenHeight;
         this.camera = camera;
         allowBlock = true;
+        this.zoom = camera.zoom;
     }
 
     public void block()

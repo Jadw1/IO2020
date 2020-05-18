@@ -61,8 +61,11 @@ public class BuildingManager
     }
 
     private Vector3 getTouchedTile() {
-        Vector2 cursorRelativeToCameraMiddle  = new Vector2((Gdx.input.getX() - camera.viewportWidth / 2) / 2,
-                (-Gdx.input.getY() + camera.viewportHeight / 2) / 2);
+//        Vector2 cursorRelativeToCameraMiddle  = new Vector2((Gdx.input.getX() - camera.viewportWidth / 2) / 2,
+//                (-Gdx.input.getY() + camera.viewportHeight / 2) / 2);
+
+        Vector2 cursorRelativeToCameraMiddle  = new Vector2((Gdx.input.getX() - camera.viewportWidth / 2) * camera.zoom,
+                (-Gdx.input.getY() + camera.viewportHeight / 2) * camera.zoom);
 
         return new Vector3((int) ((playerPosition.x + cursorRelativeToCameraMiddle.x) / 32),
                 (int) ((playerPosition.y + cursorRelativeToCameraMiddle.y) / 32), 0);

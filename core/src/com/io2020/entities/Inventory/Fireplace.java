@@ -12,7 +12,6 @@ public class Fireplace extends Item {
         type = itemType.FIREPLACE;
         texture = new Texture(Gdx.files.internal("WorldAnimation/wood_pile.png"));
 
-
         craftReq = new ArrayList<>();
         craftReq.add(new Pair(new Wood(), 7));
         craftReq.add(new Pair(new Stick(), 3));
