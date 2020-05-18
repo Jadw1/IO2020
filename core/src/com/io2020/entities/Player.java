@@ -29,7 +29,7 @@ public class Player extends Character {
                 atlas.findRegions("knight_m_hit_anim"), Animation.PlayMode.LOOP);
 
         body = Box2DHandler.createBody(box2d.world, position, new Vector2(),
-                16.0f, 8.0f, BodyDef.BodyType.DynamicBody);
+                16.0f, 8.0f, BodyDef.BodyType.DynamicBody, Box2DHandler.PLAYER, Box2DHandler.ALL);
         hashcode = body.getFixtureList().get(0).hashCode();
         sensor = null;
 

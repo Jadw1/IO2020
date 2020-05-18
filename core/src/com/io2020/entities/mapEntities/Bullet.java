@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.io2020.box2d.Box2DHandler;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.mapEntities.Buildings.Tower;
@@ -30,7 +31,7 @@ public class Bullet extends MapEntity {
     }
 
     public void addBox2DBody(World world) {
-        body = createSensor(world, position, new Vector2(0, 30), 50, 50, BodyDef.BodyType.DynamicBody);
+        body = createSensor(world, position, new Vector2(0, 30), 50, 50, BodyDef.BodyType.DynamicBody, Box2DHandler.BULLET, Box2DHandler.ALL);
     }
 
     public void addDirection(Vector2 direction) {
