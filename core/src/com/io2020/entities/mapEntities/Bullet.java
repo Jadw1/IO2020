@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.io2020.box2d.Box2DHandler;
+import com.io2020.box2d.Box2DWorld;
 import com.io2020.entities.Entity;
 import com.io2020.entities.EntityType;
 import com.io2020.entities.mapEntities.Buildings.Tower;
@@ -30,8 +31,14 @@ public class Bullet extends MapEntity {
         this.direction = new Vector2();
     }
 
-    public void addBox2DBody(World world) {
-        body = createSensor(world, position, new Vector2(0, 30), 50, 50, BodyDef.BodyType.DynamicBody, Box2DHandler.BULLET, Box2DHandler.ALL);
+    public void addBox2DBody(Box2DWorld box2d) {
+        sensor = createSensor(box2d.world, position, new Vector2(0, 30), 20, 20, BodyDef.BodyType.DynamicBody,
+                (short) Box2DHandler.BULLET, (short) Box2DHandler.ENEMIES);
+        /*body = createBody(box2d.world, position, new Vector2(0, 30), 10, 10, BodyDef.BodyType.DynamicBody,
+                (short) Box2DHandler.BULLET, (short) Box2DHandler.ENEMIES);*/
+        hashcode = sensor.getFixtureList().get(0).hashCode();
+        box2d.addEntity(this);
+
     }
 
     public void addDirection(Vector2 direction) {
@@ -44,9 +51,9 @@ public class Bullet extends MapEntity {
     }
 
     public void update() {
-        body.setLinearVelocity(direction.x * speed, direction.y * speed);
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
+        sensor.setLinearVelocity(direction.x * speed, direction.y * speed);
+        position.x = sensor.getPosition().x;
+        position.y = sensor.getPosition().y;
     }
 
     @Override

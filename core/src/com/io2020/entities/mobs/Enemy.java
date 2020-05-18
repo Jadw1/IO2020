@@ -20,6 +20,7 @@ public abstract class Enemy extends Character {
     protected EnemyAction action;
     protected Vector2 goOverwatch;
     protected Entity toFollow;
+    protected Integer health;
 
     public Enemy(Vector3 position, float width, float height, TextureAtlas atlas, String name, Box2DWorld box2d, Vector2 offset, float colliderWidth, float colliderHeight) {
         super(EntityType.ENEMY, position, width, height, atlas, name);
@@ -107,8 +108,14 @@ public abstract class Enemy extends Character {
         if(entity.getType() == EntityType.BUILDING) {
             entity.hitPoints -= 250;
 
-            if(entity.hitPoints <= 0) {
+            if (entity.hitPoints <= 0) {
                 entity.remove = true;
+            }
+        }
+        if(entity.getType() == EntityType.BULLET) {
+            health -= 10;
+            if(health <= 0) {
+                this.remove = true;
             }
         }
     }

@@ -24,7 +24,7 @@ public class ShootingManager {
     }
 
     public void addBullet(Bullet bullet) {
-        bullet.addBox2DBody(box2d.world);
+        bullet.addBox2DBody(box2d);
         bulletsShot.add(bullet);
         Vector3 nearestEnemy = findNearestEnemy(bullet, enemies);
         // teoretycznie lepsze ale cos zbugowane
