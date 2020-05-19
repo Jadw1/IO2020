@@ -21,6 +21,8 @@ public abstract class Enemy extends Character {
     protected Vector2 goOverwatch;
     protected Entity toFollow;
     protected Integer health;
+    private Entity building = null;
+    private float timeToHit = 2.0f;
 
     public Enemy(Vector3 position, float width, float height, TextureAtlas atlas, String name, Box2DWorld box2d, Vector2 offset, float colliderWidth, float colliderHeight) {
         super(EntityType.ENEMY, position, width, height, atlas, name);
@@ -59,6 +61,21 @@ public abstract class Enemy extends Character {
     @Override
     public void update(float dt) {
         super.update(dt);
+
+        if(building != null) {
+            if(timeToHit <= 0.0f) {
+                building.hitPoints -= 250;
+
+                if (building.hitPoints <= 0) {
+                    building.remove = true;
+                    building = null;
+                }
+                timeToHit = 2.0f;
+            }
+            else {
+                timeToHit -= dt;
+            }
+        }
 
         Vector2 move = Vector2.Zero;
         switch(action) {
@@ -106,10 +123,12 @@ public abstract class Enemy extends Character {
     @Override
     public void collision(Entity entity, boolean begin) {
         if(entity.getType() == EntityType.BUILDING) {
-            entity.hitPoints -= 250;
-
-            if (entity.hitPoints <= 0) {
-                entity.remove = true;
+            if(begin) {
+                building = entity;
+                timeToHit = 2.0f;
+            }
+            else {
+                building = null;
             }
         }
         if(entity.getType() == EntityType.BULLET) {
