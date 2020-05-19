@@ -27,7 +27,7 @@ public abstract class Enemy extends Character {
     public Enemy(Vector3 position, float width, float height, TextureAtlas atlas, String name, Box2DWorld box2d, Vector2 offset, float colliderWidth, float colliderHeight) {
         super(EntityType.ENEMY, position, width, height, atlas, name);
         action = EnemyAction.OTHER;
-        body = Box2DHandler.createBody(box2d.world, position, offset, colliderWidth, colliderHeight, BodyDef.BodyType.DynamicBody, Box2DHandler.ENEMIES, (short)(Box2DHandler.BUILDING | Box2DHandler.BULLET));
+        body = Box2DHandler.createBody(box2d.world, position, offset, colliderWidth, colliderHeight, BodyDef.BodyType.DynamicBody, Box2DHandler.ENEMIES, (short)(Box2DHandler.BUILDING | Box2DHandler.BULLET | Box2DHandler.ENEMIES));
         hashcode = body.getFixtureList().get(0).hashCode();
         //sensor = null;
 

@@ -187,11 +187,11 @@ public class GameScreen extends BaseScreen {
         map.setGround(0, mapSize - 1, 1, new Shore(mapAtlas, "ocean_right_down", box2d, 0, mapSize * tileSize));
         map.setGround(mapSize - 1, mapSize - 1, 1, new Shore(mapAtlas, "ocean_left_down", box2d, mapSize * tileSize, mapSize * tileSize));
 
-        enemyManager.spawnRandom(new Vector3(100, 50, 0)).follow(player, 100.0f);
+        /*enemyManager.spawnRandom(new Vector3(100, 50, 0)).follow(player, 100.0f);
         enemyManager.spawnRandom(new Vector3(250, 300, 0)).follow(player, 50.0f);
         enemyManager.spawnRandom(new Vector3(50, 250, 0)).follow(player, 20);
         enemyManager.spawnRandom(new Vector3(300, 50, 0)).follow(player, 50.0f);
-        enemyManager.spawnRandom(new Vector3(150, 300, 0)).follow(player, 50.0f);
+        enemyManager.spawnRandom(new Vector3(150, 300, 0)).follow(player, 50.0f);*/
 
         for (int i = 0; i < 20; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
