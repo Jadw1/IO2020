@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Lighting {
 
-    private final float _12h = 20.0f;
+    private final float _12h = 60.0f;
     private float time;
     private boolean am;
     private final float blueColor = 0.6f;
