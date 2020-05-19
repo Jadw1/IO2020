@@ -187,19 +187,19 @@ public class GameScreen extends BaseScreen {
         enemyManager.spawnEnemy(EnemyType.Necromancer, new Vector3(250, 300, 0)).follow(player, 50.0f);
         enemyManager.spawnEnemy(EnemyType.BigZombie, new Vector3(50, 250, 0)).follow(player, 20);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             map.placeObject(new Rock(mapAtlas, new Vector3(x, y, 0.0f), box2d));
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 15; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new LightGreenTree(mapAtlas, new Vector3(x, y, 0.0f), box2d));
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 20; i++) {
             float x = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             float y = MathUtils.random(2.0f * tileSize, (mapSize - 2.0f) * tileSize);
             map.placeObject(new Sapling(mapAtlas, new Vector3(x, y, 0.0f), box2d));
@@ -213,7 +213,7 @@ public class GameScreen extends BaseScreen {
 
         Random r = new Random();
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 30; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
             map.placeObject(new Flower(mapAtlas, new Vector3(x, y, 0.0f), box2d, r.nextInt(4) + 1));

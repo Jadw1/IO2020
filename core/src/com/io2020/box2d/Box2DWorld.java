@@ -51,7 +51,7 @@ public class Box2DWorld {
     }
 
     public void tick(OrthographicCamera camera){
-        //debugRenderer.render(world, camera.combined); // DEBUG show hitboxes
+        debugRenderer.render(world, camera.combined); // DEBUG show hitboxes
         world.step(Gdx.app.getGraphics().getDeltaTime(), 6, 2);
         world.clearForces();
     }
