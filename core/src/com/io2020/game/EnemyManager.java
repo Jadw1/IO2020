@@ -9,6 +9,7 @@ import com.io2020.entities.Entity;
 import com.io2020.entities.Player;
 import com.io2020.entities.mobs.*;
 import jdk.nashorn.internal.objects.MapIterator;
+import org.graalvm.compiler.lir.amd64.vector.AMD64VectorLIRInstruction;
 
 import java.util.*;
 
@@ -18,12 +19,14 @@ public class EnemyManager {
     TextureAtlas textureAtlas;
     private Map<Integer, Enemy> enemies;
     private Player player;
+    Random r;
 
     public EnemyManager(Box2DWorld box2d, TextureAtlas textureAtlas, Player player) {
         this.box2d = box2d;
         this.textureAtlas = textureAtlas;
         this.enemies = new HashMap<>();
         this.player = player;
+        this.r = new Random(System.currentTimeMillis());
     }
 
     public Enemy spawnEnemy(EnemyType enemyType, Vector3 position)  {
@@ -52,6 +55,14 @@ public class EnemyManager {
         enemies.put(enemy.hashCode(), enemy);
 
         return enemy;
+    }
+
+    public Enemy spawnRandom(Vector3 position) {
+        EnemyType[] enarr = EnemyType.values();
+        int ra = r.nextInt(enarr.length);
+        EnemyType e = enarr[ra];
+
+        return spawnEnemy(e, position);
     }
 
     public Collection<Enemy> getEntities() {

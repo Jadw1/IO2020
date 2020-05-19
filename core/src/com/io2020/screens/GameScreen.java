@@ -45,12 +45,14 @@ public class GameScreen extends BaseScreen {
     private final BuildingManager buildingManager;
     private final ShootingManager shootingManager;
 
+    Random r;
+
     private final int mapSize = 25;
     private final float tileSize = 32.0f;
 
     public GameScreen(IOGame game) {
         super(game);
-
+        r = new Random(System.nanoTime());
         box2d = new Box2DWorld();
 
         map = new Map(2, mapSize, mapSize, tileSize, tileSize);
@@ -85,7 +87,9 @@ public class GameScreen extends BaseScreen {
     }
 
     private void update(float dt) {
-        light.update(dt);
+        if(light.update(dt)) {
+            spawnEnemies();
+        }
         player.update(dt);
         enemyManager.update(dt);
         map.update(dt);
@@ -183,9 +187,11 @@ public class GameScreen extends BaseScreen {
         map.setGround(0, mapSize - 1, 1, new Shore(mapAtlas, "ocean_right_down", box2d, 0, mapSize * tileSize));
         map.setGround(mapSize - 1, mapSize - 1, 1, new Shore(mapAtlas, "ocean_left_down", box2d, mapSize * tileSize, mapSize * tileSize));
 
-        enemyManager.spawnEnemy(EnemyType.BigDemon, new Vector3(100, 50, 0));
-        enemyManager.spawnEnemy(EnemyType.Necromancer, new Vector3(250, 300, 0)).follow(player, 50.0f);
-        enemyManager.spawnEnemy(EnemyType.BigZombie, new Vector3(50, 250, 0)).follow(player, 20);
+        enemyManager.spawnRandom(new Vector3(100, 50, 0)).follow(player, 100.0f);
+        enemyManager.spawnRandom(new Vector3(250, 300, 0)).follow(player, 50.0f);
+        enemyManager.spawnRandom(new Vector3(50, 250, 0)).follow(player, 20);
+        enemyManager.spawnRandom(new Vector3(300, 50, 0)).follow(player, 50.0f);
+        enemyManager.spawnRandom(new Vector3(150, 300, 0)).follow(player, 50.0f);
 
         for (int i = 0; i < 5; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
@@ -211,7 +217,7 @@ public class GameScreen extends BaseScreen {
             map.placeObject(new Fireplace(mapAtlas, new Vector3(x, y, 0.0f), box2d));
         }
 
-        Random r = new Random();
+
 
         for (int i = 0; i < 12; i++) {
             float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
@@ -219,5 +225,14 @@ public class GameScreen extends BaseScreen {
             map.placeObject(new Flower(mapAtlas, new Vector3(x, y, 0.0f), box2d, r.nextInt(4) + 1));
         }
 
+    }
+
+    private void spawnEnemies() {
+        int am = r.nextInt(6) + 2;
+        for(int i = 0; i< am; i++) {
+            float x = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
+            float y = MathUtils.random(1.5f * tileSize, (mapSize - 1.5f) * tileSize);
+            enemyManager.spawnRandom(new Vector3(x, y, 0)).follow(player, 50);
+        }
     }
 }

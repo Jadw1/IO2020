@@ -15,12 +15,18 @@ public class Lighting {
         am = false;
     }
 
-    public void update(float dt) {
+    public boolean update(float dt) {
         time += dt;
         if(time >= _12h) {
             time -= _12h;
             am = !am;
+
+            if(am) {
+                return true;
+            }
         }
+
+        return false;
     }
 
     public void setLight(Batch batch) {
