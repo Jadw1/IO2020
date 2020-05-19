@@ -45,7 +45,7 @@ public class GameScreen extends BaseScreen {
     private final BuildingManager buildingManager;
     private final ShootingManager shootingManager;
 
-    private final int mapSize = 12;
+    private final int mapSize = 25;
     private final float tileSize = 32.0f;
 
     public GameScreen(IOGame game) {

@@ -48,8 +48,8 @@ public class ShootingManager {
         ArrayList<Bullet> bulletsToRemove = new ArrayList<>();
         for(Bullet bullet : bulletsShot) {
             bullet.update();
-            if(bullet.getPosition().x > 12*32.0f || bullet.getPosition().x < 0
-                    || bullet.getPosition().y > 12*32.0f || bullet.getPosition().y < 0 || bullet.remove) {
+            if(bullet.getPosition().x > 25*32.0f || bullet.getPosition().x < 0
+                    || bullet.getPosition().y > 25*32.0f || bullet.getPosition().y < 0 || bullet.remove) {
                 bulletsToRemove.add(bullet);
                 bullet.removeBodies(box2d);
             }
